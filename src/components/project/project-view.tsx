@@ -1,8 +1,8 @@
 // components/project/project-view.tsx
 // ============================================================
-// Full-screen project view — substitui o stub da Phase 1.
-// Entra via clip-path expansion a partir da origem do card.
-// Container com scroll vertical renderiza todas as sections.
+// Aplica data-project="[id]" no container root —
+// o CSS em project-themes.css usa esse seletor para trocar
+// os tokens de cor/glow de cada projeto automaticamente.
 // ============================================================
 
 import { useEffect, useRef, useState, useCallback } from "react"
@@ -22,9 +22,7 @@ import { SectionAnalysis } from "@/components/project/sections/section-analysis"
 import { SectionTechnicalDecisions } from "@/components/project/sections/section-technical-decisions"
 import { SectionResult } from "@/components/project/sections/section-result"
 
-interface Props {
-    project: ProjectData
-}
+interface Props { project: ProjectData }
 
 export function ProjectView({ project }: Props) {
     const setAppState = useAppStore((s) => s.setAppState)
@@ -33,9 +31,8 @@ export function ProjectView({ project }: Props) {
     const { origin, expanded } = useClipPathTransition()
 
     const containerRef = useRef<HTMLDivElement>(null)
-    const [scrollProgress, setProgress] = useState(0)
+    const [progress, setProgress] = useState(0)
 
-    // Track scroll progress inside the container
     const handleScroll = useCallback(() => {
         const el = containerRef.current
         if (!el) return
@@ -50,21 +47,19 @@ export function ProjectView({ project }: Props) {
         return () => el.removeEventListener("scroll", handleScroll)
     }, [handleScroll])
 
-    // Reset scroll when project changes
     useEffect(() => {
         containerRef.current?.scrollTo({ top: 0 })
         setProgress(0)
     }, [project.id])
 
-    // After expansion animation completes → PROJECT state
     function handleAnimationComplete() {
-        if (appState === AppState.EXPANDING) {
-            setAppState(AppState.PROJECT)
-        }
+        if (appState === AppState.EXPANDING) setAppState(AppState.PROJECT)
     }
 
     return (
         <motion.div
+            // data-project aplica o tema CSS do projeto automaticamente
+            data-project={project.id}
             className="fixed inset-0 z-20 bg-[var(--color-bg-primary)]"
             initial={{ clipPath: origin }}
             animate={{ clipPath: expanded }}
@@ -76,11 +71,11 @@ export function ProjectView({ project }: Props) {
             <div className="fixed top-0 left-0 right-0 h-px z-30 bg-[var(--color-border-subtle)]">
                 <motion.div
                     className="h-full bg-[var(--color-accent)] origin-left"
-                    style={{ scaleX: scrollProgress }}
+                    style={{ scaleX: progress }}
                 />
             </div>
 
-            {/* Close button */}
+            {/* Close */}
             <motion.button
                 onClick={closeProject}
                 aria-label="Close project"
@@ -97,11 +92,8 @@ export function ProjectView({ project }: Props) {
                 Close
             </motion.button>
 
-            {/* Scrollable content */}
-            <div
-                ref={containerRef}
-                className="h-full overflow-y-auto overscroll-none"
-            >
+            {/* Content */}
+            <div ref={containerRef} className="h-full overflow-y-auto overscroll-none">
                 <SectionHero project={project} />
                 <SectionProblem project={project} />
                 <SectionIdea project={project} />

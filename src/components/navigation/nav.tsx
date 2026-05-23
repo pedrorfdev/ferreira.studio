@@ -1,6 +1,8 @@
 // components/navigation/nav.tsx
 // ============================================================
-// Atualizado na Phase 4 para usar i18n.
+// Menu button + nome ficam juntos à esquerda.
+// Direita: só controles contextuais (lang toggle futuramente).
+// Isso evita sobreposição com o botão "Close" do ProjectView.
 // ============================================================
 
 import { motion } from "framer-motion"
@@ -19,8 +21,7 @@ export function Nav() {
     const { t } = useI18n()
 
     const isInsideProject =
-        appState === AppState.PROJECT ||
-        appState === AppState.EXPANDING
+        appState === AppState.PROJECT || appState === AppState.EXPANDING
 
     function handleLogoClick() {
         if (isMenuOpen) closeMenu()
@@ -36,56 +37,52 @@ export function Nav() {
                 isInsideProject && "border-b border-[var(--color-border-subtle)]"
             )}
         >
-            {/* Logo */}
-            <motion.button
-                onClick={handleLogoClick}
-                className={cn(
-                    "font-display text-sm font-medium tracking-[-0.01em]",
-                    "text-[var(--color-text-primary)]",
-                    "transition-opacity duration-200 hover:opacity-60",
-                    "cursor-pointer select-none"
-                )}
-                whileTap={{ scale: 0.97 }}
-            >
-                Pedro Ferreira
-            </motion.button>
+            {/* LEFT — menu button + nome juntos */}
+            <div className="flex items-center gap-4">
 
-            {/* Right side */}
-            <div className="flex items-center gap-5">
-                {/* Menu button */}
+                {/* Hamburger / X */}
                 <motion.button
                     onClick={toggleMenu}
                     aria-label={isMenuOpen ? t.nav.close : t.nav.menu}
                     aria-expanded={isMenuOpen}
-                    className="relative flex flex-col justify-center gap-[5px] w-6 h-6 cursor-pointer select-none text-[var(--color-text-primary)]"
+                    className="flex flex-col justify-center gap-[5px] w-5 h-5 cursor-pointer select-none
+                     text-[var(--color-text-primary)] shrink-0"
                     whileTap={{ scale: 0.92 }}
                 >
                     <motion.span
                         className="block h-px bg-current origin-center"
-                        animate={isMenuOpen
-                            ? { rotate: 45, y: 5.5 }
-                            : { rotate: 0, y: 0 }
-                        }
+                        animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
                         transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                     />
                     <motion.span
                         className="block h-px bg-current origin-center"
-                        animate={isMenuOpen
-                            ? { opacity: 0, scaleX: 0 }
-                            : { opacity: 1, scaleX: 1 }
-                        }
+                        animate={isMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
                         transition={{ duration: 0.2 }}
                     />
                     <motion.span
                         className="block h-px bg-current origin-center"
-                        animate={isMenuOpen
-                            ? { rotate: -45, y: -5.5 }
-                            : { rotate: 0, y: 0 }
-                        }
+                        animate={isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
                         transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                     />
                 </motion.button>
+
+                {/* Nome — volta pra home se dentro de projeto */}
+                <motion.button
+                    onClick={handleLogoClick}
+                    className={cn(
+                        "font-display text-sm font-medium tracking-[-0.01em]",
+                        "text-[var(--color-text-primary)]",
+                        "transition-opacity duration-200 hover:opacity-60",
+                        "cursor-pointer select-none"
+                    )}
+                    whileTap={{ scale: 0.97 }}
+                >
+                    Pedro Ferreira
+                </motion.button>
             </div>
+
+            {/* RIGHT — vazio por ora, lang toggle vem aqui depois */}
+            <div />
         </nav>
     )
 }
