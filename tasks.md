@@ -22,22 +22,22 @@
 
 ## Phase 1 — App Shell & State Machine
 
-- [ ] `store/useAppStore.ts` — AppState enum, activeProject, hoveredProject, actions
-- [ ] `store/useMenuStore.ts` — isOpen, toggle
-- [ ] `store/useAssistantStore.ts` — isOpen, activePrompt, messages
-- [ ] `components/shell/AppShell.tsx` — root persistent wrapper
-- [ ] `components/shell/BackgroundLayer.tsx` — crossfade on project change
-- [ ] `components/loader/IntroLoader.tsx` — ~1.5s entry animation, unmounts after
-- [ ] `components/navigation/Nav.tsx` — logo left, menu button right (persistent)
+- [x] `store/useAppStore.ts` — AppState enum, activeProject, hoveredProject, actions
+- [x] `store/useMenuStore.ts` — isOpen, toggle
+- [x] `store/useAssistantStore.ts` — isOpen, activePrompt, messages
+- [x] `components/shell/AppShell.tsx` — root persistent wrapper
+- [x] `components/shell/BackgroundLayer.tsx` — crossfade on project change
+- [x] `components/loader/IntroLoader.tsx` — ~1.5s entry animation, unmounts after
+- [x] `components/navigation/Nav.tsx` — logo left, menu button right (persistent)
 
 ---
 
 ## Phase 2 — Home View
 
-- [ ] `components/home/ProjectList.tsx` — vertical list left, hover updates store
-- [ ] `hooks/useCardPosition.ts` — seeded random position per project (consistent)
-- [ ] `components/home/ProjectCard.tsx` — floating card, AnimatePresence, preview image
-- [ ] Home headline — identity text, typographic, subtle positioning
+- [x] `components/home/ProjectList.tsx` — vertical list left, hover updates store
+- [x] `hooks/useCardPosition.ts` — seeded random position per project (consistent)
+- [x] `components/home/ProjectCard.tsx` — floating card, AnimatePresence, preview image
+- [x] Home headline — identity text, typographic, subtle positioning
 
 ---
 
