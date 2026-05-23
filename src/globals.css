@@ -1,0 +1,398 @@
+@import "tailwindcss";
+
+/* ============================================================
+   FERREIRA.STUDIO — Design Tokens
+   @theme define os tokens que o Tailwind v4 consome
+   Convenção: --color-* → bg-*, text-*, border-*
+   ============================================================ */
+
+@theme {
+  /* ----------------------------------------------------------
+     Typography
+     Display: Instrument Sans — personalidade sem ser código
+     Body: Inter — legibilidade máxima
+  ---------------------------------------------------------- */
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Font sizes — escala tipográfica editorial */
+  --text-xs: 0.75rem;
+  /* 12px */
+  --text-sm: 0.875rem;
+  /* 14px */
+  --text-base: 1rem;
+  /* 16px */
+  --text-lg: 1.125rem;
+  /* 18px */
+  --text-xl: 1.25rem;
+  /* 20px */
+  --text-2xl: 1.5rem;
+  /* 24px */
+  --text-3xl: 1.875rem;
+  /* 30px */
+  --text-4xl: 2.25rem;
+  /* 36px */
+  --text-5xl: 3rem;
+  /* 48px */
+  --text-6xl: 3.75rem;
+  /* 60px */
+  --text-7xl: 4.5rem;
+  /* 72px */
+  --text-8xl: 6rem;
+  /* 96px — headlines hero */
+
+  /* ----------------------------------------------------------
+     Spacing scale
+  ---------------------------------------------------------- */
+  --spacing-px: 1px;
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-32: 8rem;
+  --spacing-40: 10rem;
+  --spacing-48: 12rem;
+  --spacing-64: 16rem;
+
+  /* ----------------------------------------------------------
+     Border radius
+  ---------------------------------------------------------- */
+  --radius-sm: 0.25rem;
+  /* 4px  */
+  --radius-md: 0.5rem;
+  /* 8px  */
+  --radius-lg: 0.75rem;
+  /* 12px */
+  --radius-xl: 1rem;
+  /* 16px */
+  --radius-2xl: 1.5rem;
+  /* 24px */
+  --radius-full: 9999px;
+
+  /* ----------------------------------------------------------
+     Transitions
+  ---------------------------------------------------------- */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 700ms;
+
+  /* ----------------------------------------------------------
+     Z-index scale
+  ---------------------------------------------------------- */
+  --z-background: 0;
+  --z-content: 10;
+  --z-card: 20;
+  --z-assistant: 70;
+  --z-overlay: 80;
+  --z-navigation: 90;
+  --z-loader: 100;
+
+  /* ----------------------------------------------------------
+     Breakpoints
+  ---------------------------------------------------------- */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* ============================================================
+   COLOR TOKENS — separados do @theme porque dependem
+   de seletor (.dark, .light) para funcionar corretamente.
+   Tailwind v4 lê via @theme as versões base (light).
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   LIGHT THEME (default)
+---------------------------------------------------------- */
+:root,
+.light {
+  /* Backgrounds */
+  --color-bg-primary: #F5F3EF;
+  /* off-white quente — editorial */
+  --color-bg-secondary: #EAE7E1;
+  /* superfícies, cards */
+  --color-bg-tertiary: #DEDAD3;
+  /* hover states, subtle */
+
+  /* Text */
+  --color-text-primary: #111111;
+  /* preto suave — não puro */
+  --color-text-secondary: #555550;
+  /* corpo de texto */
+  --color-text-tertiary: #888880;
+  /* captions, metadados */
+  --color-text-inverse: #F5F3EF;
+  /* texto sobre fundos escuros */
+
+  /* Accent — Oxblood / Dark Cherry */
+  --color-accent: #7B2432;
+  --color-accent-hover: #6E1F28;
+  --color-accent-muted: #7B243220;
+  /* 12% opacity */
+
+  /* Gold — micro highlight apenas */
+  --color-gold: #B89B5E;
+  --color-gold-muted: #B89B5E15;
+
+  /* Borders */
+  --color-border: #D0CCC4;
+  --color-border-subtle: #E2DED7;
+  --color-border-strong: #B0ABA2;
+
+  /* Functional */
+  --color-overlay: rgba(245, 243, 239, 0.85);
+  --color-scrim: rgba(17, 17, 17, 0.5);
+}
+
+/* ----------------------------------------------------------
+   DARK THEME
+---------------------------------------------------------- */
+.dark {
+  /* Backgrounds */
+  --color-bg-primary: #0A0A0A;
+  /* preto neutro profundo */
+  --color-bg-secondary: #111111;
+  /* superfícies */
+  --color-bg-tertiary: #161616;
+  /* hover states */
+
+  /* Text */
+  --color-text-primary: #F5F3EF;
+  /* off-white quente */
+  --color-text-secondary: #A8A49E;
+  /* corpo */
+  --color-text-tertiary: #6A6660;
+  /* captions */
+  --color-text-inverse: #111111;
+
+  /* Accent — mesmo tom, dark suporta melhor o saturado */
+  --color-accent: #8B2E3C;
+  --color-accent-hover: #7B2432;
+  --color-accent-muted: #8B2E3C20;
+
+  /* Gold */
+  --color-gold: #C6A664;
+  --color-gold-muted: #C6A66415;
+
+  /* Borders */
+  --color-border: #2A2A28;
+  --color-border-subtle: #1E1E1C;
+  --color-border-strong: #3A3A37;
+
+  /* Functional */
+  --color-overlay: rgba(10, 10, 10, 0.85);
+  --color-scrim: rgba(0, 0, 0, 0.7);
+}
+
+/* ----------------------------------------------------------
+   SYSTEM — respeita preferência do OS (default na 1ª visita)
+   Só ativa quando não há classe .light ou .dark no <html>
+---------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not(.dark) {
+    --color-bg-primary: #0A0A0A;
+    --color-bg-secondary: #111111;
+    --color-bg-tertiary: #161616;
+
+    --color-text-primary: #F5F3EF;
+    --color-text-secondary: #A8A49E;
+    --color-text-tertiary: #6A6660;
+    --color-text-inverse: #111111;
+
+    --color-accent: #8B2E3C;
+    --color-accent-hover: #7B2432;
+    --color-accent-muted: #8B2E3C20;
+
+    --color-gold: #C6A664;
+    --color-gold-muted: #C6A66415;
+
+    --color-border: #2A2A28;
+    --color-border-subtle: #1E1E1C;
+    --color-border-strong: #3A3A37;
+
+    --color-overlay: rgba(10, 10, 10, 0.85);
+    --color-scrim: rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* ============================================================
+   BASE STYLES
+   Reset mínimo + defaults globais
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  /* Scroll suave — mas não força no caso de reduced-motion */
+  scroll-behavior: smooth;
+
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  transition:
+    background-color var(--duration-slow) var(--ease-smooth),
+    color var(--duration-slow) var(--ease-smooth);
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Respeita usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------------------------
+   Typography defaults
+---------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+p {
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* ----------------------------------------------------------
+   Scrollbar — discreta, combina com o dark theme
+---------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* ----------------------------------------------------------
+   Selection
+---------------------------------------------------------- */
+::selection {
+  background: var(--color-accent-muted);
+  color: var(--color-text-primary);
+}
+
+/* ----------------------------------------------------------
+   Focus visible — acessibilidade sem poluir visualmente
+---------------------------------------------------------- */
+:focus-visible {
+  outline: 1.5px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   UTILITY CLASSES CUSTOMIZADAS
+   Complementam o Tailwind onde as classes utilitárias
+   precisam dos tokens customizados
+   ============================================================ */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.text-gold {
+  color: var(--color-gold);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+.bg-primary {
+  background-color: var(--color-bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-bg-secondary);
+}
+
+.border-default {
+  border-color: var(--color-border);
+}
