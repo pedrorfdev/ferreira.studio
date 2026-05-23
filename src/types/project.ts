@@ -88,8 +88,9 @@ export interface Metric {
 // Powers the "Ask about this project" panel
 // ----------------------------------------------------------
 export interface AssistantConfig {
-    context: string        // system prompt for Claude
-    quickPrompts: string[]      // suggested questions shown in the UI
+    context: string              // reservado para futura integração com API
+    quickPrompts: string[]            // perguntas sugeridas na UI
+    answers: Record<string, string>  // prompt → resposta pré-escrita
 }
 
 // ----------------------------------------------------------

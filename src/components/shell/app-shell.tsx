@@ -9,7 +9,7 @@ import { useEffect } from "react"
 import { AnimatePresence } from "framer-motion"
 
 import { BackgroundLayer } from "@/components/shell/background-layer"
-import { Nav } from "@/components/navigation/nav"
+import { Nav } from "@/components/navigation/nav-updated"
 import { IntroLoader } from "@/components/loader/intro-loader"
 import { HomeView } from "@/components/home/home-view"
 import { ProjectView } from "@/components/project/project-view"

@@ -1,13 +1,12 @@
 // components/navigation/nav.tsx
 // ============================================================
-// Persistent navigation bar — always mounted, always visible.
-// Left: logo / name (returns to HOME on click).
-// Right: menu button + theme toggle.
+// Atualizado na Phase 4 para usar i18n.
 // ============================================================
 
 import { motion } from "framer-motion"
 import { useAppStore } from "@/store/use-app-store"
 import { useMenuStore } from "@/store/use-menu-store"
+import { useI18n } from "@/lib/i18n-context"
 import { AppState } from "@/types/project"
 import { cn } from "@/lib/cn"
 
@@ -17,6 +16,7 @@ export function Nav() {
     const isMenuOpen = useMenuStore((s) => s.isOpen)
     const toggleMenu = useMenuStore((s) => s.toggle)
     const closeMenu = useMenuStore((s) => s.close)
+    const { t } = useI18n()
 
     const isInsideProject =
         appState === AppState.PROJECT ||
@@ -33,11 +33,10 @@ export function Nav() {
                 "fixed top-0 left-0 right-0 z-[90]",
                 "flex items-center justify-between",
                 "px-6 md:px-10 h-16",
-                // Subtle top border only inside project view
                 isInsideProject && "border-b border-[var(--color-border-subtle)]"
             )}
         >
-            {/* Logo / name */}
+            {/* Logo */}
             <motion.button
                 onClick={handleLogoClick}
                 className={cn(
@@ -51,27 +50,21 @@ export function Nav() {
                 Pedro Ferreira
             </motion.button>
 
-            {/* Right side controls */}
+            {/* Right side */}
             <div className="flex items-center gap-5">
-
                 {/* Menu button */}
                 <motion.button
                     onClick={toggleMenu}
-                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    aria-label={isMenuOpen ? t.nav.close : t.nav.menu}
                     aria-expanded={isMenuOpen}
-                    className={cn(
-                        "relative flex flex-col justify-center gap-[5px] w-6 h-6",
-                        "cursor-pointer select-none",
-                        "text-[var(--color-text-primary)]"
-                    )}
+                    className="relative flex flex-col justify-center gap-[5px] w-6 h-6 cursor-pointer select-none text-[var(--color-text-primary)]"
                     whileTap={{ scale: 0.92 }}
                 >
-                    {/* Hamburger — animates to X when open */}
                     <motion.span
                         className="block h-px bg-current origin-center"
                         animate={isMenuOpen
-                            ? { rotate: 45, y: 5.5, scaleX: 1 }
-                            : { rotate: 0, y: 0, scaleX: 1 }
+                            ? { rotate: 45, y: 5.5 }
+                            : { rotate: 0, y: 0 }
                         }
                         transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                     />
@@ -86,13 +79,12 @@ export function Nav() {
                     <motion.span
                         className="block h-px bg-current origin-center"
                         animate={isMenuOpen
-                            ? { rotate: -45, y: -5.5, scaleX: 1 }
-                            : { rotate: 0, y: 0, scaleX: 1 }
+                            ? { rotate: -45, y: -5.5 }
+                            : { rotate: 0, y: 0 }
                         }
                         transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                     />
                 </motion.button>
-
             </div>
         </nav>
     )
