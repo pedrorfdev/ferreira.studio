@@ -1,16 +1,39 @@
 // components/navigation/nav.tsx
 // ============================================================
-// Menu button + nome ficam juntos à esquerda.
-// Direita: só controles contextuais (lang toggle futuramente).
-// Isso evita sobreposição com o botão "Close" do ProjectView.
+// LEFT  — hamburger + nome (juntos)
+// RIGHT — theme toggle (sol/lua) + lang flags (🇺🇸 🇧🇷)
+// Botão Close do ProjectView fica no próprio ProjectView,
+// então não há sobreposição.
 // ============================================================
 
 import { motion } from "framer-motion"
 import { useAppStore } from "@/store/use-app-store"
 import { useMenuStore } from "@/store/use-menu-store"
+import { useThemeStore } from "@/store/use-theme-store"
 import { useI18n } from "@/lib/i18n-context"
 import { AppState } from "@/types/project"
 import { cn } from "@/lib/cn"
+
+// ── Icons ────────────────────────────────────────────────────
+
+function SunIcon() {
+    return (
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+    )
+}
+
+function MoonIcon() {
+    return (
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    )
+}
+
+// ── Component ─────────────────────────────────────────────────
 
 export function Nav() {
     const appState = useAppStore((s) => s.appState)
@@ -18,7 +41,8 @@ export function Nav() {
     const isMenuOpen = useMenuStore((s) => s.isOpen)
     const toggleMenu = useMenuStore((s) => s.toggle)
     const closeMenu = useMenuStore((s) => s.close)
-    const { t } = useI18n()
+    const { theme, toggle: toggleTheme } = useThemeStore()
+    const { lang, toggle: toggleLang } = useI18n()
 
     const isInsideProject =
         appState === AppState.PROJECT || appState === AppState.EXPANDING
@@ -37,52 +61,84 @@ export function Nav() {
                 isInsideProject && "border-b border-[var(--color-border-subtle)]"
             )}
         >
-            {/* LEFT — menu button + nome juntos */}
+            {/* LEFT — hamburger + nome */}
             <div className="flex items-center gap-4">
 
-                {/* Hamburger / X */}
+                {/* Hamburger */}
                 <motion.button
                     onClick={toggleMenu}
-                    aria-label={isMenuOpen ? t.nav.close : t.nav.menu}
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                     aria-expanded={isMenuOpen}
-                    className="flex flex-col justify-center gap-[5px] w-5 h-5 cursor-pointer select-none
-                     text-[var(--color-text-primary)] shrink-0"
-                    whileTap={{ scale: 0.92 }}
+                    className="flex flex-col justify-center gap-[5px] w-5 h-5 cursor-pointer
+                     select-none text-[var(--color-text-primary)] shrink-0"
+                    whileTap={{ scale: 0.9 }}
                 >
-                    <motion.span
-                        className="block h-px bg-current origin-center"
+                    <motion.span className="block h-px bg-current origin-center"
                         animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
                         transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                     />
-                    <motion.span
-                        className="block h-px bg-current origin-center"
+                    <motion.span className="block h-px bg-current origin-center"
                         animate={isMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
                         transition={{ duration: 0.2 }}
                     />
-                    <motion.span
-                        className="block h-px bg-current origin-center"
+                    <motion.span className="block h-px bg-current origin-center"
                         animate={isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
                         transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                     />
                 </motion.button>
 
-                {/* Nome — volta pra home se dentro de projeto */}
+                {/* Nome */}
                 <motion.button
                     onClick={handleLogoClick}
-                    className={cn(
-                        "font-display text-sm font-medium tracking-[-0.01em]",
-                        "text-[var(--color-text-primary)]",
-                        "transition-opacity duration-200 hover:opacity-60",
-                        "cursor-pointer select-none"
-                    )}
+                    className="font-display text-sm font-medium tracking-[-0.01em]
+                     text-[var(--color-text-primary)] hover:opacity-60
+                     transition-opacity duration-200 cursor-pointer select-none"
                     whileTap={{ scale: 0.97 }}
                 >
                     Pedro Ferreira
                 </motion.button>
             </div>
 
-            {/* RIGHT — vazio por ora, lang toggle vem aqui depois */}
-            <div />
+            {/* RIGHT — theme toggle + lang flags */}
+            <div className="flex items-center gap-4">
+
+                {/* Theme toggle */}
+                <motion.button
+                    onClick={toggleTheme}
+                    aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                    className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]
+                     transition-colors duration-200 cursor-pointer"
+                    whileTap={{ scale: 0.9 }}
+                >
+                    {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+                </motion.button>
+
+                {/* Lang flags — lado a lado, ativa 100%, inativa 35% */}
+                <div className="flex items-center gap-1.5">
+                    <button
+                        onClick={() => lang !== "en" && toggleLang()}
+                        aria-label="Switch to English"
+                        title="English"
+                        className={cn(
+                            "text-base leading-none cursor-pointer transition-opacity duration-200 select-none",
+                            lang === "en" ? "opacity-100" : "opacity-35 hover:opacity-60"
+                        )}
+                    >
+                        🇺🇸
+                    </button>
+                    <button
+                        onClick={() => lang !== "pt" && toggleLang()}
+                        aria-label="Mudar para Português"
+                        title="Português"
+                        className={cn(
+                            "text-base leading-none cursor-pointer transition-opacity duration-200 select-none",
+                            lang === "pt" ? "opacity-100" : "opacity-35 hover:opacity-60"
+                        )}
+                    >
+                        🇧🇷
+                    </button>
+                </div>
+            </div>
         </nav>
     )
 }

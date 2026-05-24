@@ -1,34 +1,29 @@
 // components/menu/menu-overlay.tsx
 // ============================================================
-// Menu overlay — substitui o stub da Phase 1.
-// Duas colunas entram de fora pra dentro (left e right).
-// Coluna esquerda: About + Stack.
-// Coluna direita: Projetos (lista) + Contato + Social.
-// Scrim fecha o menu ao clicar fora das colunas.
+// Duas colunas deslizando de fora pra dentro.
+// Coluna esquerda: About + Stack + lang/theme controls
+// Coluna direita: Projetos com preview central + Contato
+// Preview aparece no centro da tela ao hover em projeto
 // ============================================================
 
-import { motion } from "framer-motion"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useMenuStore } from "@/store/use-menu-store"
-import { useI18n } from "@/lib/i18n-context"
-import { projects } from "@/data/projects"
 import { useAppStore } from "@/store/use-app-store"
-import {
-    menuColumnLeft,
-    menuColumnRight,
-    menuScrim,
-} from "@/lib/motion"
+import { useI18n } from "@/lib/i18n-context"
+import { useThemeStore } from "@/store/use-theme-store"
+import { projects } from "@/data/projects"
+import { menuColumnLeft, menuColumnRight, menuScrim } from "@/lib/motion"
 import { cn } from "@/lib/cn"
+import type { ProjectData } from "@/types/project"
+import { AppState } from "@/types/project"
 
-// ── Tech stack list ──────────────────────────────────────────
+// ── Config ────────────────────────────────────────────────────
+
 const STACK = [
-    "React",
-    "TypeScript",
-    "Node.js",
-    "PostgreSQL",
-    "Tailwind CSS",
-    "Framer Motion",
-    "Zustand",
-    "Gemini API",
+    "React", "TypeScript", "Node.js",
+    "PostgreSQL", "Tailwind CSS", "Framer Motion",
+    "Zustand", "Gemini API",
 ]
 
 const SOCIAL = [
@@ -37,31 +32,100 @@ const SOCIAL = [
     { label: "Email", href: "mailto:hello@ferreira.studio" },
 ]
 
+// ── Preview central ────────────────────────────────────────────
+
+function MenuProjectPreview({ project }: { project: ProjectData | null }) {
+    return (
+        <AnimatePresence mode="wait">
+            {project && (
+                <motion.div
+                    key={project.id}
+                    className={cn(
+                        "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[85]",
+                        "w-72 md:w-80 rounded-xl overflow-hidden",
+                        "pointer-events-none", // não bloqueia o hover das colunas
+                        "border border-white/10 shadow-2xl"
+                    )}
+                    initial={{ opacity: 0, scale: 0.94, filter: "blur(4px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 0.96, filter: "blur(2px)" }}
+                    transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                >
+                    <div className="aspect-[4/3] bg-[var(--color-bg-tertiary)]">
+                        {project.heroImage ? (
+                            <img
+                                src={project.heroImage}
+                                alt={project.title}
+                                className="w-full h-full object-cover"
+                                draggable={false}
+                            />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                                <span className="font-display text-sm text-[var(--color-text-tertiary)]">
+                                    {project.title}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    )
+}
+
+// ── Sun / Moon icons ─────────────────────────────────────────
+
+function SunIcon() {
+    return (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+    )
+}
+function MoonIcon() {
+    return (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    )
+}
+
+// ── Main ─────────────────────────────────────────────────────
+
 export function MenuOverlay() {
     const close = useMenuStore((s) => s.close)
     const openProject = useAppStore((s) => s.openProject)
-    const { t, lang, toggle } = useI18n()
+    const closeProject = useAppStore((s) => s.closeProject)
+    const appState = useAppStore((s) => s.appState)
+    const { t, lang, toggle: toggleLang } = useI18n()
+    const { theme, toggle: toggleTheme } = useThemeStore()
 
-    function handleProjectClick(projectId: string) {
-        const project = projects.find((p) => p.id === projectId)
-        if (!project) return
+    const [previewProject, setPreviewProject] = useState<ProjectData | null>(null)
+
+    function handleGoHome() {
         close()
-        // Small delay so menu exit animation doesn't collide with expansion
+        if (appState === AppState.PROJECT || appState === AppState.EXPANDING) {
+            closeProject()
+        }
+    }
+
+    function handleProjectClick(project: ProjectData) {
+        close()
         setTimeout(() => {
             openProject(project, {
-                top: window.innerHeight / 2 - 100,
-                left: window.innerWidth / 2 - 150,
-                width: 300,
-                height: 200,
+                top: window.innerHeight / 2 - 120,
+                left: window.innerWidth / 2 - 160,
+                width: 320,
+                height: 240,
             })
-        }, 300)
+        }, 320)
     }
 
     return (
-        // Full-screen container
         <div className="fixed inset-0 z-[80] flex overflow-hidden">
 
-            {/* Scrim — closes on click */}
+            {/* Scrim */}
             <motion.div
                 className="absolute inset-0 bg-[var(--color-scrim)]"
                 variants={menuScrim}
@@ -72,102 +136,144 @@ export function MenuOverlay() {
                 aria-hidden
             />
 
-            {/* Left column — About + Stack */}
+            {/* Preview central */}
+            <MenuProjectPreview project={previewProject} />
+
+            {/* LEFT column */}
             <motion.div
                 className={cn(
                     "relative z-10 flex flex-col justify-between",
-                    "w-full max-w-xs md:max-w-sm",
-                    "h-full px-8 py-10 pt-20",
+                    "w-full max-w-[280px] md:max-w-xs h-full",
+                    "px-8 py-8 pt-20 overflow-y-auto",
                     "bg-[var(--color-bg-primary)]",
                     "border-r border-[var(--color-border-subtle)]",
-                    "overflow-y-auto"
                 )}
                 variants={menuColumnLeft}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
             >
-                {/* About */}
-                <div>
-                    <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-6 block">
-                        {t.menu.about}
-                    </span>
-
-                    <p className="font-display text-xl font-semibold tracking-[-0.02em] leading-snug text-[var(--color-text-primary)] mb-4">
-                        {t.about.headline}
-                    </p>
-
-                    <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-8">
-                        {t.about.body}
-                    </p>
+                <div className="flex flex-col gap-8">
+                    {/* About */}
+                    <div>
+                        <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-4 block">
+                            {t.menu.about}
+                        </span>
+                        <p className="font-display text-lg font-semibold tracking-[-0.02em] leading-snug text-[var(--color-text-primary)] mb-3">
+                            {t.about.headline}
+                        </p>
+                        <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                            {t.about.body}
+                        </p>
+                    </div>
 
                     {/* Stack */}
-                    <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-4 block">
-                        {t.menu.stack}
-                    </span>
-
-                    <div className="flex flex-wrap gap-2">
-                        {STACK.map((item) => (
-                            <span
-                                key={item}
-                                className="text-xs text-[var(--color-text-secondary)] border border-[var(--color-border)] rounded-full px-3 py-1"
-                            >
-                                {item}
-                            </span>
-                        ))}
+                    <div>
+                        <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-3 block">
+                            {t.menu.stack}
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                            {STACK.map((item) => (
+                                <span key={item}
+                                    className="text-xs text-[var(--color-text-secondary)] border border-[var(--color-border)] rounded-full px-2.5 py-1">
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
-                {/* Lang toggle — bottom of left col */}
-                <div className="mt-10">
+                {/* Bottom controls */}
+                <div className="flex flex-col gap-4 mt-8">
+
+                    {/* Back to home */}
                     <button
-                        onClick={toggle}
-                        className={cn(
-                            "text-xs uppercase tracking-[0.15em]",
-                            "text-[var(--color-text-tertiary)]",
-                            "hover:text-[var(--color-text-primary)]",
-                            "transition-colors duration-200 cursor-pointer"
-                        )}
+                        onClick={handleGoHome}
+                        className="text-xs uppercase tracking-[0.15em] text-[var(--color-text-tertiary)]
+                       hover:text-[var(--color-text-primary)] transition-colors duration-200
+                       cursor-pointer text-left"
                     >
-                        {lang === "en" ? "PT" : "EN"}
+                        ← Home
                     </button>
+
+                    {/* Theme + Lang row */}
+                    <div className="flex items-center justify-between">
+
+                        {/* Theme toggle */}
+                        <button
+                            onClick={toggleTheme}
+                            aria-label={theme === "dark" ? "Switch to light" : "Switch to dark"}
+                            className="flex items-center gap-2 text-xs text-[var(--color-text-tertiary)]
+                         hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
+                        >
+                            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+                            <span className="uppercase tracking-[0.12em]">
+                                {theme === "dark" ? "Light" : "Dark"}
+                            </span>
+                        </button>
+
+                        {/* Lang flags */}
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => lang !== "en" && toggleLang()}
+                                title="English"
+                                aria-label="Switch to English"
+                                className={cn(
+                                    "text-base leading-none cursor-pointer transition-opacity duration-200 select-none",
+                                    lang === "en" ? "opacity-100" : "opacity-35 hover:opacity-60"
+                                )}
+                            >🇺🇸</button>
+                            <button
+                                onClick={() => lang !== "pt" && toggleLang()}
+                                title="Português"
+                                aria-label="Mudar para Português"
+                                className={cn(
+                                    "text-base leading-none cursor-pointer transition-opacity duration-200 select-none",
+                                    lang === "pt" ? "opacity-100" : "opacity-35 hover:opacity-60"
+                                )}
+                            >🇧🇷</button>
+                        </div>
+                    </div>
                 </div>
             </motion.div>
 
-            {/* Right column — Projects + Contact + Social */}
+            {/* RIGHT column */}
             <motion.div
                 className={cn(
                     "relative z-10 flex flex-col justify-between ml-auto",
-                    "w-full max-w-xs md:max-w-sm",
-                    "h-full px-8 py-10 pt-20",
+                    "w-full max-w-[280px] md:max-w-xs h-full",
+                    "px-8 py-8 pt-20 overflow-y-auto",
                     "bg-[var(--color-bg-primary)]",
                     "border-l border-[var(--color-border-subtle)]",
-                    "overflow-y-auto"
                 )}
                 variants={menuColumnRight}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
             >
-                {/* Case studies */}
+                {/* Projects list */}
                 <div>
-                    <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-6 block">
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-4 block">
                         {t.menu.sections.projects}
                     </span>
 
-                    <nav className="flex flex-col gap-0">
+                    <nav className="flex flex-col">
                         {projects.map((project, i) => (
                             <button
                                 key={project.id}
-                                onClick={() => handleProjectClick(project.id)}
+                                onClick={() => handleProjectClick(project)}
+                                onMouseEnter={() => setPreviewProject(project)}
+                                onMouseLeave={() => setPreviewProject(null)}
                                 className={cn(
                                     "flex items-baseline justify-between gap-4 w-full text-left",
-                                    "py-3 cursor-pointer",
+                                    "py-3 cursor-pointer group",
                                     i !== 0 && "border-t border-[var(--color-border-subtle)]",
-                                    "group"
                                 )}
                             >
-                                <span className="font-display text-lg font-semibold text-[var(--color-text-primary)] tracking-[-0.01em] group-hover:text-[var(--color-accent)] transition-colors duration-200">
+                                <span className="font-display text-lg font-semibold tracking-[-0.01em]
+                                 text-[var(--color-text-primary)]
+                                 group-hover:text-[var(--color-accent)]
+                                 transition-colors duration-200">
                                     {project.title}
                                 </span>
                                 <span className="text-xs text-[var(--color-text-tertiary)] tabular-nums shrink-0">
@@ -179,30 +285,28 @@ export function MenuOverlay() {
                 </div>
 
                 {/* Contact + Social */}
-                <div className="mt-10">
-                    <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-4 block">
+                <div className="mt-8">
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-3 block">
                         {t.menu.contact}
                     </span>
-
-                    <p className="font-display text-xl font-semibold text-[var(--color-text-primary)] tracking-[-0.01em] mb-6">
+                    <p className="font-display text-lg font-semibold text-[var(--color-text-primary)] tracking-[-0.01em] mb-4">
                         {t.contact.headline}
                     </p>
-
                     <a
                         href={`mailto:${t.contact.email}`}
-                        className="text-sm text-[var(--color-accent)] hover:opacity-70 transition-opacity duration-200 block mb-6"
+                        className="text-sm text-[var(--color-accent)] hover:opacity-70 transition-opacity duration-200 block mb-5"
                     >
                         {t.contact.email}
                     </a>
-
-                    <div className="flex gap-5">
+                    <div className="flex gap-4">
                         {SOCIAL.map((link) => (
                             <a
                                 key={link.label}
                                 href={link.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs uppercase tracking-[0.12em] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors duration-200"
+                                className="text-xs uppercase tracking-[0.12em] text-[var(--color-text-tertiary)]
+                           hover:text-[var(--color-text-primary)] transition-colors duration-200"
                             >
                                 {link.label}
                             </a>

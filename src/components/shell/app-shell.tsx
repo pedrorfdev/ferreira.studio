@@ -9,7 +9,6 @@ import { useEffect } from "react"
 import { AnimatePresence } from "framer-motion"
 
 import { BackgroundLayer } from "@/components/shell/background-layer"
-import { Nav } from "@/components/navigation/nav-updated"
 import { IntroLoader } from "@/components/loader/intro-loader"
 import { HomeView } from "@/components/home/home-view"
 import { ProjectView } from "@/components/project/project-view"
@@ -19,6 +18,7 @@ import { AssistantLayer } from "@/components/assistant/assistant-layer"
 import { useAppStore } from "@/store/use-app-store"
 import { useMenuStore } from "@/store/use-menu-store"
 import { AppState } from "@/types/project"
+import { Nav } from "@/components/navigation/nav"
 
 export function AppShell() {
     const appState = useAppStore((s) => s.appState)

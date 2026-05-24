@@ -1,8 +1,11 @@
 // components/project/project-view.tsx
 // ============================================================
-// Aplica data-project="[id]" no container root —
-// o CSS em project-themes.css usa esse seletor para trocar
-// os tokens de cor/glow de cada projeto automaticamente.
+// Close button corrigido — z-index 50 (acima da nav z-90
+// não faz sentido, o close fica no layer do próprio view).
+// O botão é parte do ProjectView, não da nav global,
+// então fica dentro do motion.div que tem z-20.
+// Fix: pointer-events-auto explícito + posição absoluta
+// dentro do container (não fixed, que compete com a nav).
 // ============================================================
 
 import { useEffect, useRef, useState, useCallback } from "react"
@@ -13,6 +16,7 @@ import { AppState } from "@/types/project"
 import type { ProjectData } from "@/types/project"
 import { transitions } from "@/lib/motion"
 import { cn } from "@/lib/cn"
+import { useI18n } from "@/lib/i18n-context"
 
 import { SectionHero } from "@/components/project/sections/section-hero"
 import { SectionProblem } from "@/components/project/sections/section-problem"
@@ -29,6 +33,7 @@ export function ProjectView({ project }: Props) {
     const closeProject = useAppStore((s) => s.closeProject)
     const appState = useAppStore((s) => s.appState)
     const { origin, expanded } = useClipPathTransition()
+    const { t } = useI18n()
 
     const containerRef = useRef<HTMLDivElement>(null)
     const [progress, setProgress] = useState(0)
@@ -58,42 +63,56 @@ export function ProjectView({ project }: Props) {
 
     return (
         <motion.div
-            // data-project aplica o tema CSS do projeto automaticamente
             data-project={project.id}
-            className="fixed inset-0 z-20 bg-[var(--color-bg-primary)]"
+            // z-20 — acima do background (z-0) e home (z-10),
+            // abaixo da nav (z-90) e menu (z-80)
+            className="fixed inset-0 z-20 bg-[var(--color-bg-primary)] flex flex-col"
             initial={{ clipPath: origin }}
             animate={{ clipPath: expanded }}
             exit={{ clipPath: origin }}
             transition={transitions.cinematic}
             onAnimationComplete={handleAnimationComplete}
         >
-            {/* Scroll progress bar */}
-            <div className="fixed top-0 left-0 right-0 h-px z-30 bg-[var(--color-border-subtle)]">
+            {/* Scroll progress — topo */}
+            <div className="absolute top-0 left-0 right-0 h-px z-10 bg-[var(--color-border-subtle)] pointer-events-none">
                 <motion.div
                     className="h-full bg-[var(--color-accent)] origin-left"
                     style={{ scaleX: progress }}
                 />
             </div>
 
-            {/* Close */}
+            {/* Close button — absolute dentro do ProjectView,
+          alinhado ao topo direito no espaço da nav (h-16) */}
             <motion.button
-                onClick={closeProject}
-                aria-label="Close project"
-                className={cn(
-                    "fixed top-5 right-6 md:right-10 z-30",
-                    "text-xs uppercase tracking-[0.15em]",
-                    "text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]",
-                    "transition-colors duration-200 cursor-pointer select-none"
-                )}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    closeProject()
+                }}
+                aria-label={t.project.close}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.7 }}
+                className={cn(
+                    // Posicionado no mesmo row da nav (h-16 = 4rem)
+                    "absolute top-0 right-6 md:right-10 z-10",
+                    "h-16 flex items-center",
+                    "text-xs uppercase tracking-[0.15em]",
+                    "text-[var(--color-text-tertiary)]",
+                    "hover:text-[var(--color-text-primary)]",
+                    "transition-colors duration-200",
+                    "cursor-pointer select-none",
+                    // pointer-events explícito — garante clicabilidade
+                    "pointer-events-auto"
+                )}
             >
-                Close
+                {t.project.close}
             </motion.button>
 
-            {/* Content */}
-            <div ref={containerRef} className="h-full overflow-y-auto overscroll-none">
+            {/* Scrollable content — ocupa o espaço abaixo da nav */}
+            <div
+                ref={containerRef}
+                className="flex-1 overflow-y-auto overscroll-none mt-16"
+            >
                 <SectionHero project={project} />
                 <SectionProblem project={project} />
                 <SectionIdea project={project} />
