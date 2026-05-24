@@ -1,8 +1,11 @@
 // components/home/project-card.tsx
 // ============================================================
-// Card flutuante no hover — só imagem, sem texto.
-// Ao clicar captura seu próprio DOMRect para que o clip-path
-// expanda a partir da posição real do card na tela.
+// Card flutuante no hover:
+// - Só imagem, sem texto
+// - Maior (w-72 md:w-80), menos arredondado (rounded-lg)
+// - Aspect ratio 16/10 — mais largo e impactante
+// - Ao clicar captura SEU PRÓPRIO DOMRect (não o item da lista)
+//   para que o clip-path expanda a partir daqui
 // ============================================================
 
 import { useRef } from "react"
@@ -25,6 +28,7 @@ function Card({ project, index }: CardProps) {
 
     function handleClick() {
         if (!ref.current) return
+        // Captura a posição DESTE card — o clip-path vai partir daqui
         const rect = ref.current.getBoundingClientRect()
         openProject(project, {
             top: rect.top,
@@ -46,24 +50,30 @@ function Card({ project, index }: CardProps) {
             initial="hidden"
             animate="visible"
             exit="exit"
-            style={{ position: "fixed", top: position.top, left: position.left }}
-            className="w-52 md:w-64 rounded-xl overflow-hidden cursor-pointer
+            style={{
+                position: "fixed",
+                top: position.top,
+                left: position.left,
+                // Translada para o centro do card ficar na posição
+                transform: "translate(-50%, -50%)",
+            }}
+            className="w-72 md:w-80 rounded-lg overflow-hidden cursor-pointer
                  border border-white/10 shadow-2xl
-                 hover:border-white/20 transition-[border-color] duration-200"
+                 hover:border-white/20 transition-[border-color] duration-300
+                 hover:scale-[1.02] transition-transform"
         >
-            {/* Image only — aspect ratio 4:3 */}
-            <div className="aspect-[4/3] w-full bg-[var(--color-bg-tertiary)] overflow-hidden">
+            {/* Imagem apenas — aspect 16:10 */}
+            <div className="aspect-[16/10] w-full bg-[var(--color-bg-tertiary)] overflow-hidden">
                 {project.heroImage ? (
                     <img
                         src={project.heroImage}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                        className="w-full h-full object-cover"
                         draggable={false}
                     />
                 ) : (
-                    // Placeholder quando não há imagem ainda
-                    <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-[var(--color-text-tertiary)] text-xs font-display">
+                    <div className="w-full h-full flex items-center justify-center bg-[var(--color-bg-secondary)]">
+                        <span className="font-display text-sm text-[var(--color-text-tertiary)]">
                             {project.title}
                         </span>
                     </div>

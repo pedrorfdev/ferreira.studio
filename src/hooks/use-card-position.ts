@@ -1,10 +1,8 @@
 // hooks/use-card-position.ts
 // ============================================================
-// Returns a stable screen position for the floating project card.
-// Position is seeded by project index so it's always consistent
-// for the same project, but visually varied across projects.
-// Values are constrained to a safe zone that avoids the nav,
-// the project list on the left, and the screen edges.
+// Posições mais espalhadas, garantindo que os cards de projetos
+// diferentes fiquem bem separados visualmente.
+// Usa uma distribuição em zonas para evitar sobreposição.
 // ============================================================
 
 import { useMemo } from "react"
@@ -14,29 +12,29 @@ interface CardPosition {
     left: string
 }
 
-// Seeded pseudo-random — same seed always returns same value
+// Divide a tela em zonas para garantir espalhamento
+// Cada projeto cai numa zona diferente
+const ZONES = [
+    { topMin: 15, topMax: 35, leftMin: 42, leftMax: 58 },  // centro-topo
+    { topMin: 50, topMax: 68, leftMin: 30, leftMax: 48 },  // esquerda-baixo
+    { topMin: 20, topMax: 40, leftMin: 58, leftMax: 74 },  // direita-topo
+    { topMin: 55, topMax: 72, leftMin: 52, leftMax: 70 },  // direita-baixo
+    { topMin: 35, topMax: 52, leftMin: 38, leftMax: 56 },  // centro-meio
+]
+
 function seededRandom(seed: number): number {
     const x = Math.sin(seed + 1) * 10000
     return x - Math.floor(x)
 }
 
-// Safe zone — keeps cards away from edges, nav, and project list
-const SAFE_ZONE = {
-    // Vertical: 15% from top (below nav), 20% from bottom
-    topMin: 15,
-    topMax: 60,
-    // Horizontal: 38% from left (clear of project list), 15% from right
-    leftMin: 38,
-    leftMax: 72,
-}
-
 export function useCardPosition(index: number): CardPosition {
     return useMemo(() => {
-        const topRange = SAFE_ZONE.topMax - SAFE_ZONE.topMin
-        const leftRange = SAFE_ZONE.leftMax - SAFE_ZONE.leftMin
+        const zone = ZONES[index % ZONES.length]
+        const topRange = zone.topMax - zone.topMin
+        const leftRange = zone.leftMax - zone.leftMin
 
-        const top = SAFE_ZONE.topMin + seededRandom(index * 2) * topRange
-        const left = SAFE_ZONE.leftMin + seededRandom(index * 2 + 1) * leftRange
+        const top = zone.topMin + seededRandom(index * 3) * topRange
+        const left = zone.leftMin + seededRandom(index * 3 + 1) * leftRange
 
         return {
             top: `${top.toFixed(1)}%`,
