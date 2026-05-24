@@ -90,7 +90,7 @@ export interface Metric {
 export interface AssistantConfig {
     context: string              // reservado para futura integração com API
     quickPrompts: string[]            // perguntas sugeridas na UI
-    answers: Record<string, string>  // prompt → resposta pré-escrita
+    answers?: Record<string, string>  // prompt → resposta pré-escrita
 }
 
 // ----------------------------------------------------------
