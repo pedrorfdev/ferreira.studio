@@ -1,44 +1,46 @@
 // hooks/use-card-position.ts
 // ============================================================
-// Posições mais espalhadas, garantindo que os cards de projetos
-// diferentes fiquem bem separados visualmente.
-// Usa uma distribuição em zonas para evitar sobreposição.
+// Sistema de slots fixos — 4 posições definidas na área direita
+// da tela. Cada projeto recebe um slot pelo seu índice.
+// Os slots ficam sempre dentro da viewport, nunca saindo.
+//
+// Layout visual (área direita, fora da lista de projetos):
+//
+//  [ nav - 64px ]
+//  ┌─────────────────────────────┐
+//  │  lista    │  [slot-0 topo ] │  ← 20% top, 58% left
+//  │  projetos │                 │
+//  │           │  [slot-1 meio ] │  ← 38% top, 62% left
+//  │           │                 │
+//  │           │  [slot-2 baixo]│  ← 55% top, 52% left
+//  │           │                 │
+//  │           │  [slot-3 base ]│  ← 68% top, 60% left
+//  └─────────────────────────────┘
+//  [ identidade - bottom ]
+//
+// As posições são em % do viewport, garantindo
+// que os cards nunca saem da tela.
 // ============================================================
 
-import { useMemo } from "react"
+// Slots fixos — ajustados para ficarem sempre visíveis
+// left em % do viewport, calculado para a área direita da lista
+const SLOTS = [
+    { top: "18%", left: "56%" },   // topo direita
+    { top: "38%", left: "62%" },   // centro direita
+    { top: "55%", left: "50%" },   // baixo centro-esquerda
+    { top: "66%", left: "60%" },   // baixo direita
+    { top: "28%", left: "54%" },   // fallback para 5o projeto
+]
 
-interface CardPosition {
+export interface CardSlot {
     top: string
     left: string
 }
 
-// Divide a tela em zonas para garantir espalhamento
-// Cada projeto cai numa zona diferente
-const ZONES = [
-    { topMin: 15, topMax: 35, leftMin: 42, leftMax: 58 },  // centro-topo
-    { topMin: 50, topMax: 68, leftMin: 30, leftMax: 48 },  // esquerda-baixo
-    { topMin: 20, topMax: 40, leftMin: 58, leftMax: 74 },  // direita-topo
-    { topMin: 55, topMax: 72, leftMin: 52, leftMax: 70 },  // direita-baixo
-    { topMin: 35, topMax: 52, leftMin: 38, leftMax: 56 },  // centro-meio
-]
-
-function seededRandom(seed: number): number {
-    const x = Math.sin(seed + 1) * 10000
-    return x - Math.floor(x)
-}
-
-export function useCardPosition(index: number): CardPosition {
-    return useMemo(() => {
-        const zone = ZONES[index % ZONES.length]
-        const topRange = zone.topMax - zone.topMin
-        const leftRange = zone.leftMax - zone.leftMin
-
-        const top = zone.topMin + seededRandom(index * 3) * topRange
-        const left = zone.leftMin + seededRandom(index * 3 + 1) * leftRange
-
-        return {
-            top: `${top.toFixed(1)}%`,
-            left: `${left.toFixed(1)}%`,
-        }
-    }, [index])
+/**
+ * Retorna o slot fixo para um projeto dado seu índice.
+ * O slot nunca muda para o mesmo projeto — consistência garantida.
+ */
+export function useCardPosition(index: number): CardSlot {
+    return SLOTS[index % SLOTS.length]
 }

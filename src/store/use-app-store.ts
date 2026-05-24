@@ -1,13 +1,7 @@
 // store/use-app-store.ts
-// ============================================================
-// Global navigation state — the single source of truth for
-// what the app is currently showing and which project is active.
-// All state transitions go through here.
-// ============================================================
-
 import { create } from "zustand"
-import type { ProjectData } from "@/types/project"
 import { AppState } from "@/types/project"
+import type { ProjectData } from "@/types/project"
 
 interface CardOrigin {
     top: number
@@ -17,13 +11,11 @@ interface CardOrigin {
 }
 
 interface AppStore {
-    // State
     appState: AppState
     activeProject: ProjectData | null
     hoveredProject: ProjectData | null
-    cardOrigin: CardOrigin | null   // DOMRect of clicked card — used for clip-path expansion
+    cardOrigin: CardOrigin | null
 
-    // Actions
     setHovered: (project: ProjectData | null) => void
     openProject: (project: ProjectData, origin: CardOrigin) => void
     closeProject: () => void
@@ -42,26 +34,15 @@ export const useAppStore = create<AppStore>((set) => ({
             hoveredProject: project,
             appState:
                 s.appState === AppState.HOME || s.appState === AppState.HOVERING
-                    ? project
-                        ? AppState.HOVERING
-                        : AppState.HOME
+                    ? project ? AppState.HOVERING : AppState.HOME
                     : s.appState,
         })),
 
     openProject: (project, origin) =>
-        set({
-            activeProject: project,
-            cardOrigin: origin,
-            appState: AppState.EXPANDING,
-        }),
+        set({ activeProject: project, cardOrigin: origin, appState: AppState.EXPANDING }),
 
     closeProject: () =>
-        set({
-            appState: AppState.HOME,
-            activeProject: null,
-            cardOrigin: null,
-            hoveredProject: null,
-        }),
+        set({ appState: AppState.HOME, activeProject: null, cardOrigin: null, hoveredProject: null }),
 
     setAppState: (state) => set({ appState: state }),
 

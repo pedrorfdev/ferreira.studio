@@ -1,14 +1,9 @@
 // types/project.ts
 // ============================================================
-// Core types for the portfolio data layer.
-// ProjectData is the single source of truth shape —
-// everything in data/projects.ts conforms to this.
+// AppState como const object em vez de enum —
+// compatível com erasableSyntaxOnly (Vite 6+ / TS 5.5+)
 // ============================================================
 
-// ----------------------------------------------------------
-// App State — all possible navigation states
-// Zustand reads this enum to orchestrate the experience
-// ----------------------------------------------------------
 export const AppState = {
     LOADING: "LOADING",
     HOME: "HOME",
@@ -16,33 +11,27 @@ export const AppState = {
     EXPANDING: "EXPANDING",
     PROJECT: "PROJECT",
     MENU_OPEN: "MENU_OPEN",
-} as const;
+} as const
 
-export type AppState = typeof AppState[keyof typeof AppState];
+export type AppState = typeof AppState[keyof typeof AppState]
 
-// ----------------------------------------------------------
-// Card position — seeded per project, stays consistent
-// between renders. Values are percentages of the safe zone.
-// ----------------------------------------------------------
 export interface CardPosition {
-    top: string  // e.g. "30%"
-    left: string  // e.g. "55%"
+    top: string
+    left: string
 }
 
-// ----------------------------------------------------------
-// Media — background image or video per project
-// ----------------------------------------------------------
 export interface ProjectMedia {
     type: "image" | "video"
     src: string
     alt?: string
-    poster?: string  // video fallback image
+    poster?: string
 }
 
-// ----------------------------------------------------------
-// Case study sections — each is optional so projects
-// can have different depths of content
-// ----------------------------------------------------------
+export interface ProjectLinks {
+    demo?: string
+    github?: string
+}
+
 export interface CaseStudySection {
     problem?: {
         headline: string
@@ -55,7 +44,7 @@ export interface CaseStudySection {
     solution?: {
         headline: string
         body: string
-        items?: string[]  // bullet highlights
+        items?: string[]
     }
     analysis?: {
         headline: string
@@ -75,7 +64,7 @@ export interface CaseStudySection {
 export interface TechnicalDecision {
     title: string
     why: string
-    trade?: string  // tradeoff acknowledged
+    trade?: string
 }
 
 export interface Metric {
@@ -83,57 +72,32 @@ export interface Metric {
     value: string
 }
 
-// ----------------------------------------------------------
-// Assistant — contextual prompts per project
-// Powers the "Ask about this project" panel
-// ----------------------------------------------------------
 export interface AssistantConfig {
-    context: string              // reservado para futura integração com API
-    quickPrompts: string[]            // perguntas sugeridas na UI
-    answers?: Record<string, string>  // prompt → resposta pré-escrita
+    context: string
+    quickPrompts: string[]
 }
 
-// ----------------------------------------------------------
-// Project tag — tech or domain labels
-// ----------------------------------------------------------
 export type ProjectTag =
-    | "React"
-    | "Node.js"
-    | "PostgreSQL"
-    | "Tailwind"
-    | "AI"
-    | "Gemini"
-    | "TypeScript"
-    | "Product"
-    | "Full Stack"
-    | "Healthcare"
-    | "Agro"
-    | "Events"
+    | "React" | "Node.js" | "PostgreSQL" | "Tailwind"
+    | "AI" | "Gemini" | "TypeScript" | "Product"
+    | "Full Stack" | "Healthcare" | "Agro" | "Events"
 
-// ----------------------------------------------------------
-// ProjectData — the complete shape
-// data/projects.ts exports ProjectData[]
-// ----------------------------------------------------------
 export interface ProjectData {
-    id: string           // unique slug, e.g. "praxis"
-    title: string           // display name, e.g. "Praxis"
-    tagline: string           // one-liner shown in hover card
+    id: string
+    title: string
+    tagline: string
     tags: ProjectTag[]
     year: number
     status: "shipped" | "in progress" | "concept"
-    cardPosition: CardPosition     // fixed position for the hover card
-    media: ProjectMedia     // background when hovered/active
-    heroImage?: string           // large image inside case study hero
+    cardPosition: CardPosition
+    media: ProjectMedia
+    heroImage?: string
+    heroVideo?: string
+    links?: ProjectLinks
     sections: CaseStudySection
     assistant: AssistantConfig
-    // i18n — optional PT override; EN is the base
     pt?: {
         tagline?: string
         sections?: Partial<CaseStudySection>
-    }
-    heroVideo?: string
-    links?: {
-        demo?: string
-        github?: string
     }
 }
