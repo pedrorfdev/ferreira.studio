@@ -1,10 +1,14 @@
 // components/project/project-nav.tsx
 // ============================================================
-// Nav pill do projeto — centralizada no topo.
-// Estado inicial: compacto (pill pequeno com título + close)
-// Ao rolar: expande revelando menu button + todos os controles
-//
-// Tem botão de menu para abrir o MenuOverlay global.
+// Fix i18n: useI18n() re-renderiza quando lang muda —
+// mas o ProjectNav precisa estar dentro do I18nProvider,
+// o que já está (main.tsx). O problema era que o toggle
+// do lang estava chamando toggleLang mas o componente
+// não re-renderizava por estar fora do React tree normal.
+// Fix: usar key no I18nProvider ou garantir que o store
+// de i18n usa useState corretamente — já está correto.
+// O real fix é garantir que ProjectNav usa useI18n()
+// diretamente e não props de cima.
 // ============================================================
 
 import { motion } from "framer-motion"
@@ -32,17 +36,6 @@ function MoonIcon() {
     )
 }
 
-function MenuIcon() {
-    return (
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="4" y1="6" x2="20" y2="6" />
-            <line x1="4" y1="12" x2="20" y2="12" />
-            <line x1="4" y1="18" x2="20" y2="18" />
-        </svg>
-    )
-}
-
 interface Props {
     project: ProjectData
     scrollY: number
@@ -50,11 +43,12 @@ interface Props {
 }
 
 export function ProjectNav({ project, scrollY, onClose }: Props) {
+    // Consome os stores diretamente — garante re-render ao mudar
     const toggleMenu = useMenuStore((s) => s.toggle)
     const { theme, toggle: toggleTheme } = useThemeStore()
-    const { lang, toggle: toggleLang } = useI18n()
+    // useI18n() aqui dentro — re-renderiza quando lang muda
+    const { lang, toggle: toggleLang, t } = useI18n()
 
-    // Expande após rolar 80px
     const expanded = scrollY > 80
 
     return (
@@ -65,8 +59,7 @@ export function ProjectNav({ project, scrollY, onClose }: Props) {
                 className={cn(
                     "pointer-events-auto flex items-center gap-0",
                     "bg-[var(--color-bg-secondary)]/90 backdrop-blur-xl",
-                    "border border-[var(--color-border)]",
-                    "shadow-xl overflow-hidden",
+                    "border border-[var(--color-border)] shadow-xl overflow-hidden",
                     "transition-[border-radius] duration-400",
                     expanded ? "rounded-2xl" : "rounded-full",
                 )}
@@ -84,81 +77,74 @@ export function ProjectNav({ project, scrollY, onClose }: Props) {
                      text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]
                      transition-colors duration-200 cursor-pointer whitespace-nowrap shrink-0"
                 >
-                    <MenuIcon />
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="4" y1="6" x2="20" y2="6" />
+                        <line x1="4" y1="12" x2="20" y2="12" />
+                        <line x1="4" y1="18" x2="20" y2="18" />
+                    </svg>
                     <span className="text-xs uppercase tracking-[0.12em]">Menu</span>
                 </motion.button>
 
-                {/* Divider esquerdo — só quando expandido */}
-                {expanded && (
-                    <span className="w-px h-4 bg-[var(--color-border)] shrink-0" />
-                )}
+                {expanded && <span className="w-px h-4 bg-[var(--color-border)] shrink-0" />}
 
-                {/* Centro — título sempre visível */}
+                {/* Título */}
                 <div className={cn(
                     "flex items-center transition-all duration-400",
                     expanded ? "px-4 h-10" : "px-5 h-9"
                 )}>
                     <span className={cn(
-                        "font-display font-semibold tracking-[-0.01em]",
-                        "text-[var(--color-text-primary)] whitespace-nowrap",
-                        "transition-[font-size] duration-400",
+                        "font-display font-semibold tracking-[-0.01em] text-[var(--color-text-primary)] whitespace-nowrap transition-[font-size] duration-400",
                         expanded ? "text-sm" : "text-xs"
                     )}>
                         {project.title}
                     </span>
                 </div>
 
-                {/* Divider direito */}
                 <span className="w-px h-4 bg-[var(--color-border)] shrink-0" />
 
-                {/* Controls direita — sempre visíveis */}
+                {/* Controls */}
                 <div className={cn(
                     "flex items-center gap-3 transition-all duration-400",
                     expanded ? "px-4 h-10" : "px-4 h-9"
                 )}>
-
                     {/* Theme */}
                     <button
                         onClick={toggleTheme}
                         aria-label="Toggle theme"
-                        className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]
-                       transition-colors duration-200 cursor-pointer"
+                        className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
                     >
                         {theme === "dark" ? <SunIcon /> : <MoonIcon />}
                     </button>
 
-                    {/* Flags */}
+                    {/* Lang flags — clicáveis, com feedback imediato */}
                     <div className="flex items-center gap-1">
                         <button
-                            onClick={() => lang !== "en" && toggleLang()}
+                            onClick={() => { if (lang !== "en") toggleLang() }}
                             title="English"
                             className={cn(
-                                "text-sm leading-none cursor-pointer transition-opacity duration-200 select-none",
-                                lang === "en" ? "opacity-100" : "opacity-35 hover:opacity-60"
+                                "text-sm leading-none cursor-pointer transition-opacity duration-150 select-none",
+                                lang === "en" ? "opacity-100" : "opacity-35 hover:opacity-70"
                             )}
                         >🇺🇸</button>
                         <button
-                            onClick={() => lang !== "pt" && toggleLang()}
+                            onClick={() => { if (lang !== "pt") toggleLang() }}
                             title="Português"
                             className={cn(
-                                "text-sm leading-none cursor-pointer transition-opacity duration-200 select-none",
-                                lang === "pt" ? "opacity-100" : "opacity-35 hover:opacity-60"
+                                "text-sm leading-none cursor-pointer transition-opacity duration-150 select-none",
+                                lang === "pt" ? "opacity-100" : "opacity-35 hover:opacity-70"
                             )}
                         >🇧🇷</button>
                     </div>
 
-                    {/* Divider */}
                     <span className="w-px h-3.5 bg-[var(--color-border)] shrink-0" />
 
                     {/* Close */}
                     <button
                         onClick={onClose}
-                        aria-label="Close project"
-                        className="text-xs uppercase tracking-[0.15em]
-                       text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]
-                       transition-colors duration-200 cursor-pointer select-none whitespace-nowrap"
+                        aria-label={t.project.close}
+                        className="text-xs uppercase tracking-[0.15em] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer select-none whitespace-nowrap"
                     >
-                        Close
+                        {t.project.close}
                     </button>
                 </div>
             </motion.div>

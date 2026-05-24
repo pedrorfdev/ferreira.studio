@@ -1,26 +1,68 @@
 // components/project/sections/section-result.tsx
+// ============================================================
+// Redesign: métricas em cards grandes com accent,
+// corpo de texto + link de volta ao topo
+// ============================================================
+
 import { SectionReveal } from "@/components/project/section-reveal"
+import { useI18n } from "@/lib/i18n-context"
+import { TrendingUp, ExternalLink, GitBranch } from "lucide-react"
+import { cn } from "@/lib/cn"
 import type { ProjectData } from "@/types/project"
 
 interface Props { project: ProjectData }
 
 export function SectionResult({ project }: Props) {
+    const { t } = useI18n()
     const data = project.sections.result
     if (!data) return null
 
     return (
-        <section className="py-24 px-8 md:px-16 max-w-5xl mx-auto w-full border-t border-[var(--color-border-subtle)]">
-            <SectionReveal>
-                <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-6 block">
-                    Result
+        <section className="py-28 px-8 md:px-16 max-w-6xl mx-auto w-full
+                        border-t border-[var(--color-border-subtle)]">
+
+            <SectionReveal className="flex items-center gap-2 mb-4">
+                <TrendingUp size={13} className="text-[var(--color-accent)]" />
+                <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-accent)]">
+                    {t.project.sections.result}
                 </span>
             </SectionReveal>
 
-            <SectionReveal delay={0.05}>
-                <h2 className="font-display text-4xl md:text-5xl font-semibold tracking-[-0.02em] leading-tight text-[var(--color-text-primary)] mb-8 max-w-2xl">
+            <SectionReveal delay={0.04}>
+                <h2 className="font-display text-4xl md:text-5xl font-semibold tracking-[-0.02em]
+                       leading-tight text-[var(--color-text-primary)] mb-12 max-w-2xl">
                     {data.headline}
                 </h2>
             </SectionReveal>
+
+            {/* Métricas — cards grandes */}
+            {data.metrics && data.metrics.length > 0 && (
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+                    {data.metrics.map((metric, i) => (
+                        <SectionReveal key={i} delay={i * 0.07}>
+                            <div className={cn(
+                                "p-6 rounded-xl border h-full",
+                                i === 0
+                                    ? "bg-[var(--color-accent)] border-[var(--color-accent)]"
+                                    : "bg-[var(--color-bg-secondary)] border-[var(--color-border)]"
+                            )}>
+                                <div className={cn(
+                                    "font-display text-4xl font-bold tracking-[-0.02em] mb-2",
+                                    i === 0 ? "text-white" : "text-[var(--color-text-primary)]"
+                                )}>
+                                    {metric.value}
+                                </div>
+                                <div className={cn(
+                                    "text-xs uppercase tracking-[0.12em]",
+                                    i === 0 ? "text-white/70" : "text-[var(--color-text-tertiary)]"
+                                )}>
+                                    {metric.label}
+                                </div>
+                            </div>
+                        </SectionReveal>
+                    ))}
+                </div>
+            )}
 
             <div className="grid md:grid-cols-2 gap-12 items-start">
                 <SectionReveal delay={0.1}>
@@ -29,22 +71,41 @@ export function SectionResult({ project }: Props) {
                     </p>
                 </SectionReveal>
 
-                {data.metrics && data.metrics.length > 0 && (
-                    <SectionReveal delay={0.15}>
-                        <div className="flex flex-col gap-6">
-                            {data.metrics.map((metric, i) => (
-                                <div key={i} className="flex flex-col gap-1">
-                                    <span className="font-display text-3xl font-semibold text-[var(--color-text-primary)] tracking-[-0.02em]">
-                                        {metric.value}
-                                    </span>
-                                    <span className="text-xs uppercase tracking-[0.12em] text-[var(--color-text-tertiary)]">
-                                        {metric.label}
-                                    </span>
+                {/* Links finais */}
+                <SectionReveal delay={0.14}>
+                    <div className="flex flex-col gap-3">
+                        {project.links?.demo && (
+                            <a href={project.links.demo} target="_blank" rel="noopener noreferrer"
+                                className="flex items-center gap-3 p-4 rounded-xl border border-[var(--color-border)]
+                           hover:border-[var(--color-accent)] group transition-all duration-200">
+                                <ExternalLink size={15} className="text-[var(--color-accent)] shrink-0" />
+                                <div>
+                                    <div className="text-sm font-medium text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                                        View live demo
+                                    </div>
+                                    <div className="text-xs text-[var(--color-text-tertiary)] truncate">
+                                        {project.links.demo}
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                    </SectionReveal>
-                )}
+                            </a>
+                        )}
+                        {project.links?.github && (
+                            <a href={project.links.github} target="_blank" rel="noopener noreferrer"
+                                className="flex items-center gap-3 p-4 rounded-xl border border-[var(--color-border)]
+                           hover:border-[var(--color-border-strong)] group transition-all duration-200">
+                                <GitBranch size={15} className="text-[var(--color-text-tertiary)] shrink-0" />
+                                <div>
+                                    <div className="text-sm font-medium text-[var(--color-text-primary)] transition-colors">
+                                        View source
+                                    </div>
+                                    <div className="text-xs text-[var(--color-text-tertiary)] truncate">
+                                        {project.links.github}
+                                    </div>
+                                </div>
+                            </a>
+                        )}
+                    </div>
+                </SectionReveal>
             </div>
         </section>
     )

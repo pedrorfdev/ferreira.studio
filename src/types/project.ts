@@ -131,4 +131,9 @@ export interface ProjectData {
         tagline?: string
         sections?: Partial<CaseStudySection>
     }
+    heroVideo?: string
+    links?: {
+        demo?: string
+        github?: string
+    }
 }
