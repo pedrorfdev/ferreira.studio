@@ -34,13 +34,13 @@ function ProjectItem({ project, index }: ProjectItemProps) {
             onMouseLeave={() => setHovered(null)}
             className={cn(
                 "flex items-baseline gap-4 w-full py-3 select-none",
-                index !== 0 && "border-t border-[var(--color-border-subtle)]",
+                index !== 0 && "border-t border-(--color-border-subtle)",
                 "transition-opacity duration-300 ease-out",
                 anyHovered && !isHovered ? "opacity-25" : "opacity-100",
             )}
         >
             {/* Index */}
-            <span className="text-xs tabular-nums text-[var(--color-text-tertiary)] w-5 shrink-0">
+            <span className="text-xs tabular-nums text-(--color-text-tertiary) w-5 shrink-0">
                 {String(index + 1).padStart(2, "0")}
             </span>
 
@@ -49,7 +49,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                 className={cn(
                     "font-display text-2xl md:text-3xl font-semibold tracking-[-0.02em] leading-none",
                     "transition-colors duration-200",
-                    isHovered ? "text-[var(--color-text-primary)]" : "text-[var(--color-text-secondary)]",
+                    isHovered ? "text-(--color-text-primary)" : "text-(--color-text-secondary)",
                 )}
             >
                 {project.title}
@@ -57,7 +57,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
 
             {/* Status badge */}
             {project.status === "in progress" && (
-                <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-tertiary)] border border-[var(--color-border)] rounded-full px-2 py-0.5 ml-auto shrink-0">
+                <span className="text-[10px] uppercase tracking-[0.12em] text-(--color-text-tertiary) border border-(--color-border) rounded-full px-2 py-0.5 ml-auto shrink-0">
                     In progress
                 </span>
             )}

@@ -1,13 +1,13 @@
 // components/shell/background-layer.tsx
 // ============================================================
-// Persistent background media layer.
-// Crossfades between project backgrounds on hover/active.
-// Falls back to a neutral dark base when no project is hovered.
+// Fundo persistente — crossfade entre projetos.
+// Quando não há mídia real usa MediaPlaceholder animado.
 // ============================================================
 
 import { AnimatePresence, motion } from "framer-motion"
 import { backgroundCrossfade } from "@/lib/motion"
 import { useAppStore } from "@/store/use-app-store"
+import { MediaPlaceholder } from "@/components/ui/media-placeholder"
 import { AppState } from "@/types/project"
 
 export function BackgroundLayer() {
@@ -15,22 +15,18 @@ export function BackgroundLayer() {
     const hoveredProject = useAppStore((s) => s.hoveredProject)
     const activeProject = useAppStore((s) => s.activeProject)
 
-    // Priority: active project > hovered project > null (base)
     const project =
         appState === AppState.PROJECT || appState === AppState.EXPANDING
             ? activeProject
             : hoveredProject
 
     return (
-        // Fills the screen, sits at z-0
         <div className="absolute inset-0 z-0">
+            {/* Base escura sempre presente */}
+            <div className="absolute inset-0 bg-(--color-bg-primary)" />
 
-            {/* Base — solid dark color always visible underneath */}
-            <div className="absolute inset-0 bg-[var(--color-bg-primary)]" />
-
-            {/* Project media — crossfades on project change */}
             <AnimatePresence>
-                {project?.media && (
+                {project && (
                     <motion.div
                         key={project.id}
                         className="absolute inset-0"
@@ -39,31 +35,37 @@ export function BackgroundLayer() {
                         animate="visible"
                         exit="exit"
                     >
-                        {project.media.type === "image" ? (
-                            <img
-                                src={project.media.src}
-                                alt={project.media.alt ?? ""}
-                                className="w-full h-full object-cover"
-                                draggable={false}
-                            />
+                        {/* Mídia real ou placeholder */}
+                        {project.media?.src ? (
+                            project.media.type === "image" ? (
+                                <img
+                                    src={project.media.src}
+                                    alt={project.media.alt ?? ""}
+                                    className="w-full h-full object-cover"
+                                    draggable={false}
+                                />
+                            ) : (
+                                <video
+                                    src={project.media.src}
+                                    poster={project.media.poster}
+                                    autoPlay muted loop playsInline
+                                    className="w-full h-full object-cover"
+                                />
+                            )
                         ) : (
-                            <video
-                                src={project.media.src}
-                                poster={project.media.poster}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                className="w-full h-full object-cover"
+                            // Placeholder com identidade do projeto
+                            <MediaPlaceholder
+                                variant="bg"
+                                aspect=""
+                                className="absolute inset-0 w-full h-full"
                             />
                         )}
 
-                        {/* Dark scrim — keeps text readable over any background */}
-                        <div className="absolute inset-0 bg-[var(--color-scrim)]" />
+                        {/* Scrim */}
+                        <div className="absolute inset-0 bg-(--color-scrim)" />
                     </motion.div>
                 )}
             </AnimatePresence>
-
         </div>
     )
 }

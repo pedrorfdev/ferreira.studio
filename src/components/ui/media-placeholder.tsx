@@ -19,7 +19,7 @@ export function MediaPlaceholder({ label, aspect = "aspect-video", className, va
         <div className={cn(
             aspect,
             "relative overflow-hidden flex items-center justify-center",
-            "bg-[var(--color-bg-secondary)]",
+            "bg-(--color-bg-secondary)",
             className
         )}>
             {/* Grid pattern */}
@@ -35,16 +35,16 @@ export function MediaPlaceholder({ label, aspect = "aspect-video", className, va
             />
 
             {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/5 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-br from-(--color-accent)/5 to-transparent" />
 
             {/* Center content */}
             {label && (
                 <div className="relative z-10 flex flex-col items-center gap-2">
-                    <div className="w-8 h-px bg-[var(--color-accent)]/40" />
-                    <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-tertiary)]">
+                    <div className="w-8 h-px bg-(--color-accent)/40" />
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-(--color-text-tertiary)">
                         {label}
                     </span>
-                    <div className="w-8 h-px bg-[var(--color-accent)]/40" />
+                    <div className="w-8 h-px bg-(--color-accent)/40" />
                 </div>
             )}
         </div>

@@ -52,14 +52,14 @@ export function ProjectNav({ project, scrollY, onClose }: Props) {
     const expanded = scrollY > 80
 
     return (
-        <div className="fixed top-4 left-0 right-0 z-[95] flex justify-center pointer-events-none">
+        <div className="fixed top-4 left-0 right-0 z-95 flex justify-center pointer-events-none">
             <motion.div
                 layout
                 transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                 className={cn(
                     "pointer-events-auto flex items-center gap-0",
-                    "bg-[var(--color-bg-secondary)]/90 backdrop-blur-xl",
-                    "border border-[var(--color-border)] shadow-xl overflow-hidden",
+                    "bg-(--color-bg-secondary)/90 backdrop-blur-xl",
+                    "border border-(--color-border) shadow-xl overflow-hidden",
                     "transition-[border-radius] duration-400",
                     expanded ? "rounded-2xl" : "rounded-full",
                 )}
@@ -74,7 +74,7 @@ export function ProjectNav({ project, scrollY, onClose }: Props) {
                     }
                     transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                     className="flex items-center gap-2 h-10 overflow-hidden
-                     text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]
+                     text-(--color-text-tertiary) hover:text-(--color-text-primary)
                      transition-colors duration-200 cursor-pointer whitespace-nowrap shrink-0"
                 >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -85,7 +85,7 @@ export function ProjectNav({ project, scrollY, onClose }: Props) {
                     <span className="text-xs uppercase tracking-[0.12em]">Menu</span>
                 </motion.button>
 
-                {expanded && <span className="w-px h-4 bg-[var(--color-border)] shrink-0" />}
+                {expanded && <span className="w-px h-4 bg-(--color-border) shrink-0" />}
 
                 {/* Título */}
                 <div className={cn(
@@ -93,14 +93,14 @@ export function ProjectNav({ project, scrollY, onClose }: Props) {
                     expanded ? "px-4 h-10" : "px-5 h-9"
                 )}>
                     <span className={cn(
-                        "font-display font-semibold tracking-[-0.01em] text-[var(--color-text-primary)] whitespace-nowrap transition-[font-size] duration-400",
+                        "font-display font-semibold tracking-[-0.01em] text-(--color-text-primary) whitespace-nowrap transition-[font-size] duration-400",
                         expanded ? "text-sm" : "text-xs"
                     )}>
                         {project.title}
                     </span>
                 </div>
 
-                <span className="w-px h-4 bg-[var(--color-border)] shrink-0" />
+                <span className="w-px h-4 bg-(--color-border) shrink-0" />
 
                 {/* Controls */}
                 <div className={cn(
@@ -111,7 +111,7 @@ export function ProjectNav({ project, scrollY, onClose }: Props) {
                     <button
                         onClick={toggleTheme}
                         aria-label="Toggle theme"
-                        className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
+                        className="text-(--color-text-tertiary) hover:text-(--color-text-primary) transition-colors cursor-pointer"
                     >
                         {theme === "dark" ? <SunIcon /> : <MoonIcon />}
                     </button>
@@ -136,13 +136,13 @@ export function ProjectNav({ project, scrollY, onClose }: Props) {
                         >🇧🇷</button>
                     </div>
 
-                    <span className="w-px h-3.5 bg-[var(--color-border)] shrink-0" />
+                    <span className="w-px h-3.5 bg-(--color-border) shrink-0" />
 
                     {/* Close */}
                     <button
                         onClick={onClose}
                         aria-label={t.project.close}
-                        className="text-xs uppercase tracking-[0.15em] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer select-none whitespace-nowrap"
+                        className="text-xs uppercase tracking-[0.15em] text-(--color-text-tertiary) hover:text-(--color-text-primary) transition-colors cursor-pointer select-none whitespace-nowrap"
                     >
                         {t.project.close}
                     </button>

@@ -71,7 +71,7 @@ function Card({ project, index }: CardProps) {
             onKeyDown={(e) => e.key === "Enter" && handleClick()}
             variants={CARD_REVEAL}
             initial="hidden"
-            animate={clicking ? { scale: 1.06, filter: "blur(0px)", opacity: 1 } : "visible"}
+            animate={clicking ? { scale: 1.60, filter: "blur(0px)", opacity: 1 } : "visible"}
             exit="exit"
             transition={clicking
                 ? { duration: 0.18, ease: [0.34, 1.56, 0.64, 1] }
@@ -85,11 +85,11 @@ function Card({ project, index }: CardProps) {
                 // Elevação via z-index pra ficar acima do background
                 zIndex: 25,
             }}
-            className="w-72 md:w-80 rounded-lg overflow-hidden cursor-pointer
+            className="w-72 md:w-2xl rounded-lg overflow-hidden cursor-pointer
                  border border-white/10 shadow-2xl"
         >
             {/* Imagem — aspect 16:10 */}
-            <div className="aspect-[16/10] w-full overflow-hidden bg-[var(--color-bg-tertiary)]">
+            <div className="aspect-16/10 w-full overflow-hidden bg-(--color-bg-tertiary)">
                 {project.heroImage ? (
                     <img
                         src={project.heroImage}
@@ -98,8 +98,8 @@ function Card({ project, index }: CardProps) {
                         draggable={false}
                     />
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-[var(--color-bg-secondary)]">
-                        <span className="font-display text-sm text-[var(--color-text-tertiary)]">
+                    <div className="w-full h-full flex items-center justify-center bg-(--color-bg-secondary)">
+                        <span className="font-display text-sm text-(--color-text-tertiary)">
                             {project.title}
                         </span>
                     </div>

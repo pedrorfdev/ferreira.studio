@@ -19,18 +19,18 @@ export function SectionResult({ project }: Props) {
 
     return (
         <section className="py-28 px-8 md:px-16 max-w-6xl mx-auto w-full
-                        border-t border-[var(--color-border-subtle)]">
+                        border-t border-(--color-border-subtle)">
 
             <SectionReveal className="flex items-center gap-2 mb-4">
-                <TrendingUp size={13} className="text-[var(--color-accent)]" />
-                <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-accent)]">
+                <TrendingUp size={13} className="text-(--color-accent)" />
+                <span className="text-xs uppercase tracking-[0.18em] text-(--color-accent)">
                     {t.project.sections.result}
                 </span>
             </SectionReveal>
 
             <SectionReveal delay={0.04}>
                 <h2 className="font-display text-4xl md:text-5xl font-semibold tracking-[-0.02em]
-                       leading-tight text-[var(--color-text-primary)] mb-12 max-w-2xl">
+                       leading-tight text-(--color-text-primary) mb-12 max-w-2xl">
                     {data.headline}
                 </h2>
             </SectionReveal>
@@ -43,18 +43,18 @@ export function SectionResult({ project }: Props) {
                             <div className={cn(
                                 "p-6 rounded-xl border h-full",
                                 i === 0
-                                    ? "bg-[var(--color-accent)] border-[var(--color-accent)]"
-                                    : "bg-[var(--color-bg-secondary)] border-[var(--color-border)]"
+                                    ? "bg-(--color-accent) border-(--color-accent)"
+                                    : "bg-(--color-bg-secondary) border-(--color-border)"
                             )}>
                                 <div className={cn(
                                     "font-display text-4xl font-bold tracking-[-0.02em] mb-2",
-                                    i === 0 ? "text-white" : "text-[var(--color-text-primary)]"
+                                    i === 0 ? "text-white" : "text-(--color-text-primary)"
                                 )}>
                                     {metric.value}
                                 </div>
                                 <div className={cn(
                                     "text-xs uppercase tracking-[0.12em]",
-                                    i === 0 ? "text-white/70" : "text-[var(--color-text-tertiary)]"
+                                    i === 0 ? "text-white/70" : "text-(--color-text-tertiary)"
                                 )}>
                                     {metric.label}
                                 </div>
@@ -66,7 +66,7 @@ export function SectionResult({ project }: Props) {
 
             <div className="grid md:grid-cols-2 gap-12 items-start">
                 <SectionReveal delay={0.1}>
-                    <p className="text-base text-[var(--color-text-secondary)] leading-relaxed">
+                    <p className="text-base text-(--color-text-secondary) leading-relaxed">
                         {data.body}
                     </p>
                 </SectionReveal>
@@ -76,14 +76,14 @@ export function SectionResult({ project }: Props) {
                     <div className="flex flex-col gap-3">
                         {project.links?.demo && (
                             <a href={project.links.demo} target="_blank" rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 rounded-xl border border-[var(--color-border)]
-                           hover:border-[var(--color-accent)] group transition-all duration-200">
-                                <ExternalLink size={15} className="text-[var(--color-accent)] shrink-0" />
+                                className="flex items-center gap-3 p-4 rounded-xl border border-(--color-border)
+                           hover:border-(--color-accent) group transition-all duration-200">
+                                <ExternalLink size={15} className="text-(--color-accent) shrink-0" />
                                 <div>
-                                    <div className="text-sm font-medium text-[var(--color-text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                                    <div className="text-sm font-medium text-(--color-text-primary) group-hover:text-(--color-accent) transition-colors">
                                         View live demo
                                     </div>
-                                    <div className="text-xs text-[var(--color-text-tertiary)] truncate">
+                                    <div className="text-xs text-(--color-text-tertiary) truncate">
                                         {project.links.demo}
                                     </div>
                                 </div>
@@ -91,14 +91,14 @@ export function SectionResult({ project }: Props) {
                         )}
                         {project.links?.github && (
                             <a href={project.links.github} target="_blank" rel="noopener noreferrer"
-                                className="flex items-center gap-3 p-4 rounded-xl border border-[var(--color-border)]
-                           hover:border-[var(--color-border-strong)] group transition-all duration-200">
-                                <GitBranch size={15} className="text-[var(--color-text-tertiary)] shrink-0" />
+                                className="flex items-center gap-3 p-4 rounded-xl border border-(--color-border)
+                           hover:border-(--color-border-strong) group transition-all duration-200">
+                                <GitBranch size={15} className="text-(--color-text-tertiary) shrink-0" />
                                 <div>
-                                    <div className="text-sm font-medium text-[var(--color-text-primary)] transition-colors">
+                                    <div className="text-sm font-medium text-(--color-text-primary) transition-colors">
                                         View source
                                     </div>
-                                    <div className="text-xs text-[var(--color-text-tertiary)] truncate">
+                                    <div className="text-xs text-(--color-text-tertiary) truncate">
                                         {project.links.github}
                                     </div>
                                 </div>

@@ -87,15 +87,15 @@ function MessageBubble({ role, content }: { role: "user" | "assistant"; content:
             className={cn("flex", role === "user" ? "justify-end" : "justify-start")}
         >
             {role === "assistant" && (
-                <div className="w-5 h-5 rounded-full bg-[var(--color-accent-muted)] flex items-center justify-center shrink-0 mt-1 mr-2">
-                    <Sparkles size={10} className="text-[var(--color-accent)]" />
+                <div className="w-5 h-5 rounded-full bg-(--color-accent-muted) flex items-center justify-center shrink-0 mt-1 mr-2">
+                    <Sparkles size={10} className="text-(--color-accent)" />
                 </div>
             )}
             <div className={cn(
                 "max-w-[82%] px-3.5 py-2.5 rounded-xl text-sm leading-relaxed",
                 role === "user"
-                    ? "bg-[var(--color-accent)] text-white rounded-br-sm"
-                    : "bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] rounded-bl-sm"
+                    ? "bg-(--color-accent) text-white rounded-br-sm"
+                    : "bg-(--color-bg-tertiary) text-(--color-text-secondary) rounded-bl-sm"
             )}>
                 {content}
             </div>
@@ -162,11 +162,11 @@ export function AssistantLayer({ project }: Props) {
                 onClick={toggle}
                 aria-label={t.project.askAbout}
                 className={cn(
-                    "fixed bottom-6 right-6 md:right-10 z-[70]",
+                    "fixed bottom-6 right-6 md:right-10 z-70",
                     "flex items-center gap-2.5 px-4 py-2.5 rounded-full",
-                    "bg-[var(--color-bg-secondary)] border border-[var(--color-border)]",
-                    "text-xs text-[var(--color-text-secondary)]",
-                    "hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]",
+                    "bg-(--color-bg-secondary) border border-(--color-border)",
+                    "text-xs text-(--color-text-secondary)",
+                    "hover:border-(--color-accent) hover:text-(--color-text-primary)",
                     "transition-all duration-200 cursor-pointer shadow-lg",
                     isOpen && "opacity-0 pointer-events-none"
                 )}
@@ -174,7 +174,7 @@ export function AssistantLayer({ project }: Props) {
                 animate={{ opacity: isOpen ? 0 : 1, y: 0 }}
                 transition={{ delay: 0.8 }}
             >
-                <Sparkles size={12} className="text-[var(--color-accent)]" />
+                <Sparkles size={12} className="text-(--color-accent)" />
                 {t.project.askAbout}
             </motion.button>
 
@@ -183,11 +183,11 @@ export function AssistantLayer({ project }: Props) {
                 {isOpen && (
                     <motion.div
                         className={cn(
-                            "fixed bottom-6 right-6 md:right-10 z-[70]",
+                            "fixed bottom-6 right-6 md:right-10 z-70",
                             "w-[340px] md:w-[380px] flex flex-col",
                             "rounded-2xl overflow-hidden",
-                            "border border-[var(--color-border)]",
-                            "bg-[var(--color-bg-secondary)] shadow-2xl",
+                            "border border-(--color-border)",
+                            "bg-(--color-bg-secondary) shadow-2xl",
                         )}
                         style={{ maxHeight: "min(540px, calc(100dvh - 120px))" }}
                         variants={assistantPanel}
@@ -197,16 +197,16 @@ export function AssistantLayer({ project }: Props) {
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between px-4 py-3
-                            border-b border-[var(--color-border-subtle)] shrink-0">
+                            border-b border-(--color-border-subtle) shrink-0">
                             <div className="flex items-center gap-2">
-                                <div className="w-5 h-5 rounded-full bg-[var(--color-accent-muted)]
+                                <div className="w-5 h-5 rounded-full bg-(--color-accent-muted)
                                 flex items-center justify-center">
-                                    <Sparkles size={10} className="text-[var(--color-accent)]" />
+                                    <Sparkles size={10} className="text-(--color-accent)" />
                                 </div>
-                                <span className="text-xs font-medium text-[var(--color-text-primary)]">
+                                <span className="text-xs font-medium text-(--color-text-primary)">
                                     {project.title}
                                 </span>
-                                <span className="text-[10px] text-[var(--color-text-tertiary)]">
+                                <span className="text-[10px] text-(--color-text-tertiary)">
                                     · AI
                                 </span>
                             </div>
@@ -215,7 +215,7 @@ export function AssistantLayer({ project }: Props) {
                                     <button
                                         onClick={clearMessages}
                                         title={t.assistant.clearChat}
-                                        className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]
+                                        className="text-(--color-text-tertiary) hover:text-(--color-text-primary)
                                transition-colors cursor-pointer"
                                     >
                                         <RotateCcw size={12} />
@@ -224,7 +224,7 @@ export function AssistantLayer({ project }: Props) {
                                 <button
                                     onClick={toggle}
                                     aria-label={t.nav.close}
-                                    className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]
+                                    className="text-(--color-text-tertiary) hover:text-(--color-text-primary)
                              transition-colors cursor-pointer"
                                 >
                                     <X size={14} />
@@ -241,7 +241,7 @@ export function AssistantLayer({ project }: Props) {
                                     animate="visible"
                                     className="flex flex-col gap-2"
                                 >
-                                    <p className="text-xs text-[var(--color-text-tertiary)] mb-1">
+                                    <p className="text-xs text-(--color-text-tertiary) mb-1">
                                         {t.project.askAbout}
                                     </p>
                                     {project.assistant.quickPrompts.map((prompt, i) => (
@@ -252,11 +252,11 @@ export function AssistantLayer({ project }: Props) {
                                             disabled={loading}
                                             className={cn(
                                                 "text-left text-xs px-3 py-2.5 rounded-lg cursor-pointer",
-                                                "border border-[var(--color-border)]",
-                                                "text-[var(--color-text-secondary)]",
-                                                "hover:border-[var(--color-accent)]/50",
-                                                "hover:text-[var(--color-text-primary)]",
-                                                "hover:bg-[var(--color-accent-muted)]",
+                                                "border border-(--color-border)",
+                                                "text-(--color-text-secondary)",
+                                                "hover:border-(--color-accent)/50",
+                                                "hover:text-(--color-text-primary)",
+                                                "hover:bg-(--color-accent-muted)",
                                                 "transition-all duration-150",
                                                 "disabled:opacity-50 disabled:cursor-not-allowed"
                                             )}
@@ -273,16 +273,16 @@ export function AssistantLayer({ project }: Props) {
 
                             {loading && (
                                 <div className="flex items-start gap-2">
-                                    <div className="w-5 h-5 rounded-full bg-[var(--color-accent-muted)]
+                                    <div className="w-5 h-5 rounded-full bg-(--color-accent-muted)
                                   flex items-center justify-center shrink-0 mt-1">
-                                        <Sparkles size={10} className="text-[var(--color-accent)]" />
+                                        <Sparkles size={10} className="text-(--color-accent)" />
                                     </div>
-                                    <div className="bg-[var(--color-bg-tertiary)] rounded-xl rounded-bl-sm px-3.5 py-3">
+                                    <div className="bg-(--color-bg-tertiary) rounded-xl rounded-bl-sm px-3.5 py-3">
                                         <div className="flex gap-1 items-center">
                                             {[0, 1, 2].map((i) => (
                                                 <span
                                                     key={i}
-                                                    className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]/60 animate-bounce"
+                                                    className="w-1.5 h-1.5 rounded-full bg-(--color-accent)/60 animate-bounce"
                                                     style={{ animationDelay: `${i * 0.15}s` }}
                                                 />
                                             ))}
@@ -292,7 +292,7 @@ export function AssistantLayer({ project }: Props) {
                             )}
 
                             {error && (
-                                <p className="text-[10px] text-[var(--color-text-tertiary)] text-center">
+                                <p className="text-[10px] text-(--color-text-tertiary) text-center">
                                     {error}
                                 </p>
                             )}
@@ -301,7 +301,7 @@ export function AssistantLayer({ project }: Props) {
                         </div>
 
                         {/* Input */}
-                        <div className="px-4 pb-4 pt-3 border-t border-[var(--color-border-subtle)] shrink-0">
+                        <div className="px-4 pb-4 pt-3 border-t border-(--color-border-subtle) shrink-0">
                             <div className="flex items-end gap-2">
                                 <textarea
                                     ref={textareaRef}
@@ -318,8 +318,8 @@ export function AssistantLayer({ project }: Props) {
                                     disabled={loading}
                                     className={cn(
                                         "flex-1 resize-none bg-transparent outline-none",
-                                        "text-sm text-[var(--color-text-primary)]",
-                                        "placeholder:text-[var(--color-text-tertiary)]",
+                                        "text-sm text-(--color-text-primary)",
+                                        "placeholder:text-(--color-text-tertiary)",
                                         "max-h-28 leading-relaxed py-1",
                                         "disabled:opacity-50"
                                     )}
@@ -331,7 +331,7 @@ export function AssistantLayer({ project }: Props) {
                                     aria-label={t.assistant.send}
                                     className={cn(
                                         "shrink-0 w-7 h-7 rounded-full flex items-center justify-center",
-                                        "bg-[var(--color-accent)] text-white cursor-pointer",
+                                        "bg-(--color-accent) text-white cursor-pointer",
                                         "transition-opacity duration-150",
                                         (!input.trim() || loading) && "opacity-30 cursor-not-allowed"
                                     )}
