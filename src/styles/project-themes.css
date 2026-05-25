@@ -1,25 +1,13 @@
-/* styles/project-themes.css
-   ============================================================
-   Tokens por projeto — aplicados via data-project="[id]".
-   
-   O seletor combina a classe de tema no <html> com o
-   data-project dentro da árvore. Isso garante que light/dark
-   funcionem corretamente dentro do ProjectView.
-   
-   html.dark  [data-project="x"] → dark theme do projeto
-   html.light [data-project="x"] → light theme do projeto
-   html:not(.light) → dark por padrão (sem classe = dark)
-   ============================================================ */
+/* styles/project-themes.css */
 
 /* ── PRAXIS — petróleo + cyan ──────────────────────────────── */
 html:not(.light) [data-project="praxis"],
 html.dark [data-project="praxis"] {
    --color-accent: oklch(0.42 0.10 210);
    --color-accent-hover: oklch(0.36 0.09 210);
-   --color-accent-muted: oklch(0.42 0.10 210 / 0.12);
+   --color-accent-muted: oklch(0.42 0.10 210 / 0.15);
    --color-gold: oklch(0.65 0.12 195);
-   --color-gold-muted: oklch(0.65 0.12 195 / 0.10);
-   --color-glow: oklch(0.65 0.12 195 / 0.12);
+   --color-gold-muted: oklch(0.65 0.12 195 / 0.12);
    --color-bg-secondary: oklch(0.14 0.012 215);
    --color-bg-tertiary: oklch(0.17 0.012 215);
    --color-border: oklch(0.23 0.012 215);
@@ -27,12 +15,11 @@ html.dark [data-project="praxis"] {
 }
 
 html.light [data-project="praxis"] {
-   --color-accent: oklch(0.42 0.10 210);
-   --color-accent-hover: oklch(0.36 0.09 210);
-   --color-accent-muted: oklch(0.42 0.10 210 / 0.10);
-   --color-gold: oklch(0.56 0.12 195);
-   --color-gold-muted: oklch(0.56 0.12 195 / 0.10);
-   --color-glow: oklch(0.56 0.12 195 / 0.08);
+   --color-accent: oklch(0.38 0.10 210);
+   --color-accent-hover: oklch(0.32 0.09 210);
+   --color-accent-muted: oklch(0.38 0.10 210 / 0.12);
+   --color-gold: oklch(0.50 0.12 195);
+   --color-gold-muted: oklch(0.50 0.12 195 / 0.10);
 }
 
 /* ── VAMBORA — indigo + emerald ────────────────────────────── */
@@ -40,10 +27,9 @@ html:not(.light) [data-project="vambora"],
 html.dark [data-project="vambora"] {
    --color-accent: oklch(0.65 0.18 265);
    --color-accent-hover: oklch(0.58 0.16 265);
-   --color-accent-muted: oklch(0.65 0.18 265 / 0.12);
+   --color-accent-muted: oklch(0.65 0.18 265 / 0.15);
    --color-gold: oklch(0.72 0.16 75);
-   --color-gold-muted: oklch(0.72 0.16 75 / 0.10);
-   --color-glow: oklch(0.65 0.18 265 / 0.12);
+   --color-gold-muted: oklch(0.72 0.16 75 / 0.12);
    --color-bg-secondary: oklch(0.13 0.008 160);
    --color-bg-tertiary: oklch(0.16 0.008 160);
    --color-border: oklch(0.22 0.010 190);
@@ -51,37 +37,38 @@ html.dark [data-project="vambora"] {
 }
 
 html.light [data-project="vambora"] {
-   --color-accent: oklch(0.55 0.18 265);
-   --color-accent-hover: oklch(0.48 0.16 265);
-   --color-accent-muted: oklch(0.55 0.18 265 / 0.10);
-   --color-gold: oklch(0.65 0.16 75);
-   --color-gold-muted: oklch(0.65 0.16 75 / 0.10);
-   --color-glow: oklch(0.55 0.18 265 / 0.08);
+   --color-accent: oklch(0.50 0.18 265);
+   --color-accent-hover: oklch(0.44 0.16 265);
+   --color-accent-muted: oklch(0.50 0.18 265 / 0.12);
+   --color-gold: oklch(0.60 0.16 75);
+   --color-gold-muted: oklch(0.60 0.16 75 / 0.10);
 }
 
-/* ── CARGA — laranja operacional ───────────────────────────── */
+/* ── CARGA — verde campo + amarelo sol (não laranja) ────────
+   Verde campo: oklch(0.52 0.14 145) — verde oliva maduro
+   Amarelo sol: oklch(0.82 0.18 90)  — âmbar quente
+   Base carbon: oklch(0.11 0.005 145)
+---------------------------------------------------------- */
 html:not(.light) [data-project="carga"],
 html.dark [data-project="carga"] {
-   --color-accent: oklch(0.65 0.18 60);
-   --color-accent-hover: oklch(0.58 0.16 60);
-   --color-accent-muted: oklch(0.65 0.18 60 / 0.14);
-   --color-gold: oklch(0.72 0.12 85);
-   --color-gold-muted: oklch(0.72 0.12 85 / 0.10);
-   --color-glow: oklch(0.65 0.18 60 / 0.14);
-   --color-bg-primary: oklch(0.11 0.005 240);
-   --color-bg-secondary: oklch(0.14 0.006 230);
-   --color-bg-tertiary: oklch(0.17 0.007 225);
-   --color-border: oklch(0.24 0.008 225);
-   --color-border-subtle: oklch(0.19 0.006 225);
+   --color-accent: oklch(0.52 0.14 145);
+   --color-accent-hover: oklch(0.46 0.12 145);
+   --color-accent-muted: oklch(0.52 0.14 145 / 0.15);
+   --color-gold: oklch(0.82 0.18 90);
+   --color-gold-muted: oklch(0.82 0.18 90 / 0.14);
+   --color-bg-primary: oklch(0.11 0.008 145);
+   --color-bg-secondary: oklch(0.14 0.010 145);
+   --color-bg-tertiary: oklch(0.17 0.010 140);
+   --color-border: oklch(0.24 0.012 145);
+   --color-border-subtle: oklch(0.19 0.010 145);
 }
 
 html.light [data-project="carga"] {
-   --color-accent: oklch(0.58 0.18 60);
-   --color-accent-hover: oklch(0.52 0.16 60);
-   --color-accent-muted: oklch(0.58 0.18 60 / 0.12);
-   --color-gold: oklch(0.65 0.12 85);
-   --color-gold-muted: oklch(0.65 0.12 85 / 0.10);
-   --color-glow: oklch(0.58 0.18 60 / 0.10);
+   --color-accent: oklch(0.42 0.14 145);
+   --color-accent-hover: oklch(0.36 0.12 145);
+   --color-accent-muted: oklch(0.42 0.14 145 / 0.12);
+   --color-gold: oklch(0.70 0.18 90);
+   --color-gold-muted: oklch(0.70 0.18 90 / 0.12);
 }
 
 /* ── CERÉE — champagne gold + bordeaux ─────────────────────── */
@@ -89,10 +76,9 @@ html:not(.light) [data-project="ceree"],
 html.dark [data-project="ceree"] {
    --color-accent: oklch(0.30 0.10 15);
    --color-accent-hover: oklch(0.26 0.09 15);
-   --color-accent-muted: oklch(0.30 0.10 15 / 0.15);
+   --color-accent-muted: oklch(0.30 0.10 15 / 0.18);
    --color-gold: oklch(0.78 0.09 75);
-   --color-gold-muted: oklch(0.78 0.09 75 / 0.14);
-   --color-glow: oklch(0.78 0.09 75 / 0.14);
+   --color-gold-muted: oklch(0.78 0.09 75 / 0.16);
    --color-bg-primary: oklch(0.10 0.003 330);
    --color-bg-secondary: oklch(0.13 0.004 330);
    --color-bg-tertiary: oklch(0.16 0.005 330);
@@ -103,12 +89,11 @@ html.dark [data-project="ceree"] {
 }
 
 html.light [data-project="ceree"] {
-   --color-accent: oklch(0.42 0.12 15);
-   --color-accent-hover: oklch(0.36 0.10 15);
-   --color-accent-muted: oklch(0.42 0.12 15 / 0.10);
-   --color-gold: oklch(0.72 0.09 75);
-   --color-gold-muted: oklch(0.72 0.09 75 / 0.12);
-   --color-glow: oklch(0.72 0.09 75 / 0.10);
+   --color-accent: oklch(0.38 0.12 15);
+   --color-accent-hover: oklch(0.32 0.10 15);
+   --color-accent-muted: oklch(0.38 0.12 15 / 0.12);
+   --color-gold: oklch(0.68 0.09 75);
+   --color-gold-muted: oklch(0.68 0.09 75 / 0.12);
 }
 
 /* ── PULSO — vermelho + magenta ────────────────────────────── */
@@ -116,10 +101,9 @@ html:not(.light) [data-project="pulso"],
 html.dark [data-project="pulso"] {
    --color-accent: oklch(0.56 0.19 15);
    --color-accent-hover: oklch(0.50 0.17 15);
-   --color-accent-muted: oklch(0.56 0.19 15 / 0.14);
+   --color-accent-muted: oklch(0.56 0.19 15 / 0.15);
    --color-gold: oklch(0.90 0.03 15);
-   --color-gold-muted: oklch(0.90 0.03 15 / 0.10);
-   --color-glow: oklch(0.56 0.19 15 / 0.14);
+   --color-gold-muted: oklch(0.90 0.03 15 / 0.12);
    --color-bg-secondary: oklch(0.14 0.006 260);
    --color-bg-tertiary: oklch(0.17 0.007 260);
    --color-border: oklch(0.23 0.009 260);
@@ -127,10 +111,9 @@ html.dark [data-project="pulso"] {
 }
 
 html.light [data-project="pulso"] {
-   --color-accent: oklch(0.50 0.19 15);
-   --color-accent-hover: oklch(0.44 0.17 15);
-   --color-accent-muted: oklch(0.50 0.19 15 / 0.10);
-   --color-gold: oklch(0.75 0.05 15);
-   --color-gold-muted: oklch(0.75 0.05 15 / 0.10);
-   --color-glow: oklch(0.50 0.19 15 / 0.10);
+   --color-accent: oklch(0.48 0.19 15);
+   --color-accent-hover: oklch(0.42 0.17 15);
+   --color-accent-muted: oklch(0.48 0.19 15 / 0.12);
+   --color-gold: oklch(0.72 0.05 15);
+   --color-gold-muted: oklch(0.72 0.05 15 / 0.10);
 }
