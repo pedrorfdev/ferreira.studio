@@ -1,14 +1,9 @@
-// data/i18n/pt.ts
-// ============================================================
-// Portuguese translations.
-// Tipado como DeepPartial do EN — só sobrescreve o necessário.
-// ============================================================
-
 import type { en } from "./en"
 
-// Utility — torna todos os valores string opcionais e mutáveis
 type DeepWritablePartial<T> = {
-    [P in keyof T]?: T[P] extends object ? DeepWritablePartial<T[P]> : string
+    [P in keyof T]?: T[P] extends object
+    ? DeepWritablePartial<T[P]>
+    : string
 }
 
 export const pt: DeepWritablePartial<typeof en> = {
@@ -26,19 +21,22 @@ export const pt: DeepWritablePartial<typeof en> = {
         scrollHint: "Role para explorar",
         close: "Fechar",
         askAbout: "Perguntar sobre este projeto",
+
         sections: {
-            problem: "O Problema",
-            idea: "A Ideia",
-            solution: "A Solução",
-            analysis: "Análise",
-            technical: "Decisões Técnicas",
-            result: "Resultado",
+            problem: "Qual era o problema?",
+            idea: "Por que esse projeto nasceu?",
+            solution: "Como pensei a solução?",
+            analysis: "O que realmente importava?",
+            technical: "Decisões técnicas",
+            result: "O que mudou?",
         },
+
         status: {
-            shipped: "Publicado",
+            shipped: "Em produção",
             inProgress: "Em desenvolvimento",
             concept: "Conceito",
         },
+
         decision: "Decisão",
         tradeoff: "Tradeoff",
     },
@@ -48,21 +46,26 @@ export const pt: DeepWritablePartial<typeof en> = {
         work: "Projetos",
         contact: "Contato",
         stack: "Stack",
+
         sections: {
-            projects: "Cases",
+            projects: "Case Studies",
             pages: "Páginas",
             social: "Social",
         },
     },
 
     about: {
-        headline: "Construindo produtos com profundidade técnica e maturidade de produto.",
-        body: "Sou um Product Engineer Full Stack baseado no Brasil. Trabalho em toda a stack — do schema do banco à motion da UI — com foco em entregar coisas que funcionam de verdade e são bem pensadas.",
+        headline:
+            "Construindo produtos digitais com profundidade técnica e visão de produto.",
+
+        body:
+            "Sou um Full Stack / Product Engineer baseado no Brasil. Gosto de construir produtos claros, intencionais e úteis — unindo engenharia, experiência e decisões de produto que fazem sentido para pessoas reais.",
+
         currentlyBuilding: "Construindo atualmente",
     },
 
     contact: {
-        headline: "Vamos trabalhar juntos.",
+        headline: "Vamos construir algo relevante.",
         email: "hello@ferreira.studio",
         cta: "Enviar um e-mail",
     },

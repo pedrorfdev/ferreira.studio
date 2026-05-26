@@ -1,9 +1,3 @@
-// data/i18n/en.ts
-// ============================================================
-// English copy — source of truth.
-// All keys must exist here. PT only needs to override.
-// ============================================================
-
 export const en = {
     nav: {
         menu: "Menu",
@@ -19,19 +13,22 @@ export const en = {
         scrollHint: "Scroll to explore",
         close: "Close",
         askAbout: "Ask about this project",
+
         sections: {
-            problem: "The Problem",
-            idea: "The Idea",
-            solution: "The Solution",
-            analysis: "Analysis",
-            technical: "Technical Decisions",
-            result: "Result",
+            problem: "What was happening?",
+            idea: "Why build this?",
+            solution: "How did I approach it?",
+            analysis: "What mattered most?",
+            technical: "Technical decisions",
+            result: "What changed?",
         },
+
         status: {
             shipped: "Shipped",
             inProgress: "In Progress",
             concept: "Concept",
         },
+
         decision: "Decision",
         tradeoff: "Tradeoff",
     },
@@ -41,6 +38,7 @@ export const en = {
         work: "Work",
         contact: "Contact",
         stack: "Stack",
+
         sections: {
             projects: "Case Studies",
             pages: "Pages",
@@ -49,14 +47,17 @@ export const en = {
     },
 
     about: {
-        headline: "Building products with technical depth and product maturity.",
+        headline:
+            "Building thoughtful digital products with engineering and product thinking.",
+
         body:
-            "I'm a Full Stack / Product Engineer based in Brazil. I work across the entire stack — from database schema to UI motion — with a focus on shipping things that actually work and feel considered.",
+            "I'm a Full Stack / Product Engineer based in Brazil. I care about building products that feel clear, intentional, and useful — combining technical depth with product decisions that make sense for real users.",
+
         currentlyBuilding: "Currently building",
     },
 
     contact: {
-        headline: "Let's work together.",
+        headline: "Let's build something meaningful.",
         email: "hello@ferreira.studio",
         cta: "Send an email",
     },
