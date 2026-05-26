@@ -11,22 +11,7 @@ import { useThemeStore } from "@/store/use-theme-store"
 import { useI18n } from "@/lib/i18n-context"
 import { AppState } from "@/types/project"
 import { cn } from "@/lib/cn"
-
-function SunIcon() {
-    return (
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-        </svg>
-    )
-}
-function MoonIcon() {
-    return (
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-    )
-}
+import { Sun, Moon } from 'lucide-react'
 
 export function Nav() {
     const appState = useAppStore((s) => s.appState)
@@ -45,7 +30,7 @@ export function Nav() {
             {!isProjectOpen && (
                 <motion.nav
                     key="global-nav"
-                    className="fixed top-0 left-0 right-0 z-[90] flex items-center justify-between px-6 md:px-10 h-16"
+                    className="fixed top-0 left-0 right-0 z-90 flex items-center justify-between px-6 md:px-10 h-16"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -58,7 +43,7 @@ export function Nav() {
                             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                             aria-expanded={isMenuOpen}
                             className="flex flex-col justify-center gap-[5px] w-5 h-5 cursor-pointer
-                         select-none text-[var(--color-text-primary)] shrink-0"
+                         select-none text-(--color-text-primary) shrink-0"
                             whileTap={{ scale: 0.9 }}
                         >
                             <motion.span className="block h-px bg-current origin-center"
@@ -78,7 +63,7 @@ export function Nav() {
                         <motion.button
                             onClick={() => isMenuOpen && closeMenu()}
                             className="font-display text-sm font-medium tracking-[-0.01em]
-                         text-[var(--color-text-primary)] hover:opacity-60
+                         text-(--color-text-primary) hover:opacity-60
                          transition-opacity duration-200 cursor-pointer select-none"
                             whileTap={{ scale: 0.97 }}
                         >
@@ -91,11 +76,10 @@ export function Nav() {
                         <motion.button
                             onClick={toggleTheme}
                             aria-label="Toggle theme"
-                            className="text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]
-                         transition-colors duration-200 cursor-pointer"
+                            className="hover:opacity-100 transition-opacity duration-200 cursor-pointer"
                             whileTap={{ scale: 0.9 }}
                         >
-                            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+                            {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
                         </motion.button>
 
                         <div className="flex items-center gap-1.5">

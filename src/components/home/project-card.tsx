@@ -63,7 +63,7 @@ function Card({ project, index }: CardProps) {
                 transform: "translate(-50%, -50%)",
                 zIndex: 25,
             }}
-            className="w-80 md:w-96 rounded-lg overflow-hidden cursor-pointer
+            className="w-80 md:w-xl rounded-lg overflow-hidden cursor-pointer
                  border border-white/10 shadow-2xl
                  hover:border-white/20 transition-[border-color] duration-300"
         >

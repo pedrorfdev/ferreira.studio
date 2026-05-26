@@ -45,7 +45,7 @@ export function BackgroundLayer() {
                         <video
                             src={GLOBAL_BG_VIDEO}
                             autoPlay muted loop playsInline
-                            className="w-full h-full object-cover opacity-40"
+                            className="w-full h-full object-cover"
                             onError={(e) => {
                                 // Esconde o vídeo se não existir ainda
                                 ; (e.target as HTMLVideoElement).style.display = "none"
