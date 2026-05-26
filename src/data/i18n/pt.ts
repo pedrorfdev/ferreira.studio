@@ -32,8 +32,8 @@ export const pt: DeepWritablePartial<typeof en> = {
         },
 
         status: {
-            shipped: "Em produção",
-            inProgress: "Em desenvolvimento",
+            live: "Em produção",
+            inDevelopment: "Em desenvolvimento",
             concept: "Conceito",
         },
 

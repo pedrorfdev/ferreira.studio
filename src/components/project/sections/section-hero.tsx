@@ -30,7 +30,7 @@ import type { ProjectData } from "@/types/project"
 interface Props { project: ProjectData }
 
 const STATUS_CONFIG = {
-    "shipped": { label: "Shipped", Icon: CheckCircle2, accent: true },
+    "live": { label: "Live", Icon: CheckCircle2, accent: true },
     "in progress": { label: "In Progress", Icon: Zap, accent: false },
     "concept": { label: "Concept", Icon: Circle, accent: false },
 }

@@ -24,8 +24,8 @@ export const en = {
         },
 
         status: {
-            shipped: "Shipped",
-            inProgress: "In Progress",
+            live: "Live",
+            inDevelopment: "In Development",
             concept: "Concept",
         },
 

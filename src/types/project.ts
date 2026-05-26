@@ -88,7 +88,7 @@ export interface ProjectData {
     tagline: string
     tags: ProjectTag[]
     year: number
-    status: "shipped" | "in progress" | "concept"
+    status: "live" | "in progress" | "concept"
     cardPosition: CardPosition
     media: ProjectMedia
     heroImage?: string
