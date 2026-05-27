@@ -1,12 +1,9 @@
 // components/home/home-view.tsx
-// ============================================================
-// Home com fundo de vídeo/imagem placeholder quando não há mídia
-// ============================================================
-
+// Mobile: sem card flutuante, lista ocupa tela inteira
+// Desktop: layout original com cards flutuantes
 import { motion } from "framer-motion"
 import { ProjectList } from "@/components/home/project-list"
 import { ProjectCard } from "@/components/home/project-card"
-import { MediaPlaceholder } from "@/components/ui/media-placeholder"
 import { useI18n } from "@/lib/i18n-context"
 import { fadeIn } from "@/lib/motion"
 
@@ -15,24 +12,17 @@ export function HomeView() {
 
     return (
         <motion.div
-            className="fixed inset-0 z-10 flex flex-col justify-end pb-10 px-6 md:px-10 pt-20"
-            variants={fadeIn}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            className="fixed inset-0 z-10 flex flex-col justify-end"
+            variants={fadeIn} initial="hidden" animate="visible" exit="exit"
         >
-            {/* Placeholder de fundo quando não há mídia de projeto ativa */}
-            {/* O BackgroundLayer já cuida do crossfade — esse é só o estado base */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                <MediaPlaceholder variant="bg" aspect="" className="w-full h-full" />
-            </div>
-
-            {/* Project list */}
-            <div className="relative z-10 w-full max-w-sm">
+            {/* Lista de projetos
+          Mobile: padding lateral menor, ocupa mais espaço
+          Desktop: max-w-sm, canto inferior esquerdo */}
+            <div className="relative z-10 px-6 md:px-10 pb-8 md:pb-10 w-full md:max-w-sm">
                 <ProjectList />
             </div>
 
-            {/* Identity */}
+            {/* Identity — só desktop */}
             <motion.div
                 className="absolute bottom-10 right-10 text-right hidden md:block"
                 initial={{ opacity: 0 }}
@@ -47,8 +37,10 @@ export function HomeView() {
                 </p>
             </motion.div>
 
-            {/* Floating card */}
-            <ProjectCard />
+            {/* Card flutuante — só desktop (md+) */}
+            <div className="hidden md:block">
+                <ProjectCard />
+            </div>
         </motion.div>
     )
 }
