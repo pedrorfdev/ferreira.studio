@@ -1,61 +1,44 @@
-// components/shell/background-layer.tsx
-// ============================================================
-// Fundo persistente com suporte a vídeo.
-// - Na home sem hover: vídeo global de fundo (heroVideo do projeto
-//   OU um vídeo global configurável)
-// - No hover de projeto: media do projeto (video ou imagem)
-// - Imagens carregadas com loading="lazy" e decoding="async"
-// - Crossfade suave entre estados
-// ============================================================
-
+// Light: overlay branco a 55% em vez de 85%
+// Dark: scrim preto a 55% em vez de 70%
 import { AnimatePresence, motion } from "framer-motion"
 import { backgroundCrossfade } from "@/lib/motion"
 import { useAppStore } from "@/store/use-app-store"
 import { MediaPlaceholder } from "@/components/ui/media-placeholder"
 import { AppState } from "@/types/project"
+import { useThemeStore } from "@/store/use-theme-store"
 
-// Vídeo global de fundo na home — coloca em public/media/hero-bg.mp4
-// Se não existir ainda, fica com o placeholder animado
 const GLOBAL_BG_VIDEO = "/media/hero-bg.mp4"
 
 export function BackgroundLayer() {
     const appState = useAppStore((s) => s.appState)
     const hoveredProject = useAppStore((s) => s.hoveredProject)
     const activeProject = useAppStore((s) => s.activeProject)
+    const { theme } = useThemeStore()
 
     const isProject = appState === AppState.PROJECT || appState === AppState.EXPANDING
     const project = isProject ? activeProject : hoveredProject
 
+    // Scrim adaptado ao tema — light precisa de menos opacidade
+    const scrimClass = theme === "light"
+        ? "bg-white/55"
+        : "bg-black/52"
+
     return (
         <div className="absolute inset-0 z-0">
-            {/* Base sempre presente */}
             <div className="absolute inset-0 bg-(--color-bg-primary)" />
 
-            {/* Vídeo global de fundo — sempre tocando na home, sem hover */}
+            {/* Vídeo global da home */}
             <AnimatePresence>
                 {!project && (
-                    <motion.div
-                        key="global-bg"
-                        className="absolute inset-0"
-                        variants={backgroundCrossfade}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                    >
-                        <video
-                            src={GLOBAL_BG_VIDEO}
-                            autoPlay muted loop playsInline
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                                // Esconde o vídeo se não existir ainda
-                                ; (e.target as HTMLVideoElement).style.display = "none"
-                            }}
-                        />
-                        {/* Placeholder só aparece se o vídeo falhar */}
+                    <motion.div key="global-bg" className="absolute inset-0"
+                        variants={backgroundCrossfade} initial="hidden" animate="visible" exit="exit">
+                        <video src={GLOBAL_BG_VIDEO} autoPlay muted loop playsInline
+                            className="w-full h-full object-cover opacity-50"
+                            onError={(e) => { (e.target as HTMLVideoElement).style.display = "none" }} />
                         <div className="absolute inset-0">
-                            <MediaPlaceholder variant="bg" aspect="" className="w-full h-full opacity-20" />
+                            <MediaPlaceholder variant="bg" aspect="" className="w-full h-full opacity-15" />
                         </div>
-                        <div className="absolute inset-0 bg-linear-to-t from-(--color-bg-primary)/60 to-transparent" />
+                        <div className={`absolute inset-0 ${scrimClass}`} />
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -63,37 +46,19 @@ export function BackgroundLayer() {
             {/* Mídia do projeto no hover */}
             <AnimatePresence>
                 {project && (
-                    <motion.div
-                        key={project.id}
-                        className="absolute inset-0"
-                        variants={backgroundCrossfade}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                    >
+                    <motion.div key={project.id} className="absolute inset-0"
+                        variants={backgroundCrossfade} initial="hidden" animate="visible" exit="exit">
                         {project.heroVideo ? (
-                            // Vídeo do projeto — ideal para o hover
-                            <video
-                                src={project.heroVideo}
-                                autoPlay muted loop playsInline
-                                className="w-full h-full object-cover"
-                            />
+                            <video src={project.heroVideo} autoPlay muted loop playsInline
+                                className="w-full h-full object-cover" />
                         ) : project.media?.src ? (
-                            // Imagem de fundo do projeto
-                            <img
-                                src={project.media.src}
-                                alt={project.media.alt ?? ""}
+                            <img src={project.media.src} alt={project.media.alt ?? ""}
                                 className="w-full h-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                                draggable={false}
-                            />
+                                loading="lazy" decoding="async" draggable={false} />
                         ) : (
-                            // Placeholder com identidade do projeto
                             <MediaPlaceholder variant="bg" aspect="" className="absolute inset-0 w-full h-full" />
                         )}
-                        {/* Scrim */}
-                        <div className="absolute inset-0 bg-(--color-scrim)" />
+                        <div className={`absolute inset-0 ${scrimClass}`} />
                     </motion.div>
                 )}
             </AnimatePresence>

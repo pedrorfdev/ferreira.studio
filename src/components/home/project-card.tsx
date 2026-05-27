@@ -1,5 +1,3 @@
-// components/home/project-card.tsx
-// Cards maiores no hover + badge polida
 import { useRef, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import type { Variants } from "framer-motion"
