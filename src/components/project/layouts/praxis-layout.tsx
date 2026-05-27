@@ -1,307 +1,507 @@
 // components/project/layouts/praxis-layout.tsx
-// Layout completo: Hero → Problema|Análise → Ideia → Carousel Solução
-//                  → Decisões accordion + Resultado lado a lado
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import type { Variants } from "framer-motion"
-import { useProjectContent } from "@/hooks/use-project-content"
-import { SectionReveal } from "@/components/project/section-reveal"
-import { MediaPlaceholder } from "@/components/ui/media-placeholder"
-import { useI18n } from "@/lib/i18n-context"
-import { cn } from "@/lib/cn"
-import {
-    ChevronLeft, ChevronRight, ChevronDown,
-    AlertTriangle, Lightbulb, TrendingUp, Sparkles,
-    ExternalLink, GitBranch, CheckCircle2,
-    Stethoscope, Database, FileText, Code2, Layers
-} from "lucide-react"
+
+import { motion } from "framer-motion"
+import { useMemo, useState } from "react"
+import { ChevronDown } from "lucide-react"
 import type { ProjectData } from "@/types/project"
 
-interface Props { project: ProjectData; scrollY: number }
-const ICONS = [Stethoscope, Database, FileText, Code2, Layers]
-
-const slideV: Variants = {
-    enter: (d: number) => ({ opacity: 0, x: d > 0 ? 32 : -32 }),
-    center: { opacity: 1, x: 0, transition: { duration: 0.28, ease: "easeOut" } },
-    exit: (d: number) => ({ opacity: 0, x: d > 0 ? -32 : 32, transition: { duration: 0.18, ease: "easeIn" } }),
+interface Props {
+    project: ProjectData
+    scrollY: number
 }
 
 export function PraxisLayout({ project }: Props) {
-    const { t } = useI18n()
-    const content = useProjectContent(project)
-    const [[slide, dir], setSlide] = useState([0, 0])
-    const [openDec, setOpenDec] = useState<number | null>(0)
+    const pt = false
 
-    const items = content.sections.solution?.items ?? []
-    const decisions = content.sections.technicalDecisions?.decisions ?? []
+    const sections = useMemo(() => {
+        return pt && project.pt?.sections
+            ? {
+                ...project.sections,
+                ...project.pt.sections,
+            }
+            : project.sections
+    }, [project, pt])
 
-    function paginate(d: number) {
-        const next = slide + d
-        if (next < 0 || next >= items.length) return
-        setSlide([next, d])
-    }
+    const discovery = sections.discovery
+    const perspective = sections.perspective
+    const workflow = sections.workflow
+    const architecture = sections.architecture
+    const technicalDecisions = sections.technicalDecisions
+    const outcome = sections.outcome
+    const future = sections.future
 
     return (
-        <div className="flex flex-col">
+        <main className="relative w-full">
+            {/* Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div
+                    className="
+                        absolute top-0 left-1/2 -translate-x-1/2
+                        w-[900px] h-[500px]
+                        bg-[#D6FF3F]/[0.06]
+                        blur-[140px]
+                        rounded-full
+                    "
+                />
+            </div>
+
             {/* HERO */}
-            <section className="min-h-[85vh] flex flex-col justify-end px-6 md:px-16 pb-16 relative">
-                <div className="absolute inset-0 pointer-events-none">
-                    {project.media?.src
-                        ? <img src={project.media.src} alt="" className="w-full h-full object-cover opacity-20" loading="lazy" decoding="async" />
-                        : <MediaPlaceholder variant="bg" aspect="" className="w-full h-full opacity-20" />
-                    }
-                    <div className="absolute inset-0 bg-linear-to-t from-(--color-bg-primary) via-(--color-bg-primary)/70 to-transparent" />
-                </div>
-                <div className="relative z-10 max-w-5xl">
-                    <SectionReveal>
-                        <div className="flex items-center gap-2 mb-5">
-                            <CheckCircle2 size={12} className="text-(--color-accent)" />
-                            <span className="text-xs uppercase tracking-[0.18em] text-(--color-accent)">Live · {project.year}</span>
-                        </div>
-                    </SectionReveal>
-                    <SectionReveal delay={0.06}>
-                        <h1 className="font-display font-semibold tracking-[-0.03em] leading-none mb-4"
-                            style={{ fontSize: "clamp(3rem, 9vw, 7rem)" }}>
-                            <span className="text-(--color-accent)">Prax</span>
-                            <span className="text-(--color-text-primary)">is</span>
-                        </h1>
-                    </SectionReveal>
-                    <SectionReveal delay={0.1}>
-                        <p className="text-lg text-(--color-text-secondary) max-w-xl leading-relaxed mb-8">
-                            {content.tagline}
+            <section className="relative px-6 md:px-10 pt-20 md:pt-32 pb-24">
+                <div className="max-w-4xl mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <p
+                            className="
+                                text-[#D6FF3F]
+                                uppercase
+                                tracking-[0.28em]
+                                text-xs
+                                mb-6
+                                font-medium
+                            "
+                        >
+                            Clinical Operations Platform
                         </p>
-                    </SectionReveal>
-                    <SectionReveal delay={0.14} className="flex gap-3 flex-wrap">
-                        {project.links?.demo && (
-                            <a href={project.links.demo} target="_blank" rel="noopener noreferrer"
-                                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm bg-(--color-accent) text-white hover:opacity-85 transition-opacity">
-                                <ExternalLink size={12} /> Live demo
-                            </a>
-                        )}
-                        {project.links?.github && (
-                            <a href={project.links.github} target="_blank" rel="noopener noreferrer"
-                                className="flex items-center gap-2 px-4 py-2 rounded-full text-sm border border-(--color-border) text-(--color-text-secondary) hover:border-(--color-accent) transition-colors">
-                                <GitBranch size={12} /> GitHub
-                            </a>
-                        )}
-                    </SectionReveal>
+
+                        <h1
+                            className="
+                                text-5xl
+                                md:text-8xl
+                                tracking-[-0.08em]
+                                leading-none
+                                font-semibold
+                                text-white
+                            "
+                        >
+                            {project.title}
+                        </h1>
+
+                        <p
+                            className="
+                                mt-8
+                                max-w-2xl
+                                text-base
+                                md:text-xl
+                                leading-relaxed
+                                text-neutral-400
+                            "
+                        >
+                            {pt && project.pt?.tagline
+                                ? project.pt.tagline
+                                : project.tagline}
+                        </p>
+                    </motion.div>
                 </div>
             </section>
 
-            {/* HERO IMAGE */}
-            <SectionReveal className="px-6 md:px-16 mb-20">
-                <div className="rounded-2xl overflow-hidden border border-(--color-border-subtle) shadow-2xl">
-                    {project.heroVideo
-                        ? <video src={project.heroVideo} autoPlay muted loop playsInline poster={project.heroImage} className="w-full aspect-video object-cover" />
-                        : project.heroImage
-                            ? <img src={project.heroImage} alt={project.title} className="w-full aspect-video object-cover" loading="lazy" />
-                            : <MediaPlaceholder variant="hero" aspect="aspect-video" label="Praxis — Clinical Interface" />
-                    }
-                </div>
-            </SectionReveal>
+            {/* CONTENT FLOW */}
+            <div className="px-6 md:px-10">
+                <div className="max-w-3xl mx-auto space-y-28">
 
-            {/* PROBLEMA | ANÁLISE — lado a lado */}
-            <section className="px-6 md:px-16 mb-16 max-w-6xl mx-auto w-full">
-                <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                    <SectionReveal>
-                        <div className="p-6 md:p-8 rounded-2xl bg-(--color-bg-secondary) border border-(--color-border) h-full flex flex-col gap-4">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-(--color-accent-muted) flex items-center justify-center shrink-0">
-                                    <AlertTriangle size={14} className="text-(--color-accent)" />
-                                </div>
-                                <span className="text-xs uppercase tracking-[0.16em] text-(--color-accent)">
-                                    {t.project.sections.problem}
-                                </span>
-                            </div>
-                            <h2 className="font-display text-xl md:text-2xl font-semibold tracking-[-0.02em] text-(--color-text-primary) leading-snug">
-                                {content.sections.problem?.headline}
-                            </h2>
-                            <p className="text-sm text-(--color-text-secondary) leading-relaxed flex-1">
-                                {content.sections.problem?.body}
-                            </p>
-                        </div>
-                    </SectionReveal>
-                    <SectionReveal delay={0.08}>
-                        <div className="p-6 md:p-8 rounded-2xl bg-(--color-bg-secondary) border border-(--color-border) h-full flex flex-col gap-4">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-(--color-gold-muted) flex items-center justify-center shrink-0">
-                                    <Lightbulb size={14} className="text-(--color-gold)" />
-                                </div>
-                                <span className="text-xs uppercase tracking-[0.16em] text-(--color-gold)">
-                                    {t.project.sections.analysis}
-                                </span>
-                            </div>
-                            <h2 className="font-display text-xl md:text-2xl font-semibold tracking-[-0.02em] text-(--color-text-primary) leading-snug">
-                                {content.sections.analysis?.headline}
-                            </h2>
-                            <p className="text-sm text-(--color-text-secondary) leading-relaxed flex-1">
-                                {content.sections.analysis?.body}
-                            </p>
-                        </div>
-                    </SectionReveal>
-                </div>
-            </section>
+                    {/* DISCOVERY */}
+                    {discovery && (
+                        <EditorialBlock
+                            eyebrow="DISCOVERY"
+                            headline={discovery.headline}
+                            body={discovery.body}
+                        />
+                    )}
 
-            {/* IDEIA — full width, destaque */}
-            <section className="px-6 md:px-16 mb-20 max-w-6xl mx-auto w-full">
-                <SectionReveal>
-                    <div className="p-6 md:p-10 rounded-2xl border border-(--color-accent)/20
-                          bg-(--color-accent-muted) relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-(--color-accent)/10 blur-3xl" />
-                        <div className="relative z-10 flex flex-col md:flex-row md:items-start gap-6">
-                            <div className="flex items-center gap-2 md:flex-col md:items-start shrink-0">
-                                <div className="w-9 h-9 rounded-xl bg-(--color-accent) flex items-center justify-center">
-                                    <Sparkles size={16} className="text-white" />
-                                </div>
-                                <span className="text-xs uppercase tracking-[0.16em] text-(--color-accent) md:mt-2">
-                                    {t.project.sections.idea}
-                                </span>
-                            </div>
-                            <div>
-                                <h2 className="font-display text-xl md:text-2xl font-semibold tracking-[-0.02em]
-                               text-(--color-text-primary) leading-snug mb-3">
-                                    {content.sections.idea?.headline}
+                    {/* PERSPECTIVE */}
+                    {perspective && (
+                        <EditorialBlock
+                            eyebrow="PERSPECTIVE"
+                            headline={perspective.headline}
+                            body={perspective.body}
+                        />
+                    )}
+
+                    {/* WORKFLOW */}
+                    {workflow && (
+                        <section className="space-y-10">
+                            <SectionEyebrow>
+                                WORKFLOW
+                            </SectionEyebrow>
+
+                            <div className="space-y-5">
+                                <h2
+                                    className="
+                                        text-3xl
+                                        md:text-5xl
+                                        tracking-[-0.06em]
+                                        leading-[1.05]
+                                        text-white
+                                        max-w-2xl
+                                    "
+                                >
+                                    {workflow.headline}
                                 </h2>
-                                <p className="text-sm text-(--color-text-secondary) leading-relaxed max-w-2xl">
-                                    {content.sections.idea?.body}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </SectionReveal>
-            </section>
 
-            {/* SOLUÇÃO — carousel altura fixa */}
-            <section className="mb-20 border-t border-(--color-border-subtle) pt-16">
-                <SectionReveal className="px-6 md:px-16 mb-8 max-w-6xl mx-auto">
-                    <span className="text-xs uppercase tracking-[0.18em] text-(--color-text-tertiary) block mb-2">
-                        {t.project.sections.solution}
-                    </span>
-                    <h2 className="font-display text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-(--color-text-primary)">
-                        {content.sections.solution?.headline}
-                    </h2>
-                </SectionReveal>
-                <div className="flex flex-col items-center px-6 md:px-16 max-w-3xl mx-auto w-full">
-                    {/* Altura fixa — sem layout shift */}
-                    <div className="relative w-full h-52 md:h-56">
-                        <AnimatePresence custom={dir} mode="wait">
-                            <motion.div key={slide} custom={dir} variants={slideV}
-                                initial="enter" animate="center" exit="exit"
-                                className="absolute inset-0">
-                                {items[slide] && (() => {
-                                    const Icon = ICONS[slide % ICONS.length]
-                                    return (
-                                        <div className="flex flex-col items-center justify-center text-center gap-5 h-full px-6
-                                    rounded-2xl border border-(--color-border) bg-(--color-bg-secondary)">
-                                            <div className="w-14 h-14 rounded-2xl bg-(--color-accent) flex items-center justify-center shrink-0">
-                                                <Icon size={24} className="text-white" />
-                                            </div>
-                                            <p className="text-base md:text-lg font-display font-medium tracking-[-0.01em]
-                                    text-(--color-text-primary) leading-snug max-w-sm">
-                                                {items[slide]}
-                                            </p>
-                                        </div>
-                                    )
-                                })()}
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-                    <div className="flex items-center gap-4 mt-5">
-                        <button onClick={() => paginate(-1)} disabled={slide === 0}
-                            className={cn("w-9 h-9 rounded-full border flex items-center justify-center cursor-pointer transition-all",
-                                slide === 0
-                                    ? "border-(--color-border-subtle) text-(--color-text-tertiary) opacity-40 cursor-not-allowed"
-                                    : "border-(--color-accent) text-(--color-accent) hover:bg-(--color-accent-muted)"
-                            )}><ChevronLeft size={16} /></button>
-                        <div className="flex gap-2">
-                            {items.map((_, i) => (
-                                <button key={i} onClick={() => setSlide([i, i > slide ? 1 : -1])}
-                                    className={cn("h-1.5 rounded-full transition-all duration-300 cursor-pointer",
-                                        i === slide ? "w-8 bg-(--color-accent)" : "w-1.5 bg-(--color-border-strong)")} />
-                            ))}
-                        </div>
-                        <button onClick={() => paginate(1)} disabled={slide === items.length - 1}
-                            className={cn("w-9 h-9 rounded-full border flex items-center justify-center cursor-pointer transition-all",
-                                slide === items.length - 1
-                                    ? "border-(--color-border-subtle) text-(--color-text-tertiary) opacity-40 cursor-not-allowed"
-                                    : "border-(--color-accent) text-(--color-accent) hover:bg-(--color-accent-muted)"
-                            )}><ChevronRight size={16} /></button>
-                    </div>
-                </div>
-            </section>
+                                {workflow.items && (
+                                    <div className="pt-6 space-y-4">
+                                        {workflow.items.map((item, index) => (
+                                            <motion.div
+                                                key={item}
+                                                initial={{ opacity: 0, y: 16 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true }}
+                                                transition={{
+                                                    delay: index * 0.05,
+                                                    duration: 0.4,
+                                                }}
+                                                className="
+                                                    flex items-start gap-4
+                                                    border-b border-white/5
+                                                    pb-4
+                                                "
+                                            >
+                                                <span
+                                                    className="
+                                                        text-[#D6FF3F]
+                                                        text-sm
+                                                        mt-1
+                                                    "
+                                                >
+                                                    0{index + 1}
+                                                </span>
 
-            {/* DECISÕES | RESULTADO — lado a lado */}
-            <section className="px-6 md:px-16 mb-20 max-w-6xl mx-auto w-full border-t border-(--color-border-subtle) pt-16">
-                <div className="grid md:grid-cols-2 gap-6 items-start">
-                    {/* Decisões */}
-                    <div className="flex flex-col gap-3">
-                        <SectionReveal className="mb-4">
-                            <span className="text-xs uppercase tracking-[0.16em] text-(--color-text-tertiary) block mb-1">
-                                {t.project.sections.technical}
-                            </span>
-                            <h2 className="font-display text-xl font-semibold tracking-[-0.01em] text-(--color-text-primary)">
-                                {content.sections.technicalDecisions?.headline}
-                            </h2>
-                        </SectionReveal>
-                        {decisions.map((dec, i) => (
-                            <SectionReveal key={i} delay={i * 0.05}>
-                                <button onClick={() => setOpenDec(openDec === i ? null : i)}
-                                    className="w-full text-left p-4 rounded-xl bg-(--color-bg-secondary)
-                             border border-(--color-border) hover:border-(--color-accent)/40
-                             transition-colors cursor-pointer group">
-                                    <div className="flex items-center justify-between gap-3">
-                                        <div className="flex items-center gap-2 flex-1 min-w-0">
-                                            <span className="text-[10px] tabular-nums text-(--color-accent) shrink-0">{String(i + 1).padStart(2, "0")}</span>
-                                            <span className="text-sm font-medium text-(--color-text-primary) group-hover:text-(--color-accent) transition-colors truncate">
-                                                {dec.title}
-                                            </span>
-                                        </div>
-                                        <motion.div animate={{ rotate: openDec === i ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                                            <ChevronDown size={14} className="text-(--color-text-tertiary) shrink-0" />
-                                        </motion.div>
-                                    </div>
-                                    <AnimatePresence>
-                                        {openDec === i && (
-                                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: "easeOut" }}
-                                                className="overflow-hidden">
-                                                <p className="text-xs text-(--color-text-secondary) leading-relaxed mt-3">{dec.why}</p>
-                                                {dec.trade && (
-                                                    <p className="text-xs text-(--color-text-tertiary) mt-2 italic">↳ {dec.trade}</p>
-                                                )}
+                                                <p
+                                                    className="
+                                                        text-neutral-300
+                                                        text-base
+                                                        md:text-lg
+                                                        leading-relaxed
+                                                    "
+                                                >
+                                                    {item}
+                                                </p>
                                             </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </button>
-                            </SectionReveal>
-                        ))}
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+                    )}
+
+                    {/* ARCHITECTURE */}
+                    {architecture && (
+                        <EditorialBlock
+                            eyebrow="ARCHITECTURE"
+                            headline={architecture.headline}
+                            body={architecture.body}
+                        />
+                    )}
+
+                    {/* TECH DECISIONS */}
+                    {technicalDecisions && (
+                        <section className="space-y-10">
+                            <SectionEyebrow>
+                                TECHNICAL DECISIONS
+                            </SectionEyebrow>
+
+                            <div className="space-y-5">
+                                <h2
+                                    className="
+                                        text-3xl
+                                        md:text-5xl
+                                        tracking-[-0.06em]
+                                        leading-[1.05]
+                                        text-white
+                                    "
+                                >
+                                    {technicalDecisions.headline}
+                                </h2>
+
+                                <div className="pt-4 space-y-3">
+                                    {technicalDecisions.decisions?.map((decision) => (
+                                        <DecisionAccordion
+                                            key={decision.title}
+                                            title={decision.title}
+                                            why={decision.why}
+                                            trade={decision.trade}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* OUTCOME */}
+                    {outcome && (
+                        <section className="space-y-10">
+                            <SectionEyebrow>
+                                OUTCOME
+                            </SectionEyebrow>
+
+                            <div className="space-y-6">
+                                <h2
+                                    className="
+                                        text-3xl
+                                        md:text-5xl
+                                        tracking-[-0.06em]
+                                        leading-[1.05]
+                                        text-white
+                                        max-w-2xl
+                                    "
+                                >
+                                    {outcome.headline}
+                                </h2>
+
+                                <p
+                                    className="
+                                        text-neutral-400
+                                        text-lg
+                                        leading-relaxed
+                                        max-w-2xl
+                                    "
+                                >
+                                    {outcome.body}
+                                </p>
+
+                                {outcome.metrics && (
+                                    <div
+                                        className="
+                                            grid
+                                            grid-cols-1
+                                            md:grid-cols-3
+                                            gap-4
+                                            pt-8
+                                        "
+                                    >
+                                        {outcome.metrics.map((metric) => (
+                                            <div
+                                                key={metric.label}
+                                                className="
+                                                    border border-white/5
+                                                    rounded-3xl
+                                                    p-6
+                                                    bg-white/[0.02]
+                                                "
+                                            >
+                                                <p
+                                                    className="
+                                                        text-xs
+                                                        uppercase
+                                                        tracking-[0.18em]
+                                                        text-neutral-500
+                                                        mb-3
+                                                    "
+                                                >
+                                                    {metric.label}
+                                                </p>
+
+                                                <p
+                                                    className="
+                                                        text-2xl
+                                                        tracking-[-0.04em]
+                                                        text-white
+                                                    "
+                                                >
+                                                    {metric.value}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </section>
+                    )}
+
+                    {/* FUTURE */}
+                    {future && (
+                        <EditorialBlock
+                            eyebrow="FUTURE"
+                            headline={future.headline}
+                            body={future.body}
+                            bottomSpacing
+                        />
+                    )}
+                </div>
+            </div>
+        </main>
+    )
+}
+
+function EditorialBlock({
+    eyebrow,
+    headline,
+    body,
+    bottomSpacing = false,
+}: {
+    eyebrow: string
+    headline: string
+    body?: string
+    bottomSpacing?: boolean
+}) {
+    return (
+        <section className={bottomSpacing ? "pb-32" : ""}>
+            <div className="space-y-6">
+                <SectionEyebrow>
+                    {eyebrow}
+                </SectionEyebrow>
+
+                <h2
+                    className="
+                        text-3xl
+                        md:text-5xl
+                        tracking-[-0.06em]
+                        leading-[1.05]
+                        text-white
+                        max-w-2xl
+                    "
+                >
+                    {headline}
+                </h2>
+
+                {body && (
+                    <p
+                        className="
+                            text-neutral-400
+                            text-lg
+                            leading-relaxed
+                            max-w-2xl
+                        "
+                    >
+                        {body}
+                    </p>
+                )}
+            </div>
+        </section>
+    )
+}
+
+function SectionEyebrow({
+    children,
+}: {
+    children: React.ReactNode
+}) {
+    return (
+        <p
+            className="
+                text-[11px]
+                uppercase
+                tracking-[0.22em]
+                text-[#D6FF3F]
+                font-medium
+            "
+        >
+            {children}
+        </p>
+    )
+}
+
+function DecisionAccordion({
+    title,
+    why,
+    trade,
+}: {
+    title: string
+    why: string
+    trade?: string
+}) {
+    const [open, setOpen] = useState(false)
+
+    return (
+        <div
+            className="
+                border border-white/5
+                bg-white/[0.02]
+                rounded-3xl
+                overflow-hidden
+            "
+        >
+            <button
+                onClick={() => setOpen((v) => !v)}
+                className="
+                    w-full
+                    flex items-center justify-between
+                    gap-4
+                    text-left
+                    px-6 py-5
+                "
+            >
+                <span
+                    className="
+                        text-white
+                        text-base
+                        md:text-lg
+                    "
+                >
+                    {title}
+                </span>
+
+                <ChevronDown
+                    className={`
+                        w-4 h-4 text-neutral-500 transition-transform duration-300
+                        ${open ? "rotate-180" : ""}
+                    `}
+                />
+            </button>
+
+            <motion.div
+                initial={false}
+                animate={{
+                    height: open ? "auto" : 0,
+                    opacity: open ? 1 : 0,
+                }}
+                transition={{
+                    duration: 0.3,
+                }}
+                className="overflow-hidden"
+            >
+                <div className="px-6 pb-6 space-y-5">
+                    <div>
+                        <p
+                            className="
+                                text-xs
+                                uppercase
+                                tracking-[0.18em]
+                                text-[#D6FF3F]
+                                mb-2
+                            "
+                        >
+                            Why
+                        </p>
+
+                        <p
+                            className="
+                                text-neutral-300
+                                leading-relaxed
+                            "
+                        >
+                            {why}
+                        </p>
                     </div>
 
-                    {/* Resultado */}
-                    <SectionReveal delay={0.1}>
-                        <div className="p-6 md:p-8 rounded-2xl bg-(--color-accent) flex flex-col gap-6">
-                            <div className="flex items-center gap-2">
-                                <TrendingUp size={15} className="text-white/80" />
-                                <span className="text-xs uppercase tracking-[0.16em] text-white/80">{t.project.sections.result}</span>
-                            </div>
-                            <h2 className="font-display text-xl md:text-2xl font-semibold text-white leading-snug">
-                                {content.sections.result?.headline}
-                            </h2>
-                            <p className="text-sm text-white/80 leading-relaxed flex-1">
-                                {content.sections.result?.body}
+                    {trade && (
+                        <div>
+                            <p
+                                className="
+                                    text-xs
+                                    uppercase
+                                    tracking-[0.18em]
+                                    text-[#D6FF3F]
+                                    mb-2
+                                "
+                            >
+                                Tradeoff
                             </p>
-                            <div className="flex flex-col gap-3 pt-4 border-t border-white/20">
-                                {content.sections.result?.metrics?.map((m, i) => (
-                                    <div key={i} className="flex items-center justify-between">
-                                        <span className="text-xs text-white/60 uppercase tracking-widest">{m.label}</span>
-                                        <span className="font-display text-lg font-bold text-white">{m.value}</span>
-                                    </div>
-                                ))}
-                            </div>
+
+                            <p
+                                className="
+                                    text-neutral-400
+                                    leading-relaxed
+                                "
+                            >
+                                {trade}
+                            </p>
                         </div>
-                    </SectionReveal>
+                    )}
                 </div>
-            </section>
+            </motion.div>
         </div>
     )
 }

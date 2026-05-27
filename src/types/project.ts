@@ -14,25 +14,16 @@ export interface CardPosition { top: string; left: string }
 export interface ProjectMedia { type: "image" | "video"; src: string; alt?: string; poster?: string }
 export interface ProjectLinks { demo?: string; github?: string }
 
-export interface CaseStudySection {
-    problem?: { headline: string; body: string }
-    idea?: { headline: string; body: string }
-    solution?: {
-        headline: string
-        body: string
-        items?: string[]
-    }
-    analysis?: { headline: string; body: string }
-    technicalDecisions?: {
-        headline: string
-        decisions: TechnicalDecision[]
-    }
-    result?: {
-        headline: string
-        body: string
-        metrics?: Metric[]
-    }
+export interface ContentBlock {
+    headline: string
+    body?: string
+    items?: string[]
+    decisions?: TechnicalDecision[]
+    metrics?: Metric[]
+    collapsible?: boolean
 }
+
+export type CaseStudySection = Record<string, ContentBlock>
 
 export interface TechnicalDecision { title: string; why: string; trade?: string }
 export interface Metric { label: string; value: string }
@@ -47,7 +38,6 @@ export type ProjectTag =
     | "AI" | "Gemini" | "TypeScript" | "Product"
     | "Full Stack" | "Healthcare" | "Agro" | "Events"
 
-// status agora inclui "live" (usado no projects.ts)
 export type ProjectStatus = "live" | "in development" | "concept"
 
 export interface ProjectData {
@@ -66,6 +56,6 @@ export interface ProjectData {
     assistant: AssistantConfig
     pt?: {
         tagline?: string
-        sections?: Partial<CaseStudySection>
+        sections?: CaseStudySection
     }
 }

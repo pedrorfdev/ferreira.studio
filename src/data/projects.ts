@@ -18,62 +18,78 @@ export const projects: ProjectData[] = [
             github: "",
         },
         sections: {
-            problem: {
-                headline: "Clinical information spread across five different places",
-                body: "Occupational Therapists were managing patient records, session notes, anamneses, and follow-ups across WhatsApp, Google Drive, loose documents, and handwritten notebooks. Every hour of care generated another hour of administrative work — usually done after the workday ended.",
+            discovery: {
+                headline: "Clinical operations were fragmented across disconnected tools",
+                body: "Patient records, session notes, anamneses, follow-ups, and operational communication lived between WhatsApp, paper notebooks, Google Drive, and loose documents. The problem wasn't lack of information — it was the absence of a structured operational flow.",
             },
-            idea: {
-                headline: "Build the operational foundation before adding intelligence",
-                body: "The first goal wasn't to create a complex health platform. It was to remove fragmentation and make clinical information instantly accessible. AI was considered from the beginning, but intentionally postponed until the operational workflow became reliable and structured.",
+
+            perspective: {
+                headline: "The first priority wasn't AI — it was operational clarity",
+                body: "Before adding intelligence, automation, or analytics, the system needed to centralize clinical routines into something reliable enough to support real daily work. The goal was reducing cognitive overhead for therapists during care operations.",
             },
-            analysis: {
-                headline: "The challenge wasn't the UI — it was modeling clinical reality",
-                body: "Clinical data rarely fits perfectly into relational structures. The hardest part was designing a system flexible enough for real-world therapeutic routines while still maintaining consistency, queryability, and long-term scalability.",
-            },
-            solution: {
-                headline: "A centralized clinical workflow designed around real routines",
-                body: "Praxis consolidates the full Occupational Therapy workflow into a single environment: patient intake, structured anamneses, session tracking, and rich-text clinical evolution notes.",
+
+            workflow: {
+                headline: "Designed around how therapists already work",
                 items: [
                     "Patient and guardian management",
-                    "Structured anamneses with medical and behavioral history",
-                    "Rich-text clinical evolution editor",
-                    "Session history and follow-up tracking",
-                    "Database architecture prepared for future AI features",
+                    "Structured anamneses with flexible clinical fields",
+                    "Session evolution history",
+                    "Rich-text clinical writing flow",
+                    "Operational follow-up and continuity tracking",
+                    "Foundation prepared for semantic and AI layers",
                 ],
             },
+
+            architecture: {
+                headline: "Modeling clinical reality was harder than building screens",
+                body: "Clinical information is partially structured, partially narrative, and constantly evolving. The challenge wasn't interface complexity — it was creating a data model flexible enough for real-world therapeutic workflows without losing consistency and long-term maintainability.",
+            },
+
             technicalDecisions: {
-                headline: "Key technical decisions",
+                headline: "Technical decisions",
+                collapsible: true,
+
                 decisions: [
                     {
-                        title: "PostgreSQL + PGVector from the beginning",
-                        why: "The database architecture was designed with future AI workflows in mind. PGVector was introduced early to support embeddings, semantic search, and future clinical intelligence features without requiring structural migrations later.",
-                        trade: "Higher upfront complexity in schema design, but avoids rebuilding the foundation when AI capabilities are introduced.",
+                        title: "PostgreSQL + PGVector from day one",
+                        why: "The architecture was intentionally designed for future semantic workflows, embeddings, and contextual retrieval.",
+                        trade: "Higher initial complexity, but avoids rebuilding the data layer later.",
                     },
+
                     {
-                        title: "JSONB for semi-structured clinical data",
-                        why: "Clinical anamneses contain deeply nested and partially variable information. JSONB provided flexibility without sacrificing queryability or long-term maintainability.",
-                        trade: "Less rigid than a fully normalized relational model, but significantly better aligned with the real clinical workflow.",
+                        title: "JSONB for anamneses and semi-structured data",
+                        why: "Clinical evaluations rarely fit rigid relational schemas cleanly.",
+                        trade: "More flexible operationally, but requires stronger validation strategies.",
                     },
+
                     {
-                        title: "Tiptap for clinical evolution notes",
-                        why: "Clinical professionals needed a writing experience that felt natural instead of rigid form fields. Tiptap enabled rich-text editing with serialization control and structured persistence.",
-                        trade: "Introduced additional complexity around persistence, formatting consistency, and content serialization.",
+                        title: "Tiptap for clinical evolution writing",
+                        why: "Therapists needed a natural writing experience instead of rigid forms.",
+                        trade: "Introduced serialization and persistence complexity.",
                     },
+
                     {
-                        title: "shadcn/ui as the component foundation",
-                        why: "Large operational systems require strong visual consistency. shadcn/ui accelerated development while still allowing complete customization of the interface layer.",
-                        trade: "Some internal patterns required overriding opinionated defaults, but the consistency gain outweighed the friction.",
+                        title: "Minimal visual hierarchy instead of dashboard density",
+                        why: "The interface prioritizes reading flow and operational continuity over metrics-heavy screens.",
+                        trade: "Some information becomes less immediately visible.",
                     },
                 ],
             },
-            result: {
-                headline: "Already supporting a real clinical routine",
-                body: "Praxis is currently used in production inside a real Occupational Therapy practice. Information that was previously fragmented is now centralized, reducing operational friction and making patient follow-up significantly easier.",
+
+            outcome: {
+                headline: "Already supporting real clinical routines",
+                body: "Praxis is currently being used in production in a real Occupational Therapy environment, centralizing information that previously existed across disconnected operational flows.",
+
                 metrics: [
                     { label: "Status", value: "Production" },
-                    { label: "Administrative overhead", value: "-60%" },
-                    { label: "Patient data", value: "Centralized" },
+                    { label: "Operational friction", value: "-60%" },
+                    { label: "Clinical workflow", value: "Centralized" },
                 ],
+            },
+
+            future: {
+                headline: "The long-term direction is contextual clinical intelligence",
+                body: "The current platform intentionally focuses on operational structure first. The next layer involves semantic search, contextual retrieval, embeddings, and AI-assisted clinical workflows built on top of reliable operational data.",
             },
         },
         assistant: {
@@ -87,64 +103,82 @@ export const projects: ProjectData[] = [
             ],
         },
         pt: {
-            tagline: "Plataforma de operações clínicas construída em torno do fluxo real de trabalho de Terapeutas Ocupacionais",
             sections: {
-                problem: {
-                    headline: "Informações clínicas espalhadas em cinco lugares diferentes",
-                    body: "Terapeutas Ocupacionais gerenciavam prontuários, evoluções, anamneses e acompanhamentos entre WhatsApp, Google Drive, documentos soltos e cadernos físicos. Cada hora de atendimento gerava outra hora de trabalho administrativo — normalmente feita depois do expediente.",
+                discovery: {
+                    headline: "As operações clínicas estavam fragmentadas entre ferramentas desconectadas",
+                    body: "Prontuários, evoluções, anamneses, acompanhamentos e comunicação operacional viviam entre WhatsApp, cadernos físicos, Google Drive e documentos soltos. O problema não era falta de informação — era ausência de um fluxo operacional estruturado.",
                 },
-                idea: {
-                    headline: "Construir a base operacional antes de adicionar inteligência",
-                    body: "O primeiro objetivo não era criar uma plataforma de saúde complexa. Era eliminar fragmentação e tornar informações clínicas acessíveis instantaneamente. A camada de IA foi considerada desde o início, mas propositalmente deixada para depois, quando o fluxo operacional estivesse sólido.",
+
+                perspective: {
+                    headline: "A prioridade inicial não era IA — era clareza operacional",
+                    body: "Antes de adicionar inteligência, automações ou análises, o sistema precisava centralizar rotinas clínicas em algo confiável o suficiente para suportar o trabalho diário real. O objetivo era reduzir carga cognitiva durante a operação clínica.",
                 },
-                analysis: {
-                    headline: "O desafio não era a interface — era modelar a realidade clínica",
-                    body: "Dados clínicos raramente se encaixam perfeitamente em estruturas relacionais. A parte mais difícil foi criar um sistema flexível o suficiente para a rotina terapêutica real sem perder consistência, capacidade de consulta e escalabilidade futura.",
-                },
-                solution: {
-                    headline: "Um fluxo clínico centralizado pensado para a rotina real",
-                    body: "O Praxis centraliza todo o fluxo de Terapia Ocupacional em um único ambiente: cadastro de pacientes, anamneses estruturadas, acompanhamento de sessões e evoluções clínicas em rich text.",
+
+                workflow: {
+                    headline: "Desenhado em torno da rotina real dos terapeutas",
+
                     items: [
                         "Gestão de pacientes e responsáveis",
-                        "Anamneses estruturadas com histórico médico e comportamental",
-                        "Editor de evoluções clínicas em rich text",
-                        "Histórico de sessões e acompanhamentos",
-                        "Arquitetura preparada para futuras funcionalidades com IA",
+                        "Anamneses estruturadas com campos clínicos flexíveis",
+                        "Histórico de evoluções clínicas",
+                        "Fluxo de escrita clínica em rich-text",
+                        "Acompanhamento operacional contínuo",
+                        "Base preparada para futuras camadas semânticas e IA",
                     ],
                 },
+
+                architecture: {
+                    headline: "Modelar a realidade clínica foi mais difícil do que construir telas",
+                    body: "Informações clínicas são parcialmente estruturadas, parcialmente narrativas e constantemente mutáveis. O desafio não era complexidade visual — era criar um modelo de dados flexível o suficiente para fluxos terapêuticos reais sem perder consistência e manutenção futura.",
+                },
+
                 technicalDecisions: {
-                    headline: "Principais decisões técnicas",
+                    headline: "Decisões técnicas",
+                    collapsible: true,
+
                     decisions: [
                         {
                             title: "PostgreSQL + PGVector desde o início",
-                            why: "A arquitetura do banco foi planejada pensando em futuras funcionalidades com IA. O PGVector foi adicionado cedo para suportar embeddings, busca semântica e recursos inteligentes sem exigir migrações estruturais depois.",
-                            trade: "Mais complexidade inicial no schema, mas evita reconstruir a fundação quando a camada de IA for adicionada.",
+                            why: "A arquitetura foi planejada intencionalmente para futuros fluxos semânticos, embeddings e recuperação contextual.",
+                            trade: "Mais complexidade inicial, mas evita reconstruir a camada de dados futuramente.",
                         },
+
                         {
-                            title: "JSONB para dados clínicos semi-estruturados",
-                            why: "As anamneses clínicas possuem informações profundas e parcialmente variáveis. O JSONB trouxe flexibilidade sem perder capacidade de consulta ou manutenção futura.",
-                            trade: "Menos rígido do que um modelo totalmente relacional, mas muito mais alinhado com a rotina clínica real.",
+                            title: "JSONB para anamneses e dados semi-estruturados",
+                            why: "Avaliações clínicas raramente se encaixam perfeitamente em schemas relacionais rígidos.",
+                            trade: "Mais flexibilidade operacional, mas exige validações mais fortes.",
                         },
+
                         {
-                            title: "Tiptap para evoluções clínicas",
-                            why: "Os profissionais precisavam de uma experiência de escrita natural, e não de campos rígidos de formulário. O Tiptap permitiu rich text com controle de serialização e persistência estruturada.",
-                            trade: "Adicionou complexidade em persistência, consistência visual e serialização de conteúdo.",
+                            title: "Tiptap para escrita clínica",
+                            why: "Os terapeutas precisavam de uma experiência natural de escrita ao invés de formulários rígidos.",
+                            trade: "Introduziu complexidade de serialização e persistência.",
                         },
+
                         {
-                            title: "shadcn/ui como base de componentes",
-                            why: "Sistemas operacionais grandes exigem consistência visual forte. O shadcn/ui acelerou o desenvolvimento mantendo liberdade total de customização.",
-                            trade: "Alguns padrões internos exigiram sobrescrever defaults opinativos, mas o ganho em consistência compensou.",
+                            title: "Hierarquia visual minimalista ao invés de dashboards densos",
+                            why: "A interface prioriza fluxo de leitura e continuidade operacional acima de telas carregadas de métricas.",
+                            trade: "Algumas informações ficam menos imediatas visualmente.",
                         },
                     ],
                 },
-                result: {
-                    headline: "Já apoiando uma rotina clínica real",
-                    body: "O Praxis já é utilizado em produção dentro de uma clínica real de Terapia Ocupacional. Informações que antes estavam fragmentadas agora estão centralizadas, reduzindo fricção operacional e facilitando significativamente o acompanhamento dos pacientes.",
+
+                outcome: {
+                    headline: "Já apoiando rotinas clínicas reais",
+
+                    body: "O Praxis já está sendo utilizado em produção dentro de um ambiente real de Terapia Ocupacional, centralizando informações que antes existiam em fluxos operacionais desconectados.",
+
                     metrics: [
                         { label: "Status", value: "Produção" },
-                        { label: "Carga administrativa", value: "-60%" },
-                        { label: "Dados clínicos", value: "Centralizados" },
+                        { label: "Fricção operacional", value: "-60%" },
+                        { label: "Fluxo clínico", value: "Centralizado" },
                     ],
+                },
+
+                future: {
+                    headline: "A direção de longo prazo é inteligência clínica contextual",
+
+                    body: "A plataforma atual foca intencionalmente primeiro em estrutura operacional. A próxima camada envolve busca semântica, recuperação contextual, embeddings e fluxos clínicos assistidos por IA construídos sobre dados operacionais confiáveis.",
                 },
             },
         },
