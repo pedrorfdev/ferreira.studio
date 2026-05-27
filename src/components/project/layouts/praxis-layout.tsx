@@ -29,23 +29,37 @@ export function PraxisLayout({ project }: Props) {
     const future = sections.future
 
     return (
-        <main className="relative w-full">
-            {/* Background */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <main className="relative w-full overflow-hidden">
+
+            {/* BACKGROUND */}
+            <div className="absolute inset-0 pointer-events-none">
+                {/* image */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-[0.12]"
+                    style={{
+                        backgroundImage: `url(${project.media.src})`,
+                    }}
+                />
+
+                {/* overlay */}
+                <div className="absolute inset-0 bg-(--color-bg-primary)/10" />
+
+                {/* glow */}
                 <div
                     className="
-                        absolute top-0 left-1/2 -translate-x-1/2
-                        w-[900px] h-[500px]
-                        bg-[#D6FF3F]/6
-                        blur-[140px]
+                        absolute top-[-120px] left-1/2 -translate-x-1/2
+                        w-[900px] h-[520px]
                         rounded-full
+                        blur-[140px]
+                        bg-(--color-accent-muted)
                     "
                 />
             </div>
 
             {/* HERO */}
-            <section className="relative px-6 md:px-10 pt-20 md:pt-32 pb-24">
+            <section className="relative px-6 md:px-10 pt-24 md:pt-36 pb-28">
                 <div className="max-w-4xl mx-auto">
+
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -53,7 +67,7 @@ export function PraxisLayout({ project }: Props) {
                     >
                         <p
                             className="
-                                text-[#D6FF3F]
+                                text-(--color-accent)
                                 uppercase
                                 tracking-[0.28em]
                                 text-xs
@@ -64,18 +78,28 @@ export function PraxisLayout({ project }: Props) {
                             Clinical Operations Platform
                         </p>
 
-                        <h1
+                        <motion.h1
                             className="
                                 text-5xl
                                 md:text-8xl
                                 tracking-[-0.08em]
                                 leading-none
                                 font-semibold
-                                text-white
                             "
                         >
-                            {project.title}
-                        </h1>
+                            <span className="text-(--color-text-primary)">
+                                {project.title.slice(0, 3)}
+                            </span>
+
+                            <span
+                                className="
+                                    text-(--color-accent)
+                                    drop-shadow-[0_0_32px_var(--color-accent)]
+                                "
+                            >
+                                {project.title.slice(3)}
+                            </span>
+                        </motion.h1>
 
                         <p
                             className="
@@ -84,7 +108,7 @@ export function PraxisLayout({ project }: Props) {
                                 text-base
                                 md:text-xl
                                 leading-relaxed
-                                text-neutral-400
+                                text-(--color-text-secondary)
                             "
                         >
                             {pt && project.pt?.tagline
@@ -95,9 +119,9 @@ export function PraxisLayout({ project }: Props) {
                 </div>
             </section>
 
-            {/* CONTENT FLOW */}
-            <div className="px-6 md:px-10">
-                <div className="max-w-3xl mx-auto space-y-28">
+            {/* CONTENT */}
+            <div className="relative px-6 md:px-10">
+                <div className="max-w-3xl mx-auto space-y-32">
 
                     {/* DISCOVERY */}
                     {discovery && (
@@ -131,15 +155,28 @@ export function PraxisLayout({ project }: Props) {
                                         md:text-5xl
                                         tracking-[-0.06em]
                                         leading-[1.05]
-                                        text-white
+                                        text-(--color-text-primary)
                                         max-w-2xl
                                     "
                                 >
                                     {workflow.headline}
                                 </h2>
 
+                                {workflow.body && (
+                                    <p
+                                        className="
+                                            text-(--color-text-secondary)
+                                            text-lg
+                                            leading-relaxed
+                                            max-w-2xl
+                                        "
+                                    >
+                                        {workflow.body}
+                                    </p>
+                                )}
+
                                 {workflow.items && (
-                                    <div className="pt-6 space-y-4">
+                                    <div className="pt-8 space-y-4">
                                         {workflow.items.map((item, index) => (
                                             <motion.div
                                                 key={item}
@@ -152,15 +189,16 @@ export function PraxisLayout({ project }: Props) {
                                                 }}
                                                 className="
                                                     flex items-start gap-4
-                                                    border-b border-white/5
-                                                    pb-4
+                                                    border-b border-(--color-border-subtle)
+                                                    pb-5
                                                 "
                                             >
                                                 <span
                                                     className="
-                                                        text-[#D6FF3F]
+                                                        text-(--color-accent)
                                                         text-sm
                                                         mt-1
+                                                        font-medium
                                                     "
                                                 >
                                                     0{index + 1}
@@ -168,7 +206,7 @@ export function PraxisLayout({ project }: Props) {
 
                                                 <p
                                                     className="
-                                                        text-neutral-300
+                                                        text-(--color-text-secondary)
                                                         text-base
                                                         md:text-lg
                                                         leading-relaxed
@@ -193,7 +231,7 @@ export function PraxisLayout({ project }: Props) {
                         />
                     )}
 
-                    {/* TECH DECISIONS */}
+                    {/* TECHNICAL DECISIONS */}
                     {technicalDecisions && (
                         <section className="space-y-10">
                             <SectionEyebrow>
@@ -207,7 +245,7 @@ export function PraxisLayout({ project }: Props) {
                                         md:text-5xl
                                         tracking-[-0.06em]
                                         leading-[1.05]
-                                        text-white
+                                        text-(--color-text-primary)
                                     "
                                 >
                                     {technicalDecisions.headline}
@@ -241,7 +279,7 @@ export function PraxisLayout({ project }: Props) {
                                         md:text-5xl
                                         tracking-[-0.06em]
                                         leading-[1.05]
-                                        text-white
+                                        text-(--color-text-primary)
                                         max-w-2xl
                                     "
                                 >
@@ -250,7 +288,7 @@ export function PraxisLayout({ project }: Props) {
 
                                 <p
                                     className="
-                                        text-neutral-400
+                                        text-(--color-text-secondary)
                                         text-lg
                                         leading-relaxed
                                         max-w-2xl
@@ -266,41 +304,67 @@ export function PraxisLayout({ project }: Props) {
                                             grid-cols-1
                                             md:grid-cols-3
                                             gap-4
-                                            pt-8
+                                            pt-10
                                         "
                                     >
                                         {outcome.metrics.map((metric) => (
-                                            <div
+                                            <motion.div
                                                 key={metric.label}
+                                                whileHover={{ y: -4 }}
+                                                transition={{ duration: 0.2 }}
                                                 className="
-                                                    border border-white/5
+                                                    relative
+                                                    overflow-hidden
+                                                    border border-(--color-border)
                                                     rounded-3xl
                                                     p-6
-                                                    bg-white/2
+                                                    bg-(--color-bg-secondary)/60
+                                                    backdrop-blur-xl
                                                 "
                                             >
-                                                <p
+                                                {/* glow */}
+                                                <div
                                                     className="
-                                                        text-xs
-                                                        uppercase
-                                                        tracking-[0.18em]
-                                                        text-neutral-500
-                                                        mb-3
+                                                        absolute
+                                                        top-[-40%]
+                                                        left-1/2
+                                                        -translate-x-1/2
+                                                        w-[120%]
+                                                        h-[180px]
+                                                        opacity-40
+                                                        blur-3xl
+                                                        rounded-full
+                                                        bg-(--color-accent-muted)
                                                     "
-                                                >
-                                                    {metric.label}
-                                                </p>
+                                                />
 
-                                                <p
-                                                    className="
-                                                        text-2xl
-                                                        tracking-[-0.04em]
-                                                        text-white
-                                                    "
-                                                >
-                                                    {metric.value}
-                                                </p>
-                                            </div>
+                                                <div className="relative">
+                                                    <p
+                                                        className="
+                                                            text-xs
+                                                            uppercase
+                                                            tracking-[0.18em]
+                                                            text-(--color-text-tertiary)
+                                                            mb-3
+                                                        "
+                                                    >
+                                                        {metric.label}
+                                                    </p>
+
+                                                    <p
+                                                        className="
+                                                            text-3xl
+                                                            md:text-4xl
+                                                            font-semibold
+                                                            tracking-tighter
+                                                            text-(--color-gold)
+                                                            drop-shadow-[0_0_24px_var(--color-accent)]
+                                                        "
+                                                    >
+                                                        {metric.value}
+                                                    </p>
+                                                </div>
+                                            </motion.div>
                                         ))}
                                     </div>
                                 )}
@@ -337,6 +401,7 @@ function EditorialBlock({
     return (
         <section className={bottomSpacing ? "pb-32" : ""}>
             <div className="space-y-6">
+
                 <SectionEyebrow>
                     {eyebrow}
                 </SectionEyebrow>
@@ -347,7 +412,7 @@ function EditorialBlock({
                         md:text-5xl
                         tracking-[-0.06em]
                         leading-[1.05]
-                        text-white
+                        text-(--color-text-primary)
                         max-w-2xl
                     "
                 >
@@ -357,7 +422,7 @@ function EditorialBlock({
                 {body && (
                     <p
                         className="
-                            text-neutral-400
+                            text-(--color-text-secondary)
                             text-lg
                             leading-relaxed
                             max-w-2xl
@@ -382,7 +447,7 @@ function SectionEyebrow({
                 text-[11px]
                 uppercase
                 tracking-[0.22em]
-                text-[#D6FF3F]
+                text-(--color-accent)
                 font-medium
             "
         >
@@ -405,8 +470,9 @@ function DecisionAccordion({
     return (
         <div
             className="
-                border border-white/5
-                bg-white/2
+                border border-(--color-border-subtle)
+                bg-(--color-bg-secondary)/40
+                backdrop-blur-xl
                 rounded-3xl
                 overflow-hidden
             "
@@ -423,7 +489,7 @@ function DecisionAccordion({
             >
                 <span
                     className="
-                        text-white
+                        text-(--color-text-primary)
                         text-base
                         md:text-lg
                     "
@@ -433,7 +499,8 @@ function DecisionAccordion({
 
                 <ChevronDown
                     className={`
-                        w-4 h-4 text-neutral-500 transition-transform duration-300
+                        w-4 h-4 text-(--color-text-tertiary)
+                        transition-transform duration-300
                         ${open ? "rotate-180" : ""}
                     `}
                 />
@@ -451,10 +518,14 @@ function DecisionAccordion({
                 className="overflow-hidden"
             >
                 <div className="px-6 pb-6 space-y-5">
+
                     <div>
-                        <p className="text-xs                                uppercase
+                        <p
+                            className="
+                                text-xs
+                                uppercase
                                 tracking-[0.18em]
-                                text-[#D6FF3F]
+                                text-(--color-accent)
                                 mb-2
                             "
                         >
@@ -463,7 +534,7 @@ function DecisionAccordion({
 
                         <p
                             className="
-                                text-neutral-300
+                                text-(--color-text-secondary)
                                 leading-relaxed
                             "
                         >
@@ -478,7 +549,7 @@ function DecisionAccordion({
                                     text-xs
                                     uppercase
                                     tracking-[0.18em]
-                                    text-[#D6FF3F]
+                                    text-(--color-accent)
                                     mb-2
                                 "
                             >
@@ -487,7 +558,7 @@ function DecisionAccordion({
 
                             <p
                                 className="
-                                    text-neutral-400
+                                    text-(--color-text-secondary)
                                     leading-relaxed
                                 "
                             >
