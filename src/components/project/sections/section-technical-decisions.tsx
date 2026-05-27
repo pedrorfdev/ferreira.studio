@@ -21,20 +21,20 @@ function DecisionCard({ decision, index }: { decision: TechnicalDecision; index:
                 onClick={() => setOpen((v) => !v)}
                 className={cn(
                     "w-full text-left p-6 rounded-xl border transition-colors duration-200 cursor-pointer",
-                    "border-[var(--color-border)] hover:border-[var(--color-border-strong)]",
-                    "bg-[var(--color-bg-secondary)]",
+                    "border-(--color-border) hover:border-(--color-border-strong)",
+                    "bg-(--color-bg-secondary)",
                 )}
             >
                 {/* Header */}
                 <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                        <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-tertiary)] mb-2 block">
+                        <span className="text-[10px] uppercase tracking-[0.12em] text-(--color-text-tertiary) mb-2 block">
                             Decision {String(index + 1).padStart(2, "0")}
                         </span>
-                        <h3 className="font-display text-lg font-semibold text-[var(--color-text-primary)] tracking-[-0.01em] mb-3">
+                        <h3 className="font-display text-lg font-semibold text-(--color-text-primary) tracking-[-0.01em] mb-3">
                             {decision.title}
                         </h3>
-                        <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                        <p className="text-sm text-(--color-text-secondary) leading-relaxed">
                             {decision.why}
                         </p>
                     </div>
@@ -42,7 +42,7 @@ function DecisionCard({ decision, index }: { decision: TechnicalDecision; index:
                     {/* Expand indicator */}
                     {decision.trade && (
                         <motion.span
-                            className="text-[var(--color-text-tertiary)] text-lg shrink-0 mt-1"
+                            className="text-(--color-text-tertiary) text-lg shrink-0 mt-1"
                             animate={{ rotate: open ? 45 : 0 }}
                             transition={{ duration: 0.2 }}
                             aria-hidden
@@ -62,11 +62,11 @@ function DecisionCard({ decision, index }: { decision: TechnicalDecision; index:
                             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                             className="overflow-hidden"
                         >
-                            <div className="mt-4 pt-4 border-t border-[var(--color-border-subtle)]">
-                                <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-accent)] mb-2 block">
+                            <div className="mt-4 pt-4 border-t border-(--color-border-subtle)">
+                                <span className="text-[10px] uppercase tracking-[0.12em] text-(--color-accent) mb-2 block">
                                     Tradeoff
                                 </span>
-                                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
+                                <p className="text-sm text-(--color-text-secondary) leading-relaxed">
                                     {decision.trade}
                                 </p>
                             </div>
@@ -83,15 +83,15 @@ export function SectionTechnicalDecisions({ project }: Props) {
     if (!data) return null
 
     return (
-        <section className="py-24 px-8 md:px-16 max-w-5xl mx-auto w-full border-t border-[var(--color-border-subtle)]">
+        <section className="py-24 px-8 md:px-16 max-w-5xl mx-auto w-full border-t border-(--color-border-subtle)">
             <SectionReveal>
-                <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-text-tertiary)] mb-6 block">
+                <span className="text-xs uppercase tracking-[0.18em] text-(--color-text-tertiary) mb-6 block">
                     Technical Decisions
                 </span>
             </SectionReveal>
 
             <SectionReveal delay={0.05}>
-                <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-[-0.02em] leading-tight text-[var(--color-text-primary)] mb-12 max-w-xl">
+                <h2 className="font-display text-3xl md:text-4xl font-semibold tracking-[-0.02em] leading-tight text-(--color-text-primary) mb-12 max-w-xl">
                     {data.headline}
                 </h2>
             </SectionReveal>

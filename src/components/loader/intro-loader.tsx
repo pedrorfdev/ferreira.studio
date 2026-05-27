@@ -1,20 +1,16 @@
 // components/loader/intro-loader.tsx
-// ============================================================
-// Intro animation — shown once on first load.
-// Displays "Pedro Ferreira" with a staggered reveal,
-// then fades out and calls finishLoading() to transition
-// to the HOME state. Unmounts via AnimatePresence in AppShell.
-// ============================================================
-
+// Usa useI18n para texto traduzido no loader
 import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { useAppStore } from "@/store/use-app-store"
-import { loaderReveal, loaderExit, staggerContainer } from "@/lib/motion"
+import { useI18n } from "@/lib/i18n-context"
+import { staggerContainer, loaderReveal, loaderExit } from "@/lib/motion"
 
-const LOADER_DURATION = 1800 // ms before triggering exit
+const LOADER_DURATION = 1800
 
 export function IntroLoader() {
     const finishLoading = useAppStore((s) => s.finishLoading)
+    const { t } = useI18n()
 
     useEffect(() => {
         const timer = setTimeout(finishLoading, LOADER_DURATION)
@@ -23,7 +19,7 @@ export function IntroLoader() {
 
     return (
         <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[var(--color-bg-primary)]"
+            className="fixed inset-0 z-100 flex items-center justify-center bg-(--color-bg-primary)"
             variants={loaderExit}
             initial="visible"
             exit="exit"
@@ -34,25 +30,20 @@ export function IntroLoader() {
                 initial="hidden"
                 animate="visible"
             >
-                {/* Name — primary headline */}
                 <motion.h1
-                    className="font-display text-4xl md:text-5xl font-semibold tracking-[-0.03em] text-[var(--color-text-primary)]"
+                    className="font-display text-3xl md:text-5xl font-semibold tracking-[-0.03em] text-(--color-text-primary)"
                     variants={loaderReveal}
                 >
                     Pedro Ferreira
                 </motion.h1>
-
-                {/* Role — secondary line */}
                 <motion.p
-                    className="text-sm tracking-[0.18em] uppercase text-[var(--color-text-tertiary)]"
+                    className="text-xs tracking-[0.18em] uppercase text-(--color-text-tertiary)"
                     variants={loaderReveal}
                 >
-                    Product Engineer
+                    {t.loader.role}
                 </motion.p>
-
-                {/* Accent line — decorative, signals loading */}
                 <motion.div
-                    className="mt-2 h-px w-12 bg-[var(--color-accent)]"
+                    className="mt-2 h-px w-10 bg-(--color-accent)"
                     variants={loaderReveal}
                 />
             </motion.div>

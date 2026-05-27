@@ -23,8 +23,8 @@ export function SectionProblem({ project }: Props) {
                 {/* Left — label + ícone */}
                 <SectionReveal className="flex flex-col gap-4">
                     <div className="flex items-center gap-2">
-                        <AlertTriangle size={13} className="text-[var(--color-accent)]" />
-                        <span className="text-xs uppercase tracking-[0.18em] text-[var(--color-accent)]">
+                        <AlertTriangle size={13} className="text-(--color-accent)" />
+                        <span className="text-xs uppercase tracking-[0.18em] text-(--color-accent)">
                             {t.project.sections.problem}
                         </span>
                     </div>

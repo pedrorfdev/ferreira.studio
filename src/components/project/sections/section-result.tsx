@@ -10,9 +10,7 @@ import { TrendingUp, ExternalLink, GitBranch } from "lucide-react"
 import { cn } from "@/lib/cn"
 import type { ProjectData } from "@/types/project"
 
-interface Props { project: ProjectData }
-
-export function SectionResult({ project }: Props) {
+export function SectionResult({ project }: { project: ProjectData }) {
     const { t } = useI18n()
     const data = project.sections.result
     if (!data) return null
