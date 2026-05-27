@@ -97,7 +97,7 @@ export function SectionTechnicalDecisions({ project }: Props) {
             </SectionReveal>
 
             <div className="flex flex-col gap-4">
-                {data.decisions.map((decision, i) => (
+                {data.decisions?.map((decision, i) => (
                     <DecisionCard key={i} decision={decision} index={i} />
                 ))}
             </div>

@@ -1,5 +1,3 @@
-// components/project/layouts/praxis-layout.tsx
-
 import { motion } from "framer-motion"
 import { useMemo, useState } from "react"
 import { ChevronDown } from "lucide-react"
@@ -38,7 +36,7 @@ export function PraxisLayout({ project }: Props) {
                     className="
                         absolute top-0 left-1/2 -translate-x-1/2
                         w-[900px] h-[500px]
-                        bg-[#D6FF3F]/[0.06]
+                        bg-[#D6FF3F]/6
                         blur-[140px]
                         rounded-full
                     "
@@ -278,7 +276,7 @@ export function PraxisLayout({ project }: Props) {
                                                     border border-white/5
                                                     rounded-3xl
                                                     p-6
-                                                    bg-white/[0.02]
+                                                    bg-white/2
                                                 "
                                             >
                                                 <p
@@ -408,7 +406,7 @@ function DecisionAccordion({
         <div
             className="
                 border border-white/5
-                bg-white/[0.02]
+                bg-white/2
                 rounded-3xl
                 overflow-hidden
             "
@@ -454,10 +452,7 @@ function DecisionAccordion({
             >
                 <div className="px-6 pb-6 space-y-5">
                     <div>
-                        <p
-                            className="
-                                text-xs
-                                uppercase
+                        <p className="text-xs                                uppercase
                                 tracking-[0.18em]
                                 text-[#D6FF3F]
                                 mb-2
