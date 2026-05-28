@@ -3,18 +3,35 @@ import type {
   ListSection,
   DecisionSection,
   ResultSection,
-} from "@/types/project";
+  LocalizedProjectData,
+} from "../project";
+
+export interface BravioFeatureItem {
+  title: string;
+  description: string;
+}
+
+export interface BravioFeaturesSection {
+  headline: string;
+  items: BravioFeatureItem[];
+}
 
 export interface BravioSections {
   problem: BaseSection;
 
-  idea: BaseSection;
+  vision: BaseSection;
 
-  analysis: BaseSection;
+  operations: ListSection;
 
-  solution: ListSection;
+  platform: BaseSection;
+
+  features: BravioFeaturesSection;
 
   technicalDecisions: DecisionSection;
 
   result: ResultSection;
+
+  future: BaseSection;
 }
+
+export type BravioProject = LocalizedProjectData<BravioSections>;

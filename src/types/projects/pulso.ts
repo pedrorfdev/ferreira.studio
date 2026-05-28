@@ -3,18 +3,35 @@ import type {
   ListSection,
   DecisionSection,
   ResultSection,
-} from "@/types/project";
+  LocalizedProjectData,
+} from "../project";
+
+export interface PulsoInsightItem {
+  title: string;
+  description: string;
+}
+
+export interface PulsoInsightsSection {
+  headline: string;
+  items: PulsoInsightItem[];
+}
 
 export interface PulsoSections {
   problem: BaseSection;
 
-  idea: BaseSection;
+  insight: BaseSection;
+
+  workflow: ListSection;
 
   analysis: BaseSection;
 
-  solution: ListSection;
+  insights: PulsoInsightsSection;
 
   technicalDecisions: DecisionSection;
 
   result: ResultSection;
+
+  future: BaseSection;
 }
+
+export type PulsoProject = LocalizedProjectData<PulsoSections>;
