@@ -1,11 +1,11 @@
 // Light: overlay branco a 55% em vez de 85%
 // Dark: scrim preto a 55% em vez de 70%
-import { AnimatePresence, motion } from "framer-motion"
+import { MediaPlaceholder } from "@/components/ui/media-placeholder"
 import { backgroundCrossfade } from "@/lib/motion"
 import { useAppStore } from "@/store/use-app-store"
-import { MediaPlaceholder } from "@/components/ui/media-placeholder"
-import { AppState } from "@/types/project"
 import { useThemeStore } from "@/store/use-theme-store"
+import { AppState } from "@/types/project"
+import { AnimatePresence, motion } from "framer-motion"
 
 const GLOBAL_BG_VIDEO = "/media/hero-bg.mp4"
 
@@ -20,8 +20,8 @@ export function BackgroundLayer() {
 
     // Scrim adaptado ao tema — light precisa de menos opacidade
     const scrimClass = theme === "light"
-        ? "bg-white/55"
-        : "bg-black/52"
+        ? "bg-white/5"
+        : "bg-black/30"
 
     return (
         <div className="absolute inset-0 z-0">

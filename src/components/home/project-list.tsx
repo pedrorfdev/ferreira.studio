@@ -1,13 +1,13 @@
 // components/home/project-list.tsx
 // Mobile: items maiores e clicáveis diretamente (sem card intermediário)
 // Desktop: hover mostra card flutuante, clique também abre direto
-import { motion } from "framer-motion"
-import { useAppStore } from "@/store/use-app-store"
 import { projects } from "@/data/projects"
 import { cn } from "@/lib/cn"
-import { staggerContainer, slideUp } from "@/lib/motion"
-import { Zap } from "lucide-react"
+import { slideUp, staggerContainer } from "@/lib/motion"
+import { useAppStore } from "@/store/use-app-store"
 import type { ProjectData } from "@/types/project"
+import { motion } from "framer-motion"
+import { Zap } from "lucide-react"
 
 interface ItemProps { project: ProjectData; index: number }
 

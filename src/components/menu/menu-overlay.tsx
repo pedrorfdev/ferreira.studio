@@ -1,16 +1,16 @@
 // components/menu/menu-overlay.tsx
 // Mobile: fullscreen em vez de duas colunas laterais
 // Desktop: duas colunas entrando de fora pra dentro
-import { useState } from "react"
-import { motion, AnimatePresence, type Variants } from "framer-motion"
-import { useMenuStore } from "@/store/use-menu-store"
-import { useAppStore } from "@/store/use-app-store"
-import { useI18n } from "@/lib/i18n-context"
-import { useThemeStore } from "@/store/use-theme-store"
 import { projects } from "@/data/projects"
-import { menuColumnLeft, menuColumnRight, menuScrim } from "@/lib/motion"
 import { cn } from "@/lib/cn"
+import { useI18n } from "@/lib/i18n-context"
+import { menuColumnLeft, menuColumnRight, menuScrim } from "@/lib/motion"
+import { useAppStore } from "@/store/use-app-store"
+import { useMenuStore } from "@/store/use-menu-store"
+import { useThemeStore } from "@/store/use-theme-store"
 import type { ProjectData } from "@/types/project"
+import { AnimatePresence, motion, type Variants } from "framer-motion"
+import { useState } from "react"
 
 const STACK = ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS", "Framer Motion", "Zustand", "Gemini API"]
 const SOCIAL = [
