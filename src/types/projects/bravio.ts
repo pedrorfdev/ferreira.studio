@@ -6,32 +6,20 @@ import type {
   LocalizedProjectData,
 } from "../project";
 
-export interface BravioFeatureItem {
-  title: string;
-  description: string;
-}
-
-export interface BravioFeaturesSection {
-  headline: string;
-  items: BravioFeatureItem[];
-}
+export interface SolutionSection extends ListSection {}
 
 export interface BravioSections {
   problem: BaseSection;
 
-  vision: BaseSection;
+  idea: BaseSection;
 
-  operations: ListSection;
+  analysis: BaseSection;
 
-  platform: BaseSection;
-
-  features: BravioFeaturesSection;
+  solution: SolutionSection;
 
   technicalDecisions: DecisionSection;
 
   result: ResultSection;
-
-  future: BaseSection;
 }
 
 export type BravioProject = LocalizedProjectData<BravioSections>;
