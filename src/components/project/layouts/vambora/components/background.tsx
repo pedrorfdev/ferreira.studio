@@ -8,7 +8,7 @@ export function Background({ image }: Props) {
       {/* image */}{" "}
       {image && (
         <div
-          className=" absolute inset-0 bg-cover bg-center opacity-[0.86] "
+          className=" absolute inset-0 bg-cover bg-center opacity-[0.86]"
           style={{ backgroundImage: `url(${image})` }}
         />
       )}{" "}

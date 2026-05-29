@@ -29,11 +29,11 @@ export function DecisionsTabs({ section }: Props) {
               key={decision.title}
               onClick={() => setActive(index)}
               className={`
-                px-4 py-2 rounded-full text-sm transition-all
+                px-4 py-2 rounded-full text-sm transition-all border
                 ${
                   active === index
-                    ? "bg-(--color-accent) text-white"
-                    : "bg-white/4 text-white/60 hover:bg-white/7"
+                    ? "bg-(--color-accent) border-(--color-accent) text-white shadow-[0_0_24px_var(--color-accent)]"
+                    : "bg-(--color-bg-secondary)/80 border-(--color-border) text-(--color-text-secondary) hover:border-(--color-accent)/40 hover:text-(--color-text-primary)"
                 }
               `}
             >
@@ -50,30 +50,38 @@ export function DecisionsTabs({ section }: Props) {
             mt-8
             rounded-3xl
             border border-(--color-border)
-            bg-white/3
+            bg-(--color-bg-secondary)/80
             backdrop-blur-xl
             p-8
+            relative
+            overflow-hidden
           "
         >
-          <p className="text-white/80 leading-relaxed mb-8">{current.why}</p>
+          <div className="absolute inset-0 bg-(--color-accent)/5 blur-3xl pointer-events-none" />
 
-          {current.trade && (
-            <div className="pt-6 border-t border-white/6">
-              <p
-                className="
-                text-xs
-                uppercase
-                tracking-[0.18em]
-                text-(--color-accent)
-                mb-3
-              "
-              >
-                Tradeoff
-              </p>
+          <div className="relative">
+            <p className="text-(--color-text-secondary) leading-relaxed mb-8">
+              {current.why}
+            </p>
 
-              <p className="text-white/60">{current.trade}</p>
-            </div>
-          )}
+            {current.trade && (
+              <div className="pt-6 border-t border-(--color-border)">
+                <p
+                  className="
+                    text-xs
+                    uppercase
+                    tracking-[0.18em]
+                    text-(--color-accent)
+                    mb-3
+                  "
+                >
+                  Tradeoff
+                </p>
+
+                <p className="text-(--color-text-secondary)">{current.trade}</p>
+              </div>
+            )}
+          </div>
         </motion.div>
       </div>
     </section>

@@ -39,21 +39,27 @@ export function FeatureGrid({ headline, items }: Props) {
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
               className={cn(
-                "relative overflow-hidden rounded-3xl border p-6 backdrop-blur-xl",
+                "relative overflow-hidden rounded-3xl border p-6 backdrop-blur-xl transition-all",
                 featured
-                  ? "bg-linear-to-br from-(--color-accent) to-(--color-accent-hover) border-(--color-accent)"
+                  ? `border-(--color-accent) bg-linear-to-br from-[#2563eb] via-[#1d4ed8] to-[#1e40af] text-white`
                   : "bg-(--color-bg-secondary)/80 border-(--color-border)",
               )}
             >
               {featured && (
-                <div className="absolute inset-0 bg-white/10 blur-3xl" />
+                <>
+                  <div className="absolute inset-0 bg-black/10" />
+
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
+                </>
               )}
 
               <div className="relative">
                 <div
                   className={cn(
                     "w-11 h-11 rounded-2xl flex items-center justify-center mb-6",
-                    featured ? "bg-white/15" : "bg-(--color-accent-muted)",
+                    featured
+                      ? "bg-white/20 border border-white/10"
+                      : "bg-(--color-accent-muted)",
                   )}
                 >
                   <Icon
@@ -66,7 +72,7 @@ export function FeatureGrid({ headline, items }: Props) {
 
                 <h3
                   className={cn(
-                    "text-base font-medium mb-3",
+                    "text-base font-semibold mb-3 tracking-tight",
                     featured ? "text-white" : "text-(--color-text-primary)",
                   )}
                 >
@@ -76,9 +82,7 @@ export function FeatureGrid({ headline, items }: Props) {
                 <p
                   className={cn(
                     "text-sm md:text-[15px] leading-relaxed",
-                    featured
-                      ? "text-white/90"
-                      : "text-(--color-text-secondary)",
+                    featured ? "text-white" : "text-(--color-text-secondary)",
                   )}
                 >
                   {item.description}

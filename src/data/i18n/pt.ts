@@ -1,84 +1,85 @@
-import type { en } from "./en"
+import type { en } from "./en";
 
 type DeepWritablePartial<T> = {
-    [P in keyof T]?: T[P] extends object
-    ? DeepWritablePartial<T[P]>
-    : string
-}
+  [P in keyof T]?: T[P] extends object ? DeepWritablePartial<T[P]> : string;
+};
 
 export const pt: DeepWritablePartial<typeof en> = {
-    nav: {
-        menu: "Menu",
-        close: "Fechar",
+  nav: {
+    menu: "Menu",
+    close: "Fechar",
+  },
+
+  home: {
+    role: "Full Stack · Product Engineer",
+    location: "Brasil",
+  },
+
+  project: {
+    scrollHint: "Role para explorar",
+    close: "Fechar",
+    askAbout: "Perguntar sobre este projeto",
+
+    sections: {
+      problem: "Qual era o problema?",
+      idea: "Por que esse projeto nasceu?",
+      solution: "Como pensei a solução?",
+      analysis: "O que realmente importava?",
+      technical: "Decisões técnicas",
+      result: "O que mudou?",
     },
 
-    home: {
-        role: "Full Stack · Product Engineer",
-        location: "Brasil",
+    status: {
+      live: "Em produção",
+      inDevelopment: "Em desenvolvimento",
+      concept: "Conceito",
     },
 
-    project: {
-        scrollHint: "Role para explorar",
-        close: "Fechar",
-        askAbout: "Perguntar sobre este projeto",
+    decision: "Decisão",
+    tradeoff: "Tradeoff",
+  },
 
-        sections: {
-            problem: "Qual era o problema?",
-            idea: "Por que esse projeto nasceu?",
-            solution: "Como pensei a solução?",
-            analysis: "O que realmente importava?",
-            technical: "Decisões técnicas",
-            result: "O que mudou?",
-        },
+  menu: {
+    about: "Sobre",
+    work: "Projetos",
+    contact: "Contato",
+    stack: "Stack",
 
-        status: {
-            live: "Em produção",
-            inDevelopment: "Em desenvolvimento",
-            concept: "Conceito",
-        },
-
-        decision: "Decisão",
-        tradeoff: "Tradeoff",
+    sections: {
+      projects: "Case Studies",
+      pages: "Páginas",
+      social: "Social",
     },
+  },
 
-    menu: {
-        about: "Sobre",
-        work: "Projetos",
-        contact: "Contato",
-        stack: "Stack",
+  about: {
+    headline:
+      "Construindo produtos digitais com profundidade técnica e visão de produto.",
 
-        sections: {
-            projects: "Case Studies",
-            pages: "Páginas",
-            social: "Social",
-        },
-    },
+    body: "Sou um Full Stack / Product Engineer baseado no Brasil. Gosto de construir produtos claros, intencionais e úteis — unindo engenharia, experiência e decisões de produto que fazem sentido para pessoas reais.",
 
-    about: {
-        headline:
-            "Construindo produtos digitais com profundidade técnica e visão de produto.",
+    currentlyBuilding: "Construindo atualmente",
+  },
 
-        body:
-            "Sou um Full Stack / Product Engineer baseado no Brasil. Gosto de construir produtos claros, intencionais e úteis — unindo engenharia, experiência e decisões de produto que fazem sentido para pessoas reais.",
+  contact: {
+    headline: "Vamos construir algo relevante.",
+    email: "hello@ferreira.studio",
+    cta: "Enviar um e-mail",
+  },
 
-        currentlyBuilding: "Construindo atualmente",
-    },
+  assistant: {
+    placeholder: "Pergunte qualquer coisa sobre este projeto...",
+    send: "Enviar",
+    thinking: "Pensando...",
+    error: "Algo deu errado. Tente novamente.",
+    clearChat: "Limpar conversa",
+  },
 
-    contact: {
-        headline: "Vamos construir algo relevante.",
-        email: "hello@ferreira.studio",
-        cta: "Enviar um e-mail",
-    },
-
-    assistant: {
-        placeholder: "Pergunte qualquer coisa sobre este projeto...",
-        send: "Enviar",
-        thinking: "Pensando...",
-        error: "Algo deu errado. Tente novamente.",
-        clearChat: "Limpar conversa",
-    },
-
-    loader: {
-        role: "Product Engineer",
-    },
-}
+  loader: {
+    role: "Product Engineer",
+  },
+  actions: {
+    viewDemo: "Ver Projeto",
+    github: "Ver Código",
+  },
+};

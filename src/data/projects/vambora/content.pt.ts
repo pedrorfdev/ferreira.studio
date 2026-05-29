@@ -20,17 +20,78 @@ export const vamboraPt: DeepPartial<VamboraSections> = {
     body: "As primeiras gerações pareciam impressionantes, mas quebravam em logística, tempo e orçamento. O avanço veio ao transformar prompts livres em fluxos guiados de raciocínio estruturado.",
   },
 
-  solution: {
-    headline: "Planejamento de viagem condensado em uma única conversa",
-
-    body: "O usuário descreve destino, orçamento, duração e preferências. O Vambora gera um roteiro contextual com atividades, logística, estimativas de custo e sugestões organizadas por dia.",
+  timeline: {
+    headline: "Como o produto evoluiu",
 
     items: [
-      "Fluxo conversacional de planejamento",
-      "Geração estruturada de roteiros",
-      "Sugestões adaptadas ao orçamento",
-      "Fallback entre modelos para maior estabilidade",
-      "Experiência fluida baseada em estados",
+      {
+        title: "Experimentação inicial",
+
+        description:
+          "Os primeiros testes focaram em validar se a geração de viagens realmente parecia útil na prática.",
+      },
+
+      {
+        title: "Sistema estruturado de geração",
+
+        description:
+          "Os prompts evoluíram para fluxos contextuais multi-etapas e mais previsíveis.",
+      },
+
+      {
+        title: "UX baseada em estado",
+
+        description:
+          "A interface passou a funcionar como uma experiência conversacional contínua.",
+      },
+
+      {
+        title: "Arquitetura de produção",
+
+        description:
+          "Fallbacks, normalização de respostas e camadas de resiliência foram adicionadas para estabilidade.",
+      },
+    ],
+  },
+
+  features: {
+    headline: "Planejamento de viagem condensado em uma única conversa",
+
+    items: [
+      {
+        title: "Planejamento conversacional",
+
+        description:
+          "O usuário descreve destino, orçamento, duração e preferências naturalmente.",
+      },
+
+      {
+        title: "Roteiros estruturados",
+
+        description:
+          "As viagens são organizadas em planejamentos claros e distribuídos por dia.",
+      },
+
+      {
+        title: "Sugestões adaptadas ao orçamento",
+
+        description:
+          "As recomendações mudam dinamicamente conforme limites financeiros e prioridades.",
+      },
+
+      {
+        title: "Fallback entre modelos",
+
+        description:
+          "O sistema consegue lidar melhor com instabilidades e respostas inconsistentes.",
+      },
+
+      {
+        title: "Navegação fluida",
+
+        description:
+          "A experiência parece contínua ao invés de fragmentada em páginas tradicionais.",
+      },
     ],
   },
 

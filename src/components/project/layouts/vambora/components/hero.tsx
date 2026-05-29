@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink, GitBranch } from "lucide-react";
+import { ArrowRight, ExternalLink, GitBranch, Sparkles } from "lucide-react";
 
 import type { VamboraProject } from "@/types/projects/vambora";
 
 import { Background } from "./background";
 import { GlowBackground } from "./glow-background";
+import { useI18n } from "@/lib/i18n-context";
 
 interface Props {
   project: VamboraProject;
@@ -12,61 +13,91 @@ interface Props {
 }
 
 export function Hero({ project, eyebrow }: Props) {
+  const { t } = useI18n();
+
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section className="relative overflow-hidden">
       <Background image={project.media.src} />
 
       <GlowBackground />
 
+      {/* HERO */}
       <div
         className="
-        relative z-10
-        min-h-screen
-        flex items-center
-        px-6 md:px-10
-      "
+          relative z-10
+          min-h-[72vh]
+          flex items-center
+          px-6 md:px-10
+          pt-28 md:pt-36
+          pb-32
+        "
       >
-        <div className="max-w-5xl mx-auto w-full">
+        <div className="max-w-6xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="max-w-3xl"
           >
             {eyebrow && (
-              <p
+              <div
                 className="
-                text-(--color-accent)
-                uppercase
-                tracking-[0.28em]
-                text-xs
-                mb-7
-                font-medium
-              "
+                  inline-flex items-center gap-2
+                  rounded-full
+                  border border-(--color-border)
+                  bg-black/30
+                  backdrop-blur-xl
+                  px-4 py-2
+                  mb-7
+                "
               >
-                {eyebrow}
-              </p>
+                <Sparkles size={12} className="text-(--color-accent)" />
+
+                <p
+                  className="
+                    text-(--color-accent)
+                    uppercase
+                    tracking-[0.24em]
+                    text-[10px]
+                    font-medium
+                  "
+                >
+                  {eyebrow}
+                </p>
+              </div>
             )}
 
             <h1
               className="
-              text-6xl md:text-8xl
-              tracking-[-0.08em]
-              leading-none
-              font-semibold
-              text-white
-            "
+                text-6xl md:text-8xl
+                tracking-[-0.08em]
+                leading-none
+                font-semibold
+                text-white
+              "
             >
-              {project.title}
+              <span className="text-white">Vam</span>
+
+              <span
+                className="
+                  text-(--color-accent)
+                  drop-shadow-[0_0_42px_var(--color-accent)]
+                "
+              >
+                bora
+              </span>
+
+              <span className="text-(--color-gold)">.ai</span>
             </h1>
 
             <p
               className="
-              mt-8
-              max-w-2xl
-              text-base md:text-xl
-              leading-relaxed
-              text-white/70
-            "
+                mt-8
+                max-w-2xl
+                text-base md:text-xl
+                leading-relaxed
+                text-(--color-text-secondary)
+              "
             >
               {project.tagline}
             </p>
@@ -84,8 +115,9 @@ export function Hero({ project, eyebrow }: Props) {
                     bg-(--color-accent)
                     text-white
                     text-sm
+                    hover:scale-[1.02]
                     hover:opacity-90
-                    transition-opacity
+                    transition-all
                   "
                 >
                   <ExternalLink size={14} />
@@ -103,10 +135,13 @@ export function Hero({ project, eyebrow }: Props) {
                     px-5 py-3
                     rounded-full
                     border border-(--color-border)
+                    bg-black/20
+                    backdrop-blur-xl
                     text-white/70
                     text-sm
                     hover:border-(--color-accent)
-                    transition-colors
+                    hover:text-white
+                    transition-all
                   "
                 >
                   <GitBranch size={14} />
@@ -118,10 +153,15 @@ export function Hero({ project, eyebrow }: Props) {
         </div>
       </div>
 
+      {/* SCROLL INDICATOR */}
       <motion.div
         className="
-          absolute bottom-10 left-1/2
+          absolute
+          bottom-12
+          left-1/2
           -translate-x-1/2
+          z-20
+          flex flex-col items-center gap-3
         "
         animate={{ y: [0, 10, 0] }}
         transition={{
@@ -129,14 +169,48 @@ export function Hero({ project, eyebrow }: Props) {
           duration: 2,
         }}
       >
-        <ArrowRight
-          size={18}
+        <p
           className="
-            text-(--color-accent)
-            rotate-90
+            text-[10px]
+            uppercase
+            tracking-[0.24em]
+            text-white/40
           "
-        />
+        >
+          {t.project.scrollHint}
+        </p>
+
+        <div
+          className="
+            w-10 h-10
+            rounded-full
+            border border-white/10
+            bg-black/20
+            backdrop-blur-xl
+            flex items-center justify-center
+          "
+        >
+          <ArrowRight
+            size={16}
+            className="
+              text-(--color-accent)
+              rotate-90
+            "
+          />
+        </div>
       </motion.div>
+
+      {/* NETFLIX-LIKE FADE */}
+      <div
+        className="
+          absolute inset-x-0 bottom-0
+          h-40
+          bg-linear-to-b
+          from-transparent
+          to-(--color-bg-primary)
+          pointer-events-none
+        "
+      />
     </section>
   );
 }

@@ -1,12 +1,20 @@
 import type {
   BaseSection,
-  ListSection,
   DecisionSection,
   ResultSection,
   LocalizedProjectData,
 } from "../project";
 
-export interface SolutionSection extends ListSection {}
+export interface SolutionItem {
+  title: string;
+  description: string;
+}
+
+export interface SolutionSection {
+  headline: string;
+  body?: string;
+  items: SolutionItem[];
+}
 
 export interface BravioSections {
   problem: BaseSection;

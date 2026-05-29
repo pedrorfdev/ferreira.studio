@@ -13,8 +13,6 @@ interface Props {
 export function Timeline({ items = [] }: Props) {
   const { lang } = useI18n();
 
-  if (!items.length) return null;
-
   return (
     <section className="px-6 md:px-16 mb-32 max-w-5xl mx-auto w-full">
       <SectionReveal className="text-center mb-16">

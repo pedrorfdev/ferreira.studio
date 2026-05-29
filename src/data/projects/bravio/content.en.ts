@@ -11,26 +11,50 @@ export const bravioEn: BravioSections = {
   idea: {
     headline: "Create operational clarity before operational complexity",
 
-    body: "The goal isn't to replicate a traditional ERP. Bravio focuses on creating a lightweight operational layer for field logistics and load visibility.",
+    body: "Bravio focuses on creating a lightweight operational layer for logistics and field visibility before introducing ERP-level complexity.",
   },
 
   analysis: {
     headline: "Field usability matters more than feature quantity",
 
-    body: "Operators in the field are not thinking about software while working. Every interaction must be fast, resilient, and obvious.",
+    body: "Operators are not thinking about software while working. Interactions need to feel immediate, resilient, and obvious even in unstable environments.",
   },
 
   solution: {
-    headline: "A mobile-first operational logistics platform",
+    headline: "A reliability-first operational platform",
 
-    body: "Bravio centralizes operational registration, tracking, incident management, and financial visibility.",
+    body: "Bravio centralizes logistics visibility, operational tracking, and financial monitoring into a single mobile-first workflow.",
 
     items: [
-      "Load registration and tracking",
-      "Operational incident history",
-      "Financial visibility per operation",
-      "Offline-first architecture",
-      "Mobile-first workflows",
+      {
+        title: "Load tracking",
+        description:
+          "Track operational loads and field movements with centralized visibility.",
+      },
+
+      {
+        title: "Incident history",
+        description:
+          "Maintain structured operational history for failures and interruptions.",
+      },
+
+      {
+        title: "Financial visibility",
+        description:
+          "Monitor operational costs and profitability per logistics flow.",
+      },
+
+      {
+        title: "Offline-first workflows",
+        description:
+          "Keep operations functional even under unstable rural connectivity.",
+      },
+
+      {
+        title: "Mobile-first execution",
+        description:
+          "Designed primarily for field operators instead of office environments.",
+      },
     ],
   },
 
@@ -41,32 +65,49 @@ export const bravioEn: BravioSections = {
       {
         title: "Offline-first architecture",
 
-        why: "Stable internet cannot be assumed in rural environments.",
+        why: "Stable connectivity cannot be assumed in rural environments.",
 
         trade: "Synchronization complexity increases substantially.",
       },
 
       {
-        title: "IndexedDB for local persistence",
+        title: "IndexedDB persistence",
 
-        why: "Operational data needs to survive unstable connectivity.",
+        why: "Operational data must survive unstable or interrupted connections.",
 
-        trade: "State synchronization becomes harder.",
+        trade: "Client-side synchronization becomes harder to maintain.",
       },
 
       {
-        title: "Web mobile-first instead of native apps",
+        title: "Web mobile-first instead of native",
 
-        why: "Avoids installation friction and works immediately across devices.",
+        why: "Avoids installation friction and enables immediate access across devices.",
 
-        trade: "Some native capabilities become harder to access.",
+        trade: "Some device-native capabilities become harder to access.",
       },
     ],
   },
 
   result: {
-    headline: "Operational architecture currently in progress",
+    headline: "Operational infrastructure currently in progress",
 
-    body: "Bravio is being structured around real-world agricultural operational flows before scaling implementation.",
+    body: "Bravio is being structured around real agricultural workflows before scaling implementation.",
+
+    metrics: [
+      {
+        label: "Architecture",
+        value: "Offline-first",
+      },
+
+      {
+        label: "Environment",
+        value: "Field-ready",
+      },
+
+      {
+        label: "Status",
+        value: "In Progress",
+      },
+    ],
   },
 };

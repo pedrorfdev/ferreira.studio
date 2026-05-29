@@ -9,6 +9,10 @@ import { transitions } from "@/lib/motion";
 import { ProjectNav } from "@/components/project/project-nav";
 
 import { PraxisView } from "@/components/project/layouts/praxis/view";
+import { VamboraView } from "./layouts/vambora/view";
+import type { BravioSections, VamboraSections } from "@/types/projects";
+import { BravioView } from "./layouts/bravio/view";
+import { BackToTop } from "../ui/back-to-top";
 
 type AnyProject = LocalizedProjectData<unknown>;
 
@@ -17,6 +21,16 @@ function resolveLayout(project: AnyProject) {
     case "praxis":
       return (
         <PraxisView project={project as LocalizedProjectData<PraxisSections>} />
+      );
+    case "vambora":
+      return (
+        <VamboraView
+          project={project as LocalizedProjectData<VamboraSections>}
+        />
+      );
+    case "bravio":
+      return (
+        <BravioView project={project as LocalizedProjectData<BravioSections>} />
       );
 
     default:
@@ -100,6 +114,7 @@ export function ProjectView() {
           className="flex-1 overflow-y-auto overscroll-none"
         >
           <div className="pt-20">{resolveLayout(project)}</div>
+          <BackToTop target={containerRef} />
           <div className="h-24" />
         </div>
       </motion.div>

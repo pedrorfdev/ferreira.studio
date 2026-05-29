@@ -10,29 +10,53 @@ export const bravioPt: DeepPartial<BravioSections> = {
   },
 
   idea: {
-    headline: "Criar clareza operacional antes de complexidade operacional",
+    headline: "Criar clareza operacional antes da complexidade operacional",
 
-    body: "O objetivo não é replicar um ERP tradicional. O Bravio foca em criar uma camada operacional leve para logística agrícola.",
+    body: "O Bravio foca em criar uma camada operacional leve para logística e visibilidade em campo antes da complexidade de um ERP tradicional.",
   },
 
   analysis: {
     headline:
-      "Usabilidade em campo importa mais que quantidade de funcionalidades",
+      "Usabilidade em campo importa mais do que quantidade de funcionalidades",
 
-    body: "Operadores em campo não estão pensando em software enquanto trabalham. Cada interação precisa ser rápida, resiliente e óbvia.",
+    body: "Operadores não estão pensando em software enquanto trabalham. Cada interação precisa ser imediata, resiliente e óbvia.",
   },
 
   solution: {
-    headline: "Uma plataforma logística mobile-first",
+    headline: "Uma plataforma operacional reliability-first",
 
-    body: "O Bravio centraliza registro operacional, rastreamento, incidentes e visibilidade financeira.",
+    body: "O Bravio centraliza visibilidade logística, rastreamento operacional e monitoramento financeiro em um único fluxo mobile-first.",
 
     items: [
-      "Cadastro e rastreamento de cargas",
-      "Histórico operacional de incidentes",
-      "Visibilidade financeira por operação",
-      "Arquitetura offline-first",
-      "Fluxos mobile-first",
+      {
+        title: "Rastreamento de cargas",
+        description:
+          "Acompanhamento operacional com visibilidade centralizada.",
+      },
+
+      {
+        title: "Histórico de incidentes",
+        description:
+          "Registro estruturado de falhas e interrupções operacionais.",
+      },
+
+      {
+        title: "Visibilidade financeira",
+        description:
+          "Monitoramento de custos e rentabilidade por operação logística.",
+      },
+
+      {
+        title: "Fluxos offline-first",
+        description:
+          "Operações continuam funcionando mesmo sob conectividade instável.",
+      },
+
+      {
+        title: "Execução mobile-first",
+        description:
+          "Experiência desenhada prioritariamente para operadores em campo.",
+      },
     ],
   },
 
@@ -49,17 +73,17 @@ export const bravioPt: DeepPartial<BravioSections> = {
       },
 
       {
-        title: "IndexedDB para persistência local",
+        title: "Persistência com IndexedDB",
 
-        why: "Os dados operacionais precisam sobreviver a conectividade instável.",
+        why: "Os dados operacionais precisam sobreviver a conexões instáveis.",
 
-        trade: "Sincronização de estado se torna mais difícil.",
+        trade: "A sincronização client-side se torna mais difícil.",
       },
 
       {
-        title: "Web mobile-first ao invés de apps nativos",
+        title: "Web mobile-first ao invés de nativo",
 
-        why: "Evita fricção de instalação e funciona imediatamente em qualquer dispositivo.",
+        why: "Reduz fricção de instalação e funciona imediatamente em qualquer dispositivo.",
 
         trade: "Algumas capacidades nativas ficam mais difíceis de acessar.",
       },
@@ -67,8 +91,25 @@ export const bravioPt: DeepPartial<BravioSections> = {
   },
 
   result: {
-    headline: "Arquitetura operacional atualmente em desenvolvimento",
+    headline: "Infraestrutura operacional atualmente em construção",
 
-    body: "O Bravio está sendo estruturado em cima de fluxos operacionais reais do agronegócio.",
+    body: "O Bravio está sendo estruturado em cima de fluxos reais do agronegócio antes de escalar implementação.",
+
+    metrics: [
+      {
+        label: "Operações",
+        value: "Tempo real",
+      },
+
+      {
+        label: "Conectividade",
+        value: "Offline-first",
+      },
+
+      {
+        label: "Status",
+        value: "Em desenvolvimento",
+      },
+    ],
   },
 };

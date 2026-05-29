@@ -1,49 +1,181 @@
-import type { BravioProject } from "@/types/projects/bravio";
 import { motion } from "framer-motion";
+import { ArrowRight, ExternalLink, GitBranch } from "lucide-react";
+
+import type { BravioProject } from "@/types/projects/bravio";
+
+import { Background } from "./background";
+import { useI18n } from "@/lib/i18n-context";
+import { useProjectContent } from "@/hooks/use-project-content";
+
 interface Props {
   project: BravioProject;
 }
+
 export function Hero({ project }: Props) {
+  const content = useProjectContent(project);
+  const { t } = useI18n();
+
   return (
-    <section className="relative px-6 md:px-10 pt-32 md:pt-44 pb-36">
-      {" "}
-      <div className="max-w-5xl mx-auto">
-        {" "}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+    <section className="relative overflow-hidden min-h-screen">
+      <Background image={project.media.src} />
+
+      {/* overlay mais verde/operacional */}
+      <div
+        className="
+          absolute inset-0
+          bg-linear-to-b
+          from-black/10
+          via-black/35
+          to-(--color-bg-primary)
+        "
+      />
+
+      {/* glow verde sutil */}
+      <div
+        className="
+          absolute inset-0
+          bg-(--color-project-glow)
+          opacity-40
+          mix-blend-screen
+        "
+      />
+
+      <div
+        className="
+          relative z-10
+          min-h-screen
+          flex items-center
+          px-6 md:px-10
+          pt-28 pb-40
+        "
+      >
+        <div className="max-w-6xl mx-auto w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-5xl"
+          >
+            <p
+              className="
+                text-(--color-gold)
+                uppercase
+                tracking-[0.24em]
+                text-xs
+                mb-8
+                font-medium
+              "
+            >
+              {t.project.status.inDevelopment}
+            </p>
+
+            <h1
+              className="
+                text-6xl md:text-8xl
+                tracking-[-0.08em]
+                leading-[0.92]
+                font-semibold
+                text-white
+              "
+            >
+              {project.title}
+            </h1>
+
+            <p
+              className="
+                mt-10
+                max-w-3xl
+                text-lg md:text-2xl
+                leading-relaxed
+                text-white/78
+              "
+            >
+              {content.tagline}
+            </p>
+
+            <div className="flex gap-3 flex-wrap mt-12">
+              {project.links?.demo && (
+                <a
+                  href={project.links.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    flex items-center gap-2
+                    px-6 py-3.5
+                    rounded-xl
+                    bg-(--color-accent)
+                    text-white
+                    text-sm
+                    hover:bg-(--color-accent-hover)
+                    transition-colors
+                  "
+                >
+                  <ExternalLink size={14} />
+                  {t.actions.viewDemo}
+                </a>
+              )}
+
+              {project.links?.github && (
+                <a
+                  href={project.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    flex items-center gap-2
+                    px-6 py-3.5
+                    rounded-xl
+                    border border-white/10
+                    bg-black/20
+                    text-white/70
+                    text-sm
+                    hover:border-(--color-gold)
+                    hover:text-white
+                    transition-all
+                  "
+                >
+                  <GitBranch size={14} />
+                  {t.actions.github}
+                </a>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      <motion.div
+        className="
+          absolute
+          bottom-32
+          left-1/2
+          -translate-x-1/2
+          z-20
+          flex flex-col items-center gap-4
+        "
+        animate={{ y: [0, 8, 0] }}
+        transition={{
+          repeat: Infinity,
+          duration: 2,
+        }}
+      >
+        <p
+          className="
+            text-[11px]
+            uppercase
+            tracking-[0.18em]
+            text-white/55
+          "
         >
-          {" "}
-          <p className="text-(--color-accent) uppercase tracking-[0.28em] text-xs mb-8 font-medium">
-            {" "}
-            Agricultural Operations Platform{" "}
-          </p>{" "}
-          <h1 className="text-6xl md:text-8xl tracking-[-0.08em] leading-none font-semibold">
-            {" "}
-            <span className="text-(--color-text-primary)">
-              {" "}
-              {project.title}{" "}
-            </span>{" "}
-          </h1>{" "}
-          <p className="mt-10 max-w-2xl text-lg md:text-xl leading-relaxed text-(--color-text-secondary)">
-            {" "}
-            {project.tagline}{" "}
-          </p>{" "}
-          <div className="mt-14 flex flex-wrap gap-3">
-            {" "}
-            {project.tags.map((tag) => (
-              <div
-                key={tag}
-                className=" px-4 py-2 rounded-full border border-(--color-border) bg-(--color-bg-secondary) text-sm text-(--color-text-secondary) "
-              >
-                {" "}
-                {tag}{" "}
-              </div>
-            ))}{" "}
-          </div>{" "}
-        </motion.div>{" "}
-      </div>{" "}
+          {t.project.scrollHint}
+        </p>
+
+        <ArrowRight
+          size={18}
+          className="
+            text-(--color-gold)
+            rotate-90
+          "
+        />
+      </motion.div>
     </section>
   );
 }

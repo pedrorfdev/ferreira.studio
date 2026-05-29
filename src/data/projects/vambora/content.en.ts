@@ -19,17 +19,78 @@ export const vamboraEn: VamboraSections = {
     body: "Early generations looked impressive but frequently broke in logistics, timing, and budgeting. The breakthrough came from restructuring prompts into guided reasoning flows instead of relying on open-ended generation.",
   },
 
-  solution: {
-    headline: "Travel planning compressed into a single conversation",
-
-    body: "Users describe destination, budget, duration, and preferences. Vambora generates a contextual travel plan with activities, logistics, estimated costs, and day-by-day suggestions.",
+  timeline: {
+    headline: "How the product evolved",
 
     items: [
-      "Conversational trip planning flow",
-      "Structured itinerary generation",
-      "Budget-aware recommendations",
-      "Fast generation with fallback model handling",
-      "Fluid state-based navigation experience",
+      {
+        title: "Initial experimentation",
+
+        description:
+          "Started with raw prompt testing to validate whether travel generation could feel genuinely useful.",
+      },
+
+      {
+        title: "Structured generation system",
+
+        description:
+          "Prompt flows evolved into multi-step contextual generation pipelines.",
+      },
+
+      {
+        title: "State-driven UX",
+
+        description:
+          "The interface shifted into a conversational navigation experience instead of traditional page routing.",
+      },
+
+      {
+        title: "Production architecture",
+
+        description:
+          "Fallback handling, response normalization, and resilience layers were added for reliability.",
+      },
+    ],
+  },
+
+  features: {
+    headline: "Travel planning compressed into a single conversation",
+
+    items: [
+      {
+        title: "Conversational trip planning",
+
+        description:
+          "Users describe destination, budget, duration, and travel preferences naturally.",
+      },
+
+      {
+        title: "Structured itinerary generation",
+
+        description:
+          "Trips are generated with organized day-by-day planning logic.",
+      },
+
+      {
+        title: "Budget-aware recommendations",
+
+        description:
+          "Suggestions adapt dynamically to financial constraints and trip priorities.",
+      },
+
+      {
+        title: "Fallback AI handling",
+
+        description:
+          "Generation pipelines recover gracefully from unstable model responses.",
+      },
+
+      {
+        title: "Fluid state navigation",
+
+        description:
+          "The experience feels continuous instead of fragmented across pages.",
+      },
     ],
   },
 
