@@ -1,7 +1,3 @@
-// ============================================================
-// APP STATE
-// ============================================================
-
 import type { DeepPartial } from "./utils";
 
 export const AppState = {
@@ -15,9 +11,10 @@ export const AppState = {
 
 export type AppState = (typeof AppState)[keyof typeof AppState];
 
-// ============================================================
-// CORE PROJECT TYPES
-// ============================================================
+export interface MinimalProject {
+  id: string;
+  title: string;
+}
 
 export interface CardPosition {
   top: string;
@@ -36,10 +33,6 @@ export interface ProjectLinks {
   github?: string;
   website?: string;
 }
-
-// ============================================================
-// CONTENT BLOCKS
-// ============================================================
 
 export interface BaseSection {
   headline: string;
@@ -71,18 +64,10 @@ export interface Metric {
   value: string;
 }
 
-// ============================================================
-// ASSISTANT
-// ============================================================
-
 export interface AssistantConfig {
   context: string;
   quickPrompts: string[];
 }
-
-// ============================================================
-// PROJECT ENUMS
-// ============================================================
 
 export type ProjectTag =
   | "React"
@@ -99,10 +84,6 @@ export type ProjectTag =
   | "Events";
 
 export type ProjectStatus = "live" | "in development" | "concept";
-
-// ============================================================
-// GENERIC PROJECT BASE
-// ============================================================
 
 export interface ProjectData<TSections> {
   id: string;
@@ -132,19 +113,11 @@ export interface ProjectData<TSections> {
   assistant: AssistantConfig;
 }
 
-// ============================================================
-// I18N PROJECT CONTENT
-// ============================================================
-
 export interface LocalizedProjectContent<TSections> {
   tagline?: string;
 
   sections?: DeepPartial<TSections>;
 }
-
-// ============================================================
-// FINAL LOCALIZED PROJECT TYPE
-// ============================================================
 
 export type LocalizedProjectData<TSections> = ProjectData<TSections> & {
   pt?: LocalizedProjectContent<TSections>;

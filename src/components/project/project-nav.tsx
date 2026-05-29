@@ -2,7 +2,7 @@ import { useMenuStore } from "@/store/use-menu-store";
 import { useThemeStore } from "@/store/use-theme-store";
 import { useI18n } from "@/lib/i18n-context";
 import { cn } from "@/lib/cn";
-import type { AnyProject } from "@/data/projects";
+import type { MinimalProject } from "@/types/project";
 
 function SunIcon() {
   return (
@@ -39,7 +39,7 @@ function MoonIcon() {
 }
 
 interface Props {
-  project: AnyProject;
+  project: MinimalProject;
   onClose: () => void;
 }
 
