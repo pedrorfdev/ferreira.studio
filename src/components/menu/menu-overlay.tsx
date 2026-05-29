@@ -1,16 +1,15 @@
 // components/menu/menu-overlay.tsx
 // Mobile: fullscreen em vez de duas colunas laterais
 // Desktop: duas colunas entrando de fora pra dentro
-import { projects } from "@/data/projects"
 import { cn } from "@/lib/cn"
 import { useI18n } from "@/lib/i18n-context"
 import { menuColumnLeft, menuColumnRight, menuScrim } from "@/lib/motion"
 import { useAppStore } from "@/store/use-app-store"
 import { useMenuStore } from "@/store/use-menu-store"
 import { useThemeStore } from "@/store/use-theme-store"
-import type { ProjectData } from "@/types/project"
 import { AnimatePresence, motion, type Variants } from "framer-motion"
 import { useState } from "react"
+import { projects, type AnyProject } from "@/data/projects"
 
 const STACK = ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS", "Framer Motion", "Zustand", "Gemini API"]
 const SOCIAL = [
@@ -26,7 +25,7 @@ function MoonIcon() {
     return <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
 }
 
-function MenuProjectPreview({ project }: { project: ProjectData | null }) {
+function MenuProjectPreview({ project }: { project: AnyProject | null }) {
     return (
         <AnimatePresence mode="wait">
             {project && (
@@ -57,9 +56,9 @@ export function MenuOverlay() {
     const openProject = useAppStore((s) => s.openProject)
     const { t, lang, toggle: toggleLang } = useI18n()
     const { theme, toggle: toggleTheme } = useThemeStore()
-    const [preview, setPreview] = useState<ProjectData | null>(null)
+    const [preview, setPreview] = useState<AnyProject | null>(null)
 
-    function handleProjectClick(project: ProjectData) {
+    function handleProjectClick(project: AnyProject) {
         close()
         setTimeout(() => {
             openProject(project, {

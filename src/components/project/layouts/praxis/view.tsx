@@ -13,7 +13,6 @@ import { Outcome } from "./components/outcome";
 
 interface Props {
   project: PraxisProject;
-  scrollY: number;
 }
 
 export function PraxisView({ project }: Props) {

@@ -7,7 +7,6 @@ import { TechnicalDecisions } from "./components/technical-decisions";
 import { Result } from "./components/result";
 interface Props {
   project: BravioProject;
-  scrollY: number;
 }
 export function BravioView({ project }: Props) {
   const sections = project.sections;

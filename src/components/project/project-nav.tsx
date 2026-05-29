@@ -2,7 +2,7 @@ import { useMenuStore } from "@/store/use-menu-store";
 import { useThemeStore } from "@/store/use-theme-store";
 import { useI18n } from "@/lib/i18n-context";
 import { cn } from "@/lib/cn";
-import type { ProjectData } from "@/types/project";
+import type { AnyProject } from "@/data/projects";
 
 function SunIcon() {
   return (
@@ -39,7 +39,7 @@ function MoonIcon() {
 }
 
 interface Props {
-  project: ProjectData;
+  project: AnyProject;
   onClose: () => void;
 }
 
@@ -55,17 +55,16 @@ export function ProjectNav({ project, onClose }: Props) {
           "pointer-events-auto flex items-center",
           "bg-(--color-bg-secondary)/90 backdrop-blur-xl",
           "border border-(--color-border) shadow-xl overflow-hidden",
-          "rounded-2xl", // sempre pill expandido
-          "max-w-[calc(100vw-32px)]",
+          "rounded-2xl max-w-[calc(100vw-32px)]",
         )}
       >
-        {/* Menu button — sempre visível */}
+        {/* Menu — sempre visível */}
         <button
           onClick={toggleMenu}
           aria-label="Open menu"
           className="flex items-center gap-2 h-9 md:h-10 px-3 md:px-4
                      text-(--color-text-tertiary) hover:text-(--color-text-primary)
-                     transition-colors duration-200 cursor-pointer whitespace-nowrap shrink-0"
+                     transition-colors cursor-pointer whitespace-nowrap shrink-0"
         >
           <svg
             width="14"
@@ -86,10 +85,8 @@ export function ProjectNav({ project, onClose }: Props) {
           </span>
         </button>
 
-        {/* Divider */}
         <span className="w-px h-4 bg-(--color-border) shrink-0" />
 
-        {/* Título do projeto */}
         <div className="flex items-center px-3 md:px-4 h-9 md:h-10">
           <span
             className="font-display text-xs md:text-sm font-semibold tracking-[-0.01em]
@@ -99,12 +96,9 @@ export function ProjectNav({ project, onClose }: Props) {
           </span>
         </div>
 
-        {/* Divider */}
         <span className="w-px h-4 bg-(--color-border) shrink-0" />
 
-        {/* Controls direita */}
         <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 h-9 md:h-10">
-          {/* Theme */}
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
@@ -114,7 +108,6 @@ export function ProjectNav({ project, onClose }: Props) {
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
           </button>
 
-          {/* Flags — só desktop */}
           <div className="hidden md:flex items-center gap-1">
             <button
               onClick={() => lang !== "en" && toggleLang()}
@@ -140,7 +133,6 @@ export function ProjectNav({ project, onClose }: Props) {
 
           <span className="w-px h-3.5 bg-(--color-border) shrink-0" />
 
-          {/* Close */}
           <button
             onClick={onClose}
             aria-label={t.project.close}

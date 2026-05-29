@@ -1,62 +1,49 @@
-// components/project/project-view.tsx
-// ============================================================
-// Roteador de layouts — cada projeto usa um layout diferente.
-// O layout é determinado pelo project.id.
-// ============================================================
-
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useAppStore } from "@/store/use-app-store";
 import { useClipPathTransition } from "@/hooks/use-clip-path-transition";
 import { AppState } from "@/types/project";
-import type { ProjectData } from "@/types/project";
+import type { LocalizedProjectData } from "@/types/project";
+import type { PraxisSections } from "@/types/projects/praxis";
 import { transitions } from "@/lib/motion";
 import { ProjectNav } from "@/components/project/project-nav";
 
-import { CargaLayout } from "@/components/project/layouts/carga-layout";
-import { CereeLayout } from "@/components/project/layouts/ceree-layout";
-import { PulsoLayout } from "@/components/project/layouts/pulso-layout";
-import { PraxisView } from "./layouts/praxis/view";
-import { VamboraView } from "./layouts/vambora/view";
+import { PraxisView } from "@/components/project/layouts/praxis/view";
 
-interface Props {
-  project: ProjectData;
-}
+type AnyProject = LocalizedProjectData<unknown>;
 
-// Mapeia id → componente de layout
-function resolveLayout(project: ProjectData, scrollY: number) {
-  const props = { project, scrollY };
+function resolveLayout(project: AnyProject) {
   switch (project.id) {
     case "praxis":
-      return <PraxisView {...props} />;
-    case "vambora":
-      return <VamboraView {...props} />;
-    case "carga":
-      return <CargaLayout {...props} />;
-    case "ceree":
-      return <CereeLayout {...props} />;
-    case "pulso":
-      return <PulsoLayout {...props} />;
+      return (
+        <PraxisView project={project as LocalizedProjectData<PraxisSections>} />
+      );
+
     default:
-      return <PraxisView {...props} />;
+      return (
+        <div className="flex items-center justify-center h-full">
+          <p className="text-(--color-text-tertiary) text-sm font-display">
+            {project.title} — layout coming soon
+          </p>
+        </div>
+      );
   }
 }
 
-export function ProjectView({ project }: Props) {
+export function ProjectView() {
+  const project = useAppStore((s) => s.activeProject);
   const setAppState = useAppStore((s) => s.setAppState);
   const closeProject = useAppStore((s) => s.closeProject);
   const appState = useAppStore((s) => s.appState);
   const { origin, expanded } = useClipPathTransition();
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollY, setScrollY] = useState(0);
   const [progress, setProgress] = useState(0);
 
   const handleScroll = useCallback(() => {
     const el = containerRef.current;
     if (!el) return;
     const max = el.scrollHeight - el.clientHeight;
-    setScrollY(el.scrollTop);
     setProgress(max > 0 ? el.scrollTop / max : 0);
   }, []);
 
@@ -69,32 +56,27 @@ export function ProjectView({ project }: Props) {
 
   useEffect(() => {
     containerRef.current?.scrollTo({ top: 0 });
-    setScrollY(0);
     setProgress(0);
-  }, [project.id]);
+  }, [project?.id]);
 
   function handleAnimationComplete() {
     if (appState === AppState.EXPANDING) setAppState(AppState.PROJECT);
   }
 
+  if (!project) return null;
+
   return (
     <>
-      {/* ProjectNav pill — fora do clip-path */}
       <motion.div
         className="fixed inset-0 z-92 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ delay: 0.5, duration: 0.3 }}
+        transition={{ delay: 0.45, duration: 0.3 }}
       >
-        <ProjectNav
-          project={project}
-          scrollY={scrollY}
-          onClose={closeProject}
-        />
+        <ProjectNav project={project} onClose={closeProject} />
       </motion.div>
 
-      {/* View principal */}
       <motion.div
         data-project={project.id}
         className="fixed inset-0 z-20 bg-(--color-bg-primary) flex flex-col"
@@ -104,7 +86,7 @@ export function ProjectView({ project }: Props) {
         transition={transitions.cinematic}
         onAnimationComplete={handleAnimationComplete}
       >
-        {/* Progress bar */}
+        {/* Scroll progress bar */}
         <div className="absolute top-0 left-0 right-0 h-px z-10 bg-(--color-border-subtle) pointer-events-none">
           <motion.div
             className="h-full bg-(--color-accent) origin-left"
@@ -112,12 +94,12 @@ export function ProjectView({ project }: Props) {
           />
         </div>
 
-        {/* Scroll container */}
+        {/* Scroll container — pt-20 para não ficar sob o pill nav */}
         <div
           ref={containerRef}
           className="flex-1 overflow-y-auto overscroll-none"
         >
-          <div className="pt-20">{resolveLayout(project, scrollY)}</div>
+          <div className="pt-20">{resolveLayout(project)}</div>
           <div className="h-24" />
         </div>
       </motion.div>

@@ -1,5 +1,5 @@
 import type { VamboraProject } from "@/types/projects/vambora";
-
+import { useProjectContent } from "@/hooks/use-project-content";
 import { Hero } from "./components/hero";
 import { Timeline } from "./components/timeline";
 import { FeatureGrid } from "./components/feature-grid";
@@ -8,26 +8,31 @@ import { Result } from "./components/result";
 
 interface Props {
   project: VamboraProject;
-  scrollY: number;
 }
 
 export function VamboraView({ project }: Props) {
-  const sections = project.sections;
+  const { sections } = useProjectContent(project);
 
   return (
     <main className="relative overflow-hidden">
       <Hero project={project} />
 
-      <Timeline items={sections.timeline.items} />
+      {sections.timeline?.items?.length > 0 && (
+        <Timeline items={sections.timeline.items} />
+      )}
 
-      <FeatureGrid
-        headline={sections.features.headline}
-        items={sections.features.items}
-      />
+      {sections.features && (
+        <FeatureGrid
+          headline={sections.features.headline}
+          items={sections.features.items ?? []}
+        />
+      )}
 
-      <DecisionsTabs section={sections.technicalDecisions} />
+      {sections.technicalDecisions && (
+        <DecisionsTabs section={sections.technicalDecisions} />
+      )}
 
-      <Result section={sections.result} />
+      {sections.result && <Result section={sections.result} />}
     </main>
   );
 }
