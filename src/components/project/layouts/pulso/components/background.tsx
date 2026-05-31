@@ -1,18 +1,26 @@
-interface Props {
-  image: string;
-}
-
-export function Background({ image }: Props) {
+export function BackgroundTexture() {
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      <img
-        src={image}
-        alt=""
+    <div
+      className="
+        absolute
+        inset-0
+        opacity-20
+        pointer-events-none
+      "
+    >
+      <div
         className="
-          w-full
-          h-full
-          object-cover
-          object-center
+          absolute
+          inset-0
+          bg-radial
+        "
+      />
+
+      <div
+        className="
+          absolute
+          inset-0
+          backdrop-blur-[120px]
         "
       />
     </div>

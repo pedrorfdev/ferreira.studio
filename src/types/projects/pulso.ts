@@ -26,6 +26,16 @@ export interface PulsoSolutionSection {
   items: PulsoFeatureItem[];
 }
 
+export interface FutureStep {
+  title: string;
+}
+
+export interface FutureSection {
+  headline: string;
+  body: string;
+  steps: FutureStep[];
+}
+
 export interface PulsoSections {
   before: BaseSection;
 
@@ -37,7 +47,7 @@ export interface PulsoSections {
 
   impact: ResultSection;
 
-  future: BaseSection;
+  future: FutureSection;
 }
 
 export type PulsoProject = LocalizedProjectData<PulsoSections>;

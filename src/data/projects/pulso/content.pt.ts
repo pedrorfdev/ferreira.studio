@@ -136,5 +136,27 @@ export const pulsoPt: DeepPartial<PulsoSections> = {
       "Construído para equipes voluntárias hoje. Preparado para operações maiores amanhã.",
 
     body: "O mesmo modelo pode atender igrejas, eventos, escolas, ONGs e qualquer operação que dependa de escalas confiáveis.",
+
+    steps: [
+      {
+        title: "Igrejas",
+      },
+
+      {
+        title: "Múltiplas equipes",
+      },
+
+      {
+        title: "Eventos",
+      },
+
+      {
+        title: "ONGs",
+      },
+
+      {
+        title: "Operações",
+      },
+    ],
   },
 };

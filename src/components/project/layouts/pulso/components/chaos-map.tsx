@@ -1,72 +1,80 @@
-import { motion } from "framer-motion";
+import { ChaosNode } from "./chaos-node";
 
-interface ChaosItem {
-  title: string;
-}
+import type { ChaosSection } from "@/types/projects/pulso";
 
 interface Props {
+  section: ChaosSection;
   eyebrow: string;
-  headline: string;
-  body: string;
-
-  items: ChaosItem[];
 }
 
-export function ChaosMap({ eyebrow, headline, body, items }: Props) {
+export function ChaosMap({ section, eyebrow }: Props) {
   return (
-    <section className="min-h-screen flex flex-col justify-center py-32 overflow-hidden">
-      <div className="max-w-4xl mb-20">
-        <p className="text-xs uppercase tracking-[0.18em] text-(--color-gold)">
+    <section
+      className="
+        relative
+        h-screen
+        overflow-hidden
+        flex
+        items-center
+      "
+    >
+      <div className="absolute inset-0">
+        <svg viewBox="0 0 1200 800" className="w-full h-full">
+          {section.items.map((item, index) => (
+            <ChaosNode
+              key={item.title}
+              label={item.title}
+              x={120 + ((index * 130) % 900)}
+              y={120 + ((index * 170) % 500)}
+            />
+          ))}
+        </svg>
+      </div>
+
+      <div
+        className="
+          relative
+          z-10
+          max-w-4xl
+          mx-auto
+          text-center
+          px-6
+        "
+      >
+        <p
+          className="
+            text-xs
+            uppercase
+            tracking-[0.18em]
+            text-(--color-pulso-primary)
+          "
+        >
           {eyebrow}
         </p>
 
-        <h2 className="mt-5 text-4xl md:text-6xl tracking-[-0.06em] leading-[1.02] text-(--color-text-primary)">
-          {headline}
+        <h2
+          className="
+            mt-6
+            text-5xl
+            md:text-7xl
+            tracking-[-0.08em]
+            text-(--color-text-primary)
+          "
+        >
+          {section.headline}
         </h2>
 
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-(--color-text-secondary)">
-          {body}
+        <p
+          className="
+            mt-8
+            max-w-3xl
+            mx-auto
+            text-lg
+            text-(--color-text-secondary)
+          "
+        >
+          {section.body}
         </p>
-      </div>
-
-      <div className="relative h-[520px]">
-        {items.map((item, index) => (
-          <motion.div
-            key={item.title}
-            initial={{
-              opacity: 0,
-              rotate: index % 2 ? -18 : 18,
-              scale: 0.8,
-              y: 80,
-            }}
-            whileInView={{
-              opacity: 1,
-              scale: 1,
-              y: 0,
-            }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.6,
-              delay: index * 0.08,
-            }}
-            className="
-              absolute
-              rounded-[28px]
-              border border-(--color-border)
-              bg-(--color-bg-secondary)
-              px-6 py-5
-              backdrop-blur-md
-            "
-            style={{
-              left: `${10 + ((index * 13) % 70)}%`,
-              top: `${20 + ((index * 90) % 260)}px`,
-            }}
-          >
-            <p className="text-sm text-(--color-text-secondary)">
-              {item.title}
-            </p>
-          </motion.div>
-        ))}
       </div>
     </section>
   );

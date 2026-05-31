@@ -134,5 +134,27 @@ export const pulsoEn: PulsoSections = {
       "Built for volunteer teams today. Designed for broader operations tomorrow.",
 
     body: "The same coordination model can support churches, events, schools, NGOs and any operation that depends on reliable scheduling.",
+
+    steps: [
+      {
+        title: "Churches",
+      },
+
+      {
+        title: "Multiple Teams",
+      },
+
+      {
+        title: "Events",
+      },
+
+      {
+        title: "NGOs",
+      },
+
+      {
+        title: "Operations",
+      },
+    ],
   },
 };
