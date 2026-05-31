@@ -28,6 +28,10 @@ export const en = {
     architecture: "Architecture",
     market: "Market context",
     future: "What's next?",
+    before: "Before Pulso",
+    chaos: "Operational Chaos",
+    spectrum: "Operational Rhythm",
+    impact: "Impact",
 
     // Shared
     technical: "Technical decisions",

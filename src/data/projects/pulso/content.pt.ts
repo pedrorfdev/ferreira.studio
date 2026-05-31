@@ -2,35 +2,84 @@ import type { DeepPartial } from "@/types/utils";
 import type { PulsoSections } from "@/types/projects/pulso";
 
 export const pulsoPt: DeepPartial<PulsoSections> = {
-  problem: {
-    headline: "Coordenação de equipes quebra quando a comunicação se fragmenta",
+  before: {
+    headline:
+      "A maioria das equipes não sofre para criar escalas. Sofre para mantê-las funcionando.",
 
-    body: "Escalas, confirmações, ausências e organização operacional ainda acontecem através de mensagens espalhadas e planilhas improvisadas.",
+    body: "Conforme a equipe cresce, disponibilidades mudam, substituições acontecem e as informações se espalham entre conversas, planilhas e memória.",
   },
 
-  idea: {
-    headline: "Substituir caos operacional por rotinas sincronizadas",
+  chaos: {
+    headline: "Cada novo voluntário adiciona uma nova camada de coordenação",
 
-    body: "O Pulso nasceu de uma dor organizacional real dentro de equipes voluntárias e grupos operacionais.",
-  },
+    body: "O problema real não é escalar pessoas. É manter todos alinhados quando a realidade muda toda semana.",
 
-  analysis: {
-    headline: "A decisão mais difícil é o que não construir",
-
-    body: "Ferramentas operacionais naturalmente tendem ao excesso de funcionalidades. O Pulso prioriza simplicidade intencionalmente.",
+    items: [
+      {
+        title: "Confirmações por WhatsApp",
+      },
+      {
+        title: "Múltiplas versões da planilha",
+      },
+      {
+        title: "Substituições de última hora",
+      },
+      {
+        title: "Disponibilidade desconhecida",
+      },
+      {
+        title: "Responsabilidades pouco claras",
+      },
+      {
+        title: "Cobranças manuais",
+      },
+      {
+        title: "Falta de visibilidade da liderança",
+      },
+      {
+        title: "Incerteza operacional",
+      },
+    ],
   },
 
   solution: {
-    headline: "Escalas, confirmações e operações em um único lugar",
+    headline: "Um único pulso operacional para todas as equipes",
 
-    body: "O Pulso centraliza coordenação de equipes, confirmações, visibilidade e acompanhamento operacional.",
+    body: "O Pulso centraliza escalas, disponibilidade e confirmações em um fluxo previsível para operações voluntárias.",
 
     items: [
-      "Gestão de escalas",
-      "Confirmação de presença",
-      "Controle de ausências e trocas",
-      "Dashboard para liderança",
-      "Acompanhamento financeiro",
+      {
+        title: "Gestão de equipes",
+        description:
+          "Organize pessoas através de equipes e responsabilidades definidas.",
+      },
+
+      {
+        title: "Disponibilidade",
+        description:
+          "Os membros informam disponibilidade antes das atribuições.",
+      },
+
+      {
+        title: "Criação de escalas",
+        description: "Monte escalas com visibilidade operacional completa.",
+      },
+
+      {
+        title: "Fluxo de confirmação",
+        description: "Reduza incertezas através de confirmações explícitas.",
+      },
+
+      {
+        title: "Visibilidade para liderança",
+        description: "Identifique lacunas antes que problemas aconteçam.",
+      },
+
+      {
+        title: "Experiência mobile-first",
+        description:
+          "Projetado para equipes que operam principalmente pelo celular.",
+      },
     ],
   },
 
@@ -40,34 +89,52 @@ export const pulsoPt: DeepPartial<PulsoSections> = {
     decisions: [
       {
         title: "RBAC desde o início",
-
-        why: "Liderança e membros operacionais possuem necessidades diferentes de visibilidade.",
-
-        trade: "Permissões e autenticação ficam mais complexas logo cedo.",
+        why: "Líderes, coordenadores e membros possuem necessidades diferentes de acesso.",
+        trade: "A gestão de permissões se torna mais complexa logo no começo.",
       },
 
       {
-        title: "Infraestrutura enxuta com serviços free-tier",
-
-        why: "Velocidade de validação importa mais do que otimização de escala inicialmente.",
-
-        trade:
-          "Limitações de infraestrutura aparecem mais cedo conforme a adoção cresce.",
+        title: "Infraestrutura enxuta",
+        why: "Velocidade de validação importa mais do que otimização prematura.",
+        trade: "Limitações aparecem mais cedo conforme a adoção cresce.",
       },
 
       {
-        title: "Simplicidade operacional acima de densidade de funcionalidades",
-
-        why: "O produto evita se tornar outro dashboard operacional sobrecarregado.",
-
-        trade: "Fluxos avançados são adiados intencionalmente.",
+        title: "Simplicidade operacional",
+        why: "O produto evita se tornar mais um sistema sobrecarregado.",
+        trade: "Fluxos avançados permanecem intencionalmente adiados.",
       },
     ],
   },
 
-  result: {
-    headline: "Arquitetura e direção do produto já definidas",
+  impact: {
+    headline:
+      "Uma única fonte de verdade para pessoas, escalas e disponibilidade",
 
-    body: "O Pulso está sendo estruturado em cima de rotinas operacionais reais observadas em equipes voluntárias e organizacionais.",
+    body: "O Pulso transforma coordenação de um processo reativo em um sistema operacional previsível.",
+
+    metrics: [
+      {
+        label: "Coordenação",
+        value: "Centralizada",
+      },
+
+      {
+        label: "Disponibilidade",
+        value: "Visível",
+      },
+
+      {
+        label: "Escalas",
+        value: "Confiáveis",
+      },
+    ],
+  },
+
+  future: {
+    headline:
+      "Construído para equipes voluntárias hoje. Preparado para operações maiores amanhã.",
+
+    body: "O mesmo modelo pode atender igrejas, eventos, escolas, ONGs e qualquer operação que dependa de escalas confiáveis.",
   },
 };

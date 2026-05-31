@@ -15,7 +15,7 @@ export function TechnicalDecisions({ section }: Props) {
     <section className="space-y-10">
       <div className="space-y-5">
         <p className="text-xs uppercase tracking-[0.18em] text-(--color-gold)">
-          {t.project.sections.technical}
+          {t.project.technical}
         </p>
 
         <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.04] text-(--color-text-primary)">

@@ -15,7 +15,7 @@ export function SolutionGrid({ section }: Props) {
     <section className="space-y-12">
       <div className="space-y-5">
         <p className="text-xs uppercase tracking-[0.18em] text-(--color-gold)">
-          {t.project.sections.solution}
+          {t.project.solution}
         </p>
 
         <h2 className="max-w-3xl text-3xl md:text-5xl tracking-[-0.06em] leading-[1.04] text-(--color-text-primary)">

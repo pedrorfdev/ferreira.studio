@@ -71,5 +71,19 @@ export const vellorPt: DeepPartial<VellorSections> = {
     headline: "Validado através de fluxos reais de eventos",
 
     body: "O Vellor já suporta convites, confirmações e gestão de convidados em cenários reais.",
+    metrics: [
+      {
+        label: "RSVP",
+        value: "Validado",
+      },
+      {
+        label: "Fluxo de convidados",
+        value: "Operacional",
+      },
+      {
+        label: "Experiência",
+        value: "Premium",
+      },
+    ],
   },
 };

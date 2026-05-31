@@ -21,7 +21,7 @@ export const pulsoProject: LocalizedProjectData<PulsoSections> = {
     "Full Stack",
   ],
 
-  year: 2025,
+  year: 2026,
 
   status: "in development",
 
@@ -38,30 +38,39 @@ export const pulsoProject: LocalizedProjectData<PulsoSections> = {
 
   heroImage: "/media/pulso-hero.jpg",
 
+  links: {
+    github: "#",
+    demo: "#",
+  },
+
   sections: pulsoEn,
 
   pt: {
-    tagline: "Plataforma de coordenação operacional para equipes",
+    tagline: "Plataforma de coordenação operacional para equipes e escalas",
 
     sections: pulsoPt,
   },
 
   assistant: {
     context: `
-Pulso is an operational coordination platform for volunteer and organizational teams.
+Pulso is an operational coordination platform.
 
-Main themes:
+Core themes:
+
+- volunteer teams
+- scheduling
+- availability
+- confirmations
+- leadership visibility
 - RBAC
 - operational simplicity
-- schedule coordination
-- confirmations
-- WhatsApp replacement
-        `,
+- coordination workflows
+    `,
 
     quickPrompts: [
       "Why RBAC from day one?",
-      "Why not use Slack?",
-      "What operational problem are you solving?",
+      "What problem does Pulso solve?",
+      "Why not use WhatsApp?",
     ],
   },
 };

@@ -10,9 +10,16 @@ import { ProjectNav } from "@/components/project/project-nav";
 
 import { PraxisView } from "@/components/project/layouts/praxis/view";
 import { VamboraView } from "./layouts/vambora/view";
-import type { BravioSections, VamboraSections } from "@/types/projects";
+import type {
+  BravioSections,
+  PulsoSections,
+  VamboraSections,
+  VellorSections,
+} from "@/types/projects";
 import { BravioView } from "./layouts/bravio/view";
 import { BackToTop } from "../ui/back-to-top";
+import { VellorView } from "./layouts/vellor/view";
+import { PulsoView } from "./layouts/pulso/view";
 
 type AnyProject = LocalizedProjectData<unknown>;
 
@@ -31,6 +38,14 @@ function resolveLayout(project: AnyProject) {
     case "bravio":
       return (
         <BravioView project={project as LocalizedProjectData<BravioSections>} />
+      );
+    case "vellor":
+      return (
+        <VellorView project={project as LocalizedProjectData<VellorSections>} />
+      );
+    case "pulso":
+      return (
+        <PulsoView project={project as LocalizedProjectData<PulsoSections>} />
       );
 
     default:

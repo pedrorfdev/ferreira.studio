@@ -32,6 +32,10 @@ export const pt: DeepWritablePartial<typeof en> = {
     architecture: "Arquitetura",
     market: "Contexto de mercado",
     future: "Próximos passos",
+    before: "Antes do Pulso",
+    chaos: "Caos Operacional",
+    spectrum: "Ritmo Operacional",
+    impact: "Impacto",
 
     technical: "Decisões técnicas",
     result: "Resultado",

@@ -73,5 +73,19 @@ export const vellorEn: VellorSections = {
     headline: "Validated through real event workflows",
 
     body: "Vellor already supports invitation, RSVP and guest management flows for private events.",
+    metrics: [
+      {
+        label: "RSVP",
+        value: "Validated",
+      },
+      {
+        label: "Guest Flow",
+        value: "Operational",
+      },
+      {
+        label: "Experience",
+        value: "Premium",
+      },
+    ],
   },
 };

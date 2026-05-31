@@ -7,43 +7,36 @@ interface Props {
 
 export function Problem({ section, eyebrow }: Props) {
   return (
-    <section className="space-y-8">
-      <div className="max-w-3xl">
-        <p
-          className="
-            text-xs
-            uppercase
-            tracking-[0.18em]
-            text-(--color-gold)
-            mb-5
-          "
-        >
+    <section className="py-40">
+      <div className="max-w-6xl mx-auto">
+        <p className="mb-6 text-xs uppercase tracking-[0.18em] text-(--color-gold)">
           {eyebrow}
         </p>
 
         <h2
           className="
-            text-3xl md:text-5xl
-            tracking-[-0.06em]
-            leading-[1.04]
+            max-w-4xl
+            text-5xl
+            md:text-7xl
+            tracking-[-0.08em]
+            leading-[0.98]
             text-(--color-text-primary)
           "
         >
           {section.headline}
         </h2>
 
-        {section.body && (
-          <p
-            className="
-              mt-8
-              text-lg
-              leading-relaxed
-              text-(--color-text-secondary)
-            "
-          >
-            {section.body}
-          </p>
-        )}
+        <p
+          className="
+            mt-10
+            max-w-2xl
+            text-xl
+            leading-relaxed
+            text-(--color-text-secondary)
+          "
+        >
+          {section.body}
+        </p>
       </div>
     </section>
   );

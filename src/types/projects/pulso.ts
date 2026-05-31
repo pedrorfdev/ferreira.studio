@@ -1,35 +1,41 @@
 import type {
   BaseSection,
-  ListSection,
   DecisionSection,
   ResultSection,
   LocalizedProjectData,
 } from "../project";
 
-export interface PulsoInsightItem {
+export interface ChaosItem {
+  title: string;
+}
+
+export interface ChaosSection {
+  headline: string;
+  body: string;
+  items: ChaosItem[];
+}
+
+export interface PulsoFeatureItem {
   title: string;
   description: string;
 }
 
-export interface PulsoInsightsSection {
+export interface PulsoSolutionSection {
   headline: string;
-  items: PulsoInsightItem[];
+  body: string;
+  items: PulsoFeatureItem[];
 }
 
 export interface PulsoSections {
-  problem: BaseSection;
+  before: BaseSection;
 
-  insight: BaseSection;
+  chaos: ChaosSection;
 
-  workflow: ListSection;
-
-  analysis: BaseSection;
-
-  insights: PulsoInsightsSection;
+  solution: PulsoSolutionSection;
 
   technicalDecisions: DecisionSection;
 
-  result: ResultSection;
+  impact: ResultSection;
 
   future: BaseSection;
 }

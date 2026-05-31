@@ -54,10 +54,7 @@ export function BravioView({ project }: Props) {
 
           <TechnicalDecisions section={sections.technicalDecisions} />
 
-          <Result
-            section={sections.result}
-            eyebrow={t.project.sections.result}
-          />
+          <Result section={sections.result} eyebrow={t.project.result} />
         </div>
       </div>
     </main>
