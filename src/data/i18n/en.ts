@@ -14,23 +14,33 @@ export const en = {
     close: "Close",
     askAbout: "Ask about this project",
 
-    sections: {
-      problem: "What was happening?",
-      idea: "Why build this?",
-      solution: "How did I approach it?",
-      analysis: "What mattered most?",
-      technical: "Technical decisions",
-      result: "What changed?",
-    },
+    // Shared section labels
+    problem: "What was happening?",
+    idea: "Why build this?",
+    solution: "How did I approach it?",
+    analysis: "What mattered most?",
+
+    // New layouts
+    vision: "Product vision",
+    experience: "Experience design",
+    highlights: "Core capabilities",
+    workflow: "Operational workflow",
+    architecture: "Architecture",
+    market: "Market context",
+    future: "What's next?",
+
+    // Shared
+    technical: "Technical decisions",
+    result: "What changed?",
+
+    decision: "Decision",
+    tradeoff: "Tradeoff",
 
     status: {
       live: "Live",
       inDevelopment: "In Development",
       concept: "Concept",
     },
-
-    decision: "Decision",
-    tradeoff: "Tradeoff",
   },
 
   menu: {
@@ -72,6 +82,7 @@ export const en = {
   loader: {
     role: "Product Engineer",
   },
+
   actions: {
     viewDemo: "View Live",
     github: "View Code",

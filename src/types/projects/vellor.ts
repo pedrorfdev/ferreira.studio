@@ -1,37 +1,32 @@
 import type {
   BaseSection,
-  ListSection,
   DecisionSection,
   ResultSection,
   LocalizedProjectData,
 } from "../project";
 
-export interface VellorCapabilityItem {
+export interface HighlightItem {
   title: string;
   description: string;
 }
 
-export interface VellorCapabilitiesSection {
+export interface HighlightSection {
   headline: string;
-  items: VellorCapabilityItem[];
+  items: HighlightItem[];
 }
 
 export interface VellorSections {
   problem: BaseSection;
 
-  market: BaseSection;
+  vision: BaseSection;
 
-  workflow: ListSection;
+  experience: BaseSection;
 
-  architecture: BaseSection;
-
-  capabilities: VellorCapabilitiesSection;
+  highlights: HighlightSection;
 
   technicalDecisions: DecisionSection;
 
   result: ResultSection;
-
-  future: BaseSection;
 }
 
 export type VellorProject = LocalizedProjectData<VellorSections>;

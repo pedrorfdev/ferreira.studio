@@ -2,34 +2,48 @@ import type { VellorSections } from "@/types/projects/vellor";
 
 export const vellorEn: VellorSections = {
   problem: {
-    headline: "Private events still depend on WhatsApp and spreadsheets",
+    headline:
+      "Private events still depend on fragmented communication and manual coordination",
 
-    body: "Emotionally meaningful events are usually managed through fragmented confirmations and improvised organization flows.",
+    body: "Hosts often manage confirmations through WhatsApp, spreadsheets and scattered conversations, creating operational friction and a poor guest experience.",
   },
 
-  idea: {
-    headline: "Make the invitation feel part of the experience",
+  vision: {
+    headline: "The invitation should feel like part of the event itself",
 
-    body: "Vellor started from the idea that digital invitations should feel intentional, elegant, and personal.",
+    body: "Vellor treats RSVP not as administration, but as the first touchpoint of the experience. Every interaction should feel intentional, elegant and personal.",
   },
 
-  analysis: {
-    headline: "Sophistication without visual overload",
+  experience: {
+    headline: "Luxury comes from clarity, not visual excess",
 
-    body: "The challenge wasn't adding effects — it was creating something elegant while remaining frictionless.",
+    body: "The goal was never to create flashy interfaces. The challenge was designing something refined while keeping every interaction effortless.",
   },
 
-  solution: {
-    headline: "Private event management with a premium digital layer",
-
-    body: "Each event receives a personalized RSVP environment with centralized guest management.",
+  highlights: {
+    headline: "Designed around hosts and guests",
 
     items: [
-      "Custom event pages",
-      "Private RSVP flows",
-      "Guest management",
-      "Mobile-first premium experience",
-      "Google Sheets operational backend",
+      {
+        title: "Curated event pages",
+        description:
+          "Every event receives a dedicated experience tailored to its identity.",
+      },
+      {
+        title: "Private RSVP flows",
+        description:
+          "Guests access exclusive confirmation journeys designed around simplicity.",
+      },
+      {
+        title: "Guest management",
+        description:
+          "Centralized visibility without forcing hosts into complex software.",
+      },
+      {
+        title: "Mobile-first experience",
+        description:
+          "Most invitations are opened on phones. The experience starts there.",
+      },
     ],
   },
 
@@ -39,33 +53,25 @@ export const vellorEn: VellorSections = {
     decisions: [
       {
         title: "Google Sheets as operational backend",
-
         why: "Hosts already understand spreadsheets.",
-
         trade: "Scalability becomes limited over time.",
       },
-
       {
-        title: "Password-based access",
-
-        why: "Creates a lightweight sense of exclusivity.",
-
-        trade: "Passwords can still be shared manually.",
+        title: "Password-protected events",
+        why: "Creates lightweight exclusivity.",
+        trade: "Credentials can still be shared.",
       },
-
       {
         title: "Custom event experiences",
-
-        why: "Emotional perception matters in this product category.",
-
-        trade: "Higher design effort per event.",
+        why: "Perception matters as much as functionality.",
+        trade: "More design effort per event.",
       },
     ],
   },
 
   result: {
-    headline: "Core RSVP flow already validated",
+    headline: "Validated through real event workflows",
 
-    body: "Vellor already supports real invitation and RSVP operational flows.",
+    body: "Vellor already supports invitation, RSVP and guest management flows for private events.",
   },
 };

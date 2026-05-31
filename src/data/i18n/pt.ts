@@ -20,23 +20,30 @@ export const pt: DeepWritablePartial<typeof en> = {
     close: "Fechar",
     askAbout: "Perguntar sobre este projeto",
 
-    sections: {
-      problem: "Qual era o problema?",
-      idea: "Por que esse projeto nasceu?",
-      solution: "Como pensei a solução?",
-      analysis: "O que realmente importava?",
-      technical: "Decisões técnicas",
-      result: "O que mudou?",
-    },
+    problem: "Qual era o problema?",
+    idea: "Por que esse projeto nasceu?",
+    solution: "Como pensei a solução?",
+    analysis: "O que realmente importava?",
+
+    vision: "Visão do produto",
+    experience: "Experiência",
+    highlights: "Principais capacidades",
+    workflow: "Fluxo operacional",
+    architecture: "Arquitetura",
+    market: "Contexto de mercado",
+    future: "Próximos passos",
+
+    technical: "Decisões técnicas",
+    result: "Resultado",
+
+    decision: "Decisão",
+    tradeoff: "Tradeoff",
 
     status: {
       live: "Em produção",
       inDevelopment: "Em desenvolvimento",
       concept: "Conceito",
     },
-
-    decision: "Decisão",
-    tradeoff: "Tradeoff",
   },
 
   menu: {

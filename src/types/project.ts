@@ -81,6 +81,8 @@ export type ProjectTag =
   | "Full Stack"
   | "Healthcare"
   | "Agro"
+  | "Google Sheets"
+  | "Product Design"
   | "Events";
 
 export type ProjectStatus = "live" | "in development" | "concept";

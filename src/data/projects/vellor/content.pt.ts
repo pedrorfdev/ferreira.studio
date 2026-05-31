@@ -3,34 +3,45 @@ import type { VellorSections } from "@/types/projects/vellor";
 
 export const vellorPt: DeepPartial<VellorSections> = {
   problem: {
-    headline: "Eventos privados ainda dependem de WhatsApp e planilhas",
+    headline:
+      "Eventos privados ainda dependem de comunicação fragmentada e coordenação manual",
 
-    body: "Eventos emocionalmente importantes normalmente são organizados através de confirmações fragmentadas e fluxos improvisados.",
+    body: "Anfitriões frequentemente organizam confirmações através de WhatsApp, planilhas e conversas dispersas, criando fricção operacional e uma experiência inferior para convidados.",
   },
 
-  idea: {
-    headline: "Fazer o convite parecer parte da experiência",
+  vision: {
+    headline: "O convite deve parecer parte da própria experiência",
 
-    body: "O Vellor nasceu da ideia de que convites digitais deveriam parecer intencionais, elegantes e pessoais.",
+    body: "O Vellor trata RSVP não como administração, mas como o primeiro contato do convidado com o evento.",
   },
 
-  analysis: {
-    headline: "Sofisticação sem excesso visual",
+  experience: {
+    headline: "Sofisticação nasce da clareza, não do excesso visual",
 
-    body: "O desafio não era adicionar efeitos — era criar algo elegante sem aumentar a fricção.",
+    body: "O objetivo nunca foi criar interfaces chamativas. O desafio foi construir algo elegante e sem atrito.",
   },
 
-  solution: {
-    headline: "Gestão de eventos privados com uma camada digital premium",
-
-    body: "Cada evento recebe um ambiente personalizado de RSVP com gerenciamento centralizado de convidados.",
+  highlights: {
+    headline: "Projetado para anfitriões e convidados",
 
     items: [
-      "Páginas personalizadas por evento",
-      "Fluxos privados de RSVP",
-      "Gestão de convidados",
-      "Experiência premium mobile-first",
-      "Google Sheets como backend operacional",
+      {
+        title: "Páginas exclusivas por evento",
+        description:
+          "Cada evento recebe uma experiência própria alinhada à sua identidade.",
+      },
+      {
+        title: "Fluxos privados de RSVP",
+        description: "Confirmações simples com sensação de exclusividade.",
+      },
+      {
+        title: "Gestão centralizada de convidados",
+        description: "Visibilidade operacional sem complexidade desnecessária.",
+      },
+      {
+        title: "Experiência mobile-first",
+        description: "A maioria dos convidados acessa pelo celular.",
+      },
     ],
   },
 
@@ -40,33 +51,25 @@ export const vellorPt: DeepPartial<VellorSections> = {
     decisions: [
       {
         title: "Google Sheets como backend operacional",
-
-        why: "Os anfitriões já possuem familiaridade com planilhas.",
-
-        trade: "Escalabilidade se torna limitada com o crescimento.",
+        why: "Anfitriões já dominam planilhas.",
+        trade: "Escalabilidade limitada no longo prazo.",
       },
-
       {
-        title: "Acesso baseado em senha",
-
-        why: "Cria uma sensação leve de exclusividade.",
-
-        trade: "As senhas ainda podem ser compartilhadas manualmente.",
+        title: "Eventos protegidos por senha",
+        why: "Cria exclusividade sem aumentar atrito.",
+        trade: "Senhas ainda podem ser compartilhadas.",
       },
-
       {
-        title: "Experiências personalizadas por evento",
-
-        why: "Percepção emocional importa nessa categoria de produto.",
-
-        trade: "Maior esforço visual e de design por evento.",
+        title: "Experiências personalizadas",
+        why: "Percepção emocional importa.",
+        trade: "Maior esforço visual por evento.",
       },
     ],
   },
 
   result: {
-    headline: "Fluxo principal de RSVP já validado",
+    headline: "Validado através de fluxos reais de eventos",
 
-    body: "O Vellor já suporta fluxos reais de convite e confirmação.",
+    body: "O Vellor já suporta convites, confirmações e gestão de convidados em cenários reais.",
   },
 };

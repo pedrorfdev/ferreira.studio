@@ -1,6 +1,5 @@
 import type { LocalizedProjectData } from "@/types/project";
-import type { VellorSections } from "@/types/projects/vellor";
-
+import type { VellorSections } from "@/types/projects";
 import { vellorEn } from "./content.en";
 import { vellorPt } from "./content.pt";
 
@@ -11,11 +10,16 @@ export const vellorProject: LocalizedProjectData<VellorSections> = {
 
   tagline: "Modern RSVP and event experience platform for curated gatherings",
 
-  tags: ["React", "Node.js", "TypeScript", "Events", "Product"],
+  tags: ["React", "TypeScript", "Node.js", "Google Sheets", "Product Design"],
 
   year: 2026,
 
   status: "in development",
+
+  links: {
+    demo: "",
+    github: "",
+  },
 
   cardPosition: {
     top: "65%",
@@ -27,8 +31,6 @@ export const vellorProject: LocalizedProjectData<VellorSections> = {
     src: "/media/vellor-bg.jpg",
     alt: "Vellor",
   },
-
-  heroImage: "/media/vellor-hero.jpg",
 
   sections: vellorEn,
 
@@ -42,17 +44,18 @@ export const vellorProject: LocalizedProjectData<VellorSections> = {
     context: `
 Vellor is a premium RSVP and private event platform.
 
-Focus on:
-- elegant UX
-- emotional product design
-- operational simplicity
-- lightweight infrastructure
-        `,
+Main topics:
+- digital invitations
+- RSVP workflows
+- event operations
+- premium UX
+- guest management
+    `,
 
     quickPrompts: [
       "Why use Google Sheets?",
+      "How does RSVP work?",
       "What makes Vellor different?",
-      "How does the private RSVP flow work?",
     ],
   },
 };
