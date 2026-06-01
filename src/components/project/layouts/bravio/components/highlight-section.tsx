@@ -1,5 +1,3 @@
-// views/projects/bravio/components/highlight-section.tsx
-
 import { motion } from "framer-motion";
 
 interface Props {

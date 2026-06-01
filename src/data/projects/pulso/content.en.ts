@@ -2,10 +2,37 @@ import type { PulsoSections } from "@/types/projects/pulso";
 
 export const pulsoEn: PulsoSections = {
   before: {
+    eyebrow: "Before Pulso",
     headline:
-      "Most teams don't struggle with creating schedules. They struggle with keeping them alive.",
+      "Most teams don't struggle to create schedules. They struggle to keep them running.",
 
-    body: "As teams grow, availability changes, replacements happen and information becomes fragmented across conversations, spreadsheets and memory.",
+    body: "As teams grow, availability changes, swaps happen and information spreads across conversations, spreadsheets and memory.",
+
+    cards: [
+      {
+        title: "WhatsApp",
+        status: "84 unread messages",
+        variant: "accent",
+      },
+
+      {
+        title: "Spreadsheet",
+        status: "3 different versions",
+        variant: "purple",
+      },
+
+      {
+        title: "PDF Schedule",
+        status: "Outdated",
+        variant: "neutral",
+      },
+
+      {
+        title: "Volunteer",
+        status: "Not confirmed",
+        variant: "gold",
+      },
+    ],
   },
 
   chaos: {

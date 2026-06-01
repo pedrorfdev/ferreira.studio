@@ -1,7 +1,7 @@
-import type { VellorHighlightsSection } from "@/types/projects/vellor";
+import type { HighlightSection } from "@/types/projects/vellor";
 
 interface Props {
-  section: VellorHighlightsSection;
+  section: HighlightSection;
   eyebrow: string;
 }
 

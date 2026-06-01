@@ -5,8 +5,35 @@ export const pulsoPt: DeepPartial<PulsoSections> = {
   before: {
     headline:
       "A maioria das equipes não sofre para criar escalas. Sofre para mantê-las funcionando.",
+    eyebrow: "Antes do Pulso",
 
     body: "Conforme a equipe cresce, disponibilidades mudam, substituições acontecem e as informações se espalham entre conversas, planilhas e memória.",
+
+    cards: [
+      {
+        title: "WhatsApp",
+        status: "84 mensagens",
+        variant: "accent",
+      },
+
+      {
+        title: "Planilha",
+        status: "3 versões",
+        variant: "purple",
+      },
+
+      {
+        title: "Escala PDF",
+        status: "Desatualizada",
+        variant: "neutral",
+      },
+
+      {
+        title: "Voluntário",
+        status: "Não confirmou",
+        variant: "gold",
+      },
+    ],
   },
 
   chaos: {

@@ -5,7 +5,7 @@ interface Props {
 
 export function ImpactSlide({ label, value }: Props) {
   return (
-    <section
+    <div
       className="
         h-screen
         sticky
@@ -16,14 +16,7 @@ export function ImpactSlide({ label, value }: Props) {
       "
     >
       <div className="text-center">
-        <p
-          className="
-            text-sm
-            uppercase
-            tracking-[0.18em]
-            text-(--color-text-secondary)
-          "
-        >
+        <p className="text-sm uppercase tracking-[0.2em] text-(--color-text-secondary)">
           {label}
         </p>
 
@@ -31,14 +24,14 @@ export function ImpactSlide({ label, value }: Props) {
           className="
             mt-8
             text-7xl
-            md:text-9xl
+            md:text-[10rem]
+            font-black
             tracking-[-0.08em]
-            text-(--color-pulso-primary)
           "
         >
           {value}
         </h2>
       </div>
-    </section>
+    </div>
   );
 }

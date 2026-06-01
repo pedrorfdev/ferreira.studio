@@ -1,5 +1,4 @@
 import type {
-  BaseSection,
   DecisionSection,
   ResultSection,
   LocalizedProjectData,
@@ -36,8 +35,23 @@ export interface FutureSection {
   steps: FutureStep[];
 }
 
+export interface BeforeCard {
+  title: string;
+  status: string;
+
+  variant: "accent" | "gold" | "neutral" | "purple" | "light";
+}
+
+export interface BeforeSection {
+  headline: string;
+  body: string;
+  eyebrow: string;
+
+  cards: BeforeCard[];
+}
+
 export interface PulsoSections {
-  before: BaseSection;
+  before: BeforeSection;
 
   chaos: ChaosSection;
 

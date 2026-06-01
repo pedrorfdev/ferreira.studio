@@ -1,82 +1,61 @@
 import { motion } from "framer-motion";
 
-import type { BaseSection } from "@/types/project";
+import type { BeforeSection } from "@/types/projects/pulso";
+
+import { BeforeCard } from "./before-card";
 
 interface Props {
-  section: BaseSection;
-  eyebrow: string;
+  section: BeforeSection;
 }
 
-const cards = [
-  {
-    title: "WhatsApp",
-    state: "84 mensagens",
-  },
-  {
-    title: "Planilha",
-    state: "3 versões",
-  },
-  {
-    title: "Escala PDF",
-    state: "desatualizada",
-  },
-  {
-    title: "Fulano",
-    state: "não confirmou",
-  },
-];
-
-export function BeforePulso({ section, eyebrow }: Props) {
+export function BeforePulso({ section }: Props) {
   return (
     <section className="py-40">
-      <div className="max-w-7xl mx-auto px-6">
-        <p className="text-xs uppercase tracking-[0.18em] text-(--color-pulso-primary)">
-          {eyebrow}
-        </p>
+      <div className="max-w-7xl mx-auto px-8">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 24,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: false,
+            amount: 0.15,
+          }}
+        >
+          <p className="text-xs uppercase tracking-[0.18em] font-semibold text-(--color-accent) mb-8">
+            {section.eyebrow}
+          </p>
 
-        <h2 className="mt-6 text-5xl md:text-7xl tracking-[-0.08em] text-(--color-text-primary)">
-          {section.headline}
-        </h2>
+          <h2 className="text-5xl md:text-7xl font-black tracking-[-0.08em] leading-[0.95] text-(--color-text-primary)">
+            {section.headline}
+          </h2>
 
-        <p className="mt-8 max-w-3xl text-lg text-(--color-text-secondary)">
-          {section.body}
-        </p>
+          <p className="mt-12 max-w-5xl text-3xl md:text-3xl font-bold tracking-tighter leading-[1.05] text-(--color-text-secondary)">
+            {section.body}
+          </p>
+        </motion.div>
 
-        <div className="mt-20 grid md:grid-cols-4 gap-6">
-          {cards.map((card, index) => (
-            <motion.div
+        <div
+          className="
+            mt-24
+            grid
+            md:grid-cols-2
+            xl:grid-cols-4
+            gap-6
+          "
+        >
+          {section.cards.map((card, index) => (
+            <BeforeCard
               key={card.title}
-              initial={{
-                opacity: 0,
-                rotateX: 90,
-                y: 120,
-              }}
-              whileInView={{
-                opacity: 1,
-                rotateX: 0,
-                y: 0,
-              }}
-              viewport={{ once: true }}
-              transition={{
-                delay: index * 0.12,
-                duration: 0.7,
-              }}
-              className="
-                rounded-[28px]
-                border
-                border-(--color-border)
-                bg-(--color-bg-secondary)
-                p-8
-              "
-            >
-              <p className="text-lg text-(--color-text-primary)">
-                {card.title}
-              </p>
-
-              <p className="mt-8 text-sm text-(--color-pulso-primary)">
-                {card.state}
-              </p>
-            </motion.div>
+              title={card.title}
+              status={card.status}
+              variant={card.variant}
+              index={index}
+            />
           ))}
         </div>
       </div>

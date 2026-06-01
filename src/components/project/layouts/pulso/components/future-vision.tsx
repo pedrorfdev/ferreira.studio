@@ -1,98 +1,64 @@
-import type { FutureSection } from "@/types/projects/pulso";
+import { motion } from "framer-motion";
 
 interface Props {
-  section: FutureSection;
-  eyebrow: string;
+  title: string;
+  steps: string[];
 }
 
-export function FutureVision({ section, eyebrow }: Props) {
+export function FutureVision({ title, steps }: Props) {
   return (
-    <section className="py-40 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <p
-          className="
-            text-xs
-            uppercase
-            tracking-[0.18em]
-            text-(--color-pulso-primary)
-          "
-        >
-          {eyebrow}
-        </p>
+    <section className="py-40">
+      <h2 className="text-5xl font-bold mb-20">{title}</h2>
 
-        <h2
-          className="
-            mt-6
-            text-5xl
-            md:text-7xl
-            tracking-[-0.08em]
-            text-(--color-text-primary)
-          "
-        >
-          {section.headline}
-        </h2>
-
-        <p
-          className="
-            mt-8
-            max-w-3xl
-            text-lg
-            text-(--color-text-secondary)
-          "
-        >
-          {section.body}
-        </p>
-
-        <div
-          className="
-            mt-24
-            flex
-            gap-16
-            min-w-max
-          "
-        >
-          {section.steps.map((step, index) => (
-            <div
-              key={step.title}
-              className="
-                flex
-                items-center
-                gap-16
+      <div
+        className="
+          flex
+          overflow-x-auto
+          gap-24
+          pb-10
+        "
+      >
+        {steps.map((step, index) => (
+          <motion.div
+            key={step}
+            initial={{
+              opacity: 0,
+              y: 40,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            className="
+                relative
+                min-w-[240px]
               "
-            >
-              <div>
-                <div
-                  className="
-                    w-4
-                    h-4
-                    rounded-full
-                    bg-(--color-pulso-primary)
-                    mb-4
-                  "
-                />
+          >
+            <div
+              className="
+                  size-5
+                  rounded-full
+                  bg-(--color-pulso-primary)
+                  shadow-lg
+                "
+            />
 
-                <p
-                  className="
-                    text-xl
-                    text-(--color-text-primary)
-                  "
-                >
-                  {step.title}
-                </p>
-              </div>
-
-              {index < section.steps.length - 1 && (
-                <div
-                  className="
-                    w-24
+            {index < steps.length - 1 && (
+              <div
+                className="
+                    absolute
+                    top-2
+                    left-5
+                    w-32
                     h-px
                     bg-(--color-border)
                   "
-                />
-              )}
-            </div>
-          ))}
-        </div>
+              />
+            )}
+
+            <p className="mt-8 text-xl">{step}</p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
