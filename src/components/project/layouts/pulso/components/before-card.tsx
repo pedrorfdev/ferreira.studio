@@ -4,7 +4,7 @@ interface Props {
   title: string;
   status: string;
 
-  variant: "accent" | "gold" | "purple" | "neutral" | "light";
+  variant: "accent" | "gold" | "purple" | "neutral";
 
   index: number;
 }

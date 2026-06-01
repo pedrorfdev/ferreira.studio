@@ -39,7 +39,7 @@ export interface BeforeCard {
   title: string;
   status: string;
 
-  variant: "accent" | "gold" | "neutral" | "purple" | "light";
+  variant: "accent" | "gold" | "neutral" | "purple";
 }
 
 export interface BeforeSection {

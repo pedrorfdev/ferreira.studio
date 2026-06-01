@@ -1,3 +1,5 @@
+// components/shell/app-shell.tsx
+// Fix: importa AnyProject de @/data/projects para consistência de tipos
 import { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
@@ -12,10 +14,14 @@ import { Nav } from "@/components/navigation/nav";
 import { useAppStore } from "@/store/use-app-store";
 import { useMenuStore } from "@/store/use-menu-store";
 import { AppState } from "@/types/project";
+import type { AnyProject } from "@/data/projects";
 
 export function AppShell() {
   const appState = useAppStore((s) => s.appState);
-  const activeProject = useAppStore((s) => s.activeProject);
+  // Cast explícito para AnyProject de @/data/projects — resolve conflito
+  const activeProject = useAppStore(
+    (s) => s.activeProject,
+  ) as AnyProject | null;
   const isMenuOpen = useMenuStore((s) => s.isOpen);
 
   useEffect(() => {
@@ -43,7 +49,6 @@ export function AppShell() {
         {!isProjectOpen && <HomeView key="home" />}
       </AnimatePresence>
 
-      {/* ProjectView sem prop — lê do store internamente */}
       <AnimatePresence>
         {isProjectOpen && <ProjectView key={activeProject?.id} />}
       </AnimatePresence>
@@ -55,7 +60,6 @@ export function AppShell() {
       </AnimatePresence>
 
       <AnimatePresence>{isMenuOpen && <MenuOverlay />}</AnimatePresence>
-
       <AnimatePresence>{isLoading && <IntroLoader />}</AnimatePresence>
     </div>
   );
