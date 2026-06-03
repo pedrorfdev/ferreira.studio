@@ -152,23 +152,10 @@ export function TextureLayer({ className }: Props) {
           top-1/2
           -translate-x-1/2
           -translate-y-1/2
-
           h-[900px]
           w-[900px]
 
-          rounded-full
-          blur-[180px]
-
           bg-(--color-pulso-primary)
-        "
-      />
-
-      {/* Vinheta */}
-      <div
-        className="
-          absolute
-          inset-0
-          bg-[radial-gradient(circle_at_center,transparent_0%,rgba(11,11,13,0.65)_75%,rgba(11,11,13,1)_100%)]
         "
       />
     </div>

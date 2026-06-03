@@ -5,20 +5,17 @@ import { useClipPathTransition } from "@/hooks/use-clip-path-transition";
 import { AppState } from "@/types/project";
 import type { LocalizedProjectData } from "@/types/project";
 import type { PraxisSections } from "@/types/projects/praxis";
+import type {
+  BravioSections,
+  VamboraSections,
+  PulsoSections,
+} from "@/types/projects";
 import { transitions } from "@/lib/motion";
 import { ProjectNav } from "@/components/project/project-nav";
 
 import { PraxisView } from "@/components/project/layouts/praxis/view";
 import { VamboraView } from "./layouts/vambora/view";
-import type {
-  BravioSections,
-  PulsoSections,
-  VamboraSections,
-  VellorSections,
-} from "@/types/projects";
 import { BravioView } from "./layouts/bravio/view";
-import { BackToTop } from "../ui/back-to-top";
-import { VellorView } from "./layouts/vellor/view";
 import { PulsoView } from "./layouts/pulso/view";
 
 type AnyProject = LocalizedProjectData<unknown>;
@@ -39,15 +36,10 @@ function resolveLayout(project: AnyProject) {
       return (
         <BravioView project={project as LocalizedProjectData<BravioSections>} />
       );
-    case "vellor":
-      return (
-        <VellorView project={project as LocalizedProjectData<VellorSections>} />
-      );
     case "pulso":
       return (
         <PulsoView project={project as LocalizedProjectData<PulsoSections>} />
       );
-
     default:
       return (
         <div className="flex items-center justify-center h-full">
@@ -115,7 +107,6 @@ export function ProjectView() {
         transition={transitions.cinematic}
         onAnimationComplete={handleAnimationComplete}
       >
-        {/* Scroll progress bar */}
         <div className="absolute top-0 left-0 right-0 h-px z-10 bg-(--color-border-subtle) pointer-events-none">
           <motion.div
             className="h-full bg-(--color-accent) origin-left"
@@ -123,13 +114,14 @@ export function ProjectView() {
           />
         </div>
 
-        {/* Scroll container — pt-20 para não ficar sob o pill nav */}
+        {/* data-scroll-container — identificador para ChaosMap, Impact e qualquer
+            componente filho que precise encontrar o scroll container correto */}
         <div
           ref={containerRef}
+          data-scroll-container
           className="flex-1 overflow-y-auto overscroll-none"
         >
           <div className="pt-20">{resolveLayout(project)}</div>
-          <BackToTop target={containerRef} />
           <div className="h-24" />
         </div>
       </motion.div>

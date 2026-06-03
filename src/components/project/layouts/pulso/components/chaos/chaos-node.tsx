@@ -10,7 +10,7 @@ export function ChaosNode({ x, y }: Props) {
         absolute
         size-3
         rounded-full
-        bg-(--color-pulso-primary)
+        bg-(--color-accent)
       "
       style={{
         left: `${x}%`,

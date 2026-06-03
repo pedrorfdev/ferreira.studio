@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 
 import type { PulsoProject } from "@/types/projects/pulso";
 
-import { Background } from "./background/background";
 import { TextureLayer } from "./background/texture-layer";
 
 interface Props {
@@ -22,8 +21,6 @@ export function Hero({ project }: Props) {
         justify-center
       "
     >
-      <Background />
-
       <TextureLayer />
 
       <div

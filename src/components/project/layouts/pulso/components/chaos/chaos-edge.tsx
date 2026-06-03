@@ -13,7 +13,7 @@ export function ChaosEdge({ x1, y1, x2, y2 }: Props) {
         y1={`${y1}%`}
         x2={`${x2}%`}
         y2={`${y2}%`}
-        stroke="currentColor"
+        stroke="#ffffff"
         className="
           text-(--color-border)
         "
