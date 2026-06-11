@@ -209,7 +209,10 @@ export function AssistantLayer({ project }: Props) {
             <p className="text-xs text-(--color-text-tertiary) mb-1">
               {t.project.askAbout}
             </p>
-            {project.assistant.quickPrompts.map((prompt, i) => (
+            {(lang === "pt"
+              ? (project.assistant.quickPromptsPt ?? project.assistant.quickPrompts)
+              : project.assistant.quickPrompts
+            ).map((prompt, i) => (
               <motion.button
                 key={i}
                 variants={slideUp}

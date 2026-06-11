@@ -56,5 +56,10 @@ Main topics:
       "Why mobile-first web instead of native?",
       "What problem does Bravio solve?",
     ],
+    quickPromptsPt: [
+      "Por que offline-first?",
+      "Por que web mobile-first em vez de nativo?",
+      "Qual problema o Bravio resolve?",
+    ],
   },
 };

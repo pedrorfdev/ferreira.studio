@@ -71,7 +71,7 @@ export const en = {
 
   contact: {
     headline: "Let's build something meaningful.",
-    email: "hello@ferreira.studio",
+    email: "pedrorf.dev@gmail.com",
     cta: "Send an email",
   },
 

@@ -1,6 +1,3 @@
-// project-view.tsx
-// scroll-snap-type apenas quando o projeto ativo for "pulso"
-// Para outros projetos o scroll é normal
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useAppStore } from "@/store/use-app-store";
@@ -15,7 +12,6 @@ import type {
   VellorSections,
 } from "@/types/projects";
 import { transitions } from "@/lib/motion";
-import { ProjectNav } from "@/components/project/project-nav";
 
 import { PraxisView } from "@/components/project/layouts/praxis/view";
 import { VamboraView } from "./layouts/vambora/view";
@@ -64,7 +60,6 @@ function resolveLayout(project: AnyProject) {
 export function ProjectView() {
   const project = useAppStore((s) => s.activeProject);
   const setAppState = useAppStore((s) => s.setAppState);
-  const closeProject = useAppStore((s) => s.closeProject);
   const appState = useAppStore((s) => s.appState);
   const { origin, expanded } = useClipPathTransition();
 
@@ -101,16 +96,6 @@ export function ProjectView() {
 
   return (
     <>
-      <motion.div
-        className="fixed inset-0 z-92 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ delay: 0.45, duration: 0.3 }}
-      >
-        <ProjectNav project={project} onClose={closeProject} />
-      </motion.div>
-
       <motion.div
         data-project={project.id}
         className="fixed inset-0 z-20 bg-(--color-bg-primary) flex flex-col"

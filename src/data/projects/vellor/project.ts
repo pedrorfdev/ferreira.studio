@@ -57,5 +57,10 @@ Main topics:
       "How does RSVP work?",
       "What makes Vellor different?",
     ],
+    quickPromptsPt: [
+      "Por que usar Google Sheets?",
+      "Como funciona o RSVP?",
+      "O que diferencia o Vellor?",
+    ],
   },
 };

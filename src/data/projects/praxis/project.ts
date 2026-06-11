@@ -84,5 +84,12 @@ Be technical, honest about tradeoffs, and speak like someone deeply familiar wit
       "Why use JSONB?",
       "What comes next for Praxis?",
     ],
+    quickPromptsPt: [
+      "Por que PostgreSQL com PGVector em vez de algo mais simples?",
+      "Como você modelou a estrutura das anamneses?",
+      "Qual foi o maior desafio técnico?",
+      "Por que usar JSONB?",
+      "O que vem a seguir no Praxis?",
+    ],
   },
 };

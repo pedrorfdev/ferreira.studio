@@ -67,6 +67,7 @@ export interface Metric {
 export interface AssistantConfig {
   context: string;
   quickPrompts: string[];
+  quickPromptsPt?: string[];
 }
 
 export type ProjectTag =

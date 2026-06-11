@@ -72,5 +72,10 @@ Core themes:
       "What problem does Pulso solve?",
       "Why not use WhatsApp?",
     ],
+    quickPromptsPt: [
+      "Por que RBAC desde o início?",
+      "Qual problema o Pulso resolve?",
+      "Por que não usar WhatsApp?",
+    ],
   },
 };

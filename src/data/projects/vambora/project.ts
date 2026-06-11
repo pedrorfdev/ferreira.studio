@@ -73,5 +73,12 @@ Be technical, specific about tradeoffs, and explain product decisions clearly.
       "How did you handle model instability?",
       "What would you build next?",
     ],
+    quickPromptsPt: [
+      "Como funciona a arquitetura de prompts?",
+      "Por que Gemini em vez de GPT?",
+      "Por que sem Next.js?",
+      "Como você lidou com a instabilidade do modelo?",
+      "O que construiria a seguir?",
+    ],
   },
 };
