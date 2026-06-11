@@ -2,7 +2,7 @@
 // Light fix CRÍTICO: texto legível — usa text-white sobre imagem
 // Scrim menor, cor do Vellor (gold) nos detalhes
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink, GitBranch } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 import { useProjectContent } from "@/hooks/use-project-content";
 import type { VellorProject } from "@/types/projects/vellor";
@@ -45,6 +45,32 @@ export function Hero({ project }: Props) {
             <p className="mt-10 max-w-2xl text-xl md:text-2xl leading-relaxed text-white/75">
               {content.tagline}
             </p>
+
+            <div className="flex gap-3 flex-wrap mt-12">
+              {project.links?.demo && (
+                <a
+                  href={project.links.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-(--color-accent)
+                             text-white text-sm hover:bg-(--color-accent-hover) transition-colors"
+                >
+                  <ExternalLink size={14} /> {t.actions.viewDemo}
+                </a>
+              )}
+              {project.links?.github && (
+                <a
+                  href={project.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-6 py-3.5 rounded-xl
+                             border border-white/30 bg-white/10 backdrop-blur-sm
+                             text-white/80 text-sm hover:border-white/60 hover:text-white transition-all"
+                >
+                  <GitBranch size={14} /> {t.actions.github}
+                </a>
+              )}
+            </div>
           </motion.div>
         </div>
       </div>

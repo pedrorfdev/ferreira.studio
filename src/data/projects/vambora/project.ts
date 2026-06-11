@@ -32,8 +32,8 @@ export const vamboraProject: LocalizedProjectData<VamboraSections> = {
   heroImage: "/media/vambora-hero.jpg",
 
   links: {
-    demo: "",
-    github: "",
+    demo: "https://vambora-ai.vercel.app/",
+    github: "https://github.com/pedrorfdev/vambora.ai",
   },
 
   sections: vamboraEn,

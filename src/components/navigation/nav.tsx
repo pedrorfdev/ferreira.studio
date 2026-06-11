@@ -166,7 +166,7 @@ export function Nav() {
           ) : (
             <Moon className="size-4 shrink-0" />
           )}
-          <span className="hidden md:block text-[10px] uppercase tracking-[0.12em] text-(--color-text-tertiary)">
+          <span className="hidden md:block text-[10px] uppercase tracking-[0.12em] text-(--color-text-secondary)">
             {theme === "dark" ? "Light" : "Dark"}
           </span>
         </motion.button>

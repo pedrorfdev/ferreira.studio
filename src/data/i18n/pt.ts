@@ -74,7 +74,6 @@ export const pt: DeepWritablePartial<typeof en> = {
 
   contact: {
     headline: "Vamos construir algo relevante.",
-    email: "hello@ferreira.studio",
     cta: "Enviar um e-mail",
   },
 
@@ -90,7 +89,6 @@ export const pt: DeepWritablePartial<typeof en> = {
     role: "Product Engineer",
   },
   actions: {
-    viewDemo: "Ver Projeto",
-    github: "Ver Código",
+    viewDemo: "Experimentar",
   },
 };

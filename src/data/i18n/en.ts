@@ -88,7 +88,7 @@ export const en = {
   },
 
   actions: {
-    viewDemo: "View Live",
-    github: "View Code",
+    viewDemo: "Try It",
+    github: "GitHub",
   },
 } as const;

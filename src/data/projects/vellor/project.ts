@@ -17,8 +17,8 @@ export const vellorProject: LocalizedProjectData<VellorSections> = {
   status: "in development",
 
   links: {
-    demo: "",
-    github: "",
+    demo: "#",
+    github: "#",
   },
 
   cardPosition: {

@@ -39,8 +39,8 @@ export const pulsoProject: LocalizedProjectData<PulsoSections> = {
   heroImage: "/media/pulso-hero.jpg",
 
   links: {
-    github: "#",
     demo: "#",
+    github: "#",
   },
 
   sections: pulsoEn,

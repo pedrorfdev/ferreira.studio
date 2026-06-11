@@ -18,6 +18,11 @@ export const bravioProject: LocalizedProjectData<BravioSections> = {
 
   status: "in development",
 
+  links: {
+    demo: "#",
+    github: "#",
+  },
+
   cardPosition: {
     top: "42%",
     left: "60%",

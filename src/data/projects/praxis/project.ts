@@ -39,8 +39,8 @@ export const praxisProject: LocalizedProjectData<PraxisSections> = {
   heroImage: "/media/praxis-hero.jpg",
 
   links: {
-    demo: "",
-    github: "",
+    demo: "https://praxis-web-one.vercel.app/",
+    github: "https://github.com/pedrorfdev/Praxis",
   },
 
   sections: praxisEn,
