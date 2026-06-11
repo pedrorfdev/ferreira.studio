@@ -41,7 +41,8 @@ export function Hero({ project }: Props) {
 
             {/* Título: sempre branco sobre a imagem de fundo */}
             <h1 className="text-6xl md:text-8xl tracking-[-0.08em] leading-[0.92] font-semibold text-white">
-              {project.title}
+              <span className="text-(--color-accent) drop-shadow-[0_0_32px_var(--color-accent)]">{project.title.slice(0, 2)}</span>
+              {project.title.slice(2)}
             </h1>
 
             {/* Tagline: branco com opacidade */}

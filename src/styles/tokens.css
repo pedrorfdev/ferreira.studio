@@ -1,13 +1,3 @@
-/* tokens.css
-   ============================================================
-   Tokens globais do ferreira.studio
-   
-   PRINCÍPIO:
-   - Cores âncora (accent, gold, project primary) NÃO MUDAM entre temas
-   - O que muda é background, surface, border e text
-   - Cada projeto mantém sua identidade visual em ambos os temas
-   ============================================================ */
-
 @theme {
     /* Tipografia */
     --font-display: "Instrument Sans", system-ui, sans-serif;

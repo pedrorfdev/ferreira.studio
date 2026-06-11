@@ -45,11 +45,11 @@ export function HighlightSection({
           {eyebrow}
         </p>
 
-        <h2 className={`max-w-2xl text-2xl md:text-4xl tracking-[-0.06em] leading-[1.02] ${variant === "accent" ? "text-(--color-text-inverse)" : "text-(--color-text-primary)"}`}>
+        <h2 className={`max-w-2xl text-2xl md:text-4xl tracking-[-0.06em] leading-[1.02] ${variant === "accent" ? "text-white" : "text-(--color-text-primary)"}`}>
           {headline}
         </h2>
 
-        <p className={`mt-6 max-w-2xl text-sm md:text-base leading-relaxed ${variant === "accent" ? "text-(--color-text-inverse)" : "text-(--color-text-secondary)"}`}>
+        <p className={`mt-6 max-w-2xl text-sm md:text-base leading-relaxed ${variant === "accent" ? "text-white/80" : "text-(--color-text-secondary)"}`}>
           {body}
         </p>
       </div>

@@ -2,12 +2,14 @@ import type { PraxisProject } from "@/types/projects";
 
 import { motion } from "framer-motion";
 import { ExternalLink, GitBranch } from "lucide-react";
+import { useI18n } from "@/lib/i18n-context";
 
 interface Props {
   project: PraxisProject;
 }
 
 export function Hero({ project }: Props) {
+  const { t } = useI18n();
   return (
     <section className="relative px-6 md:px-10 pt-28 md:pt-40 pb-32">
       <div className="max-w-4xl mx-auto">
@@ -21,7 +23,9 @@ export function Hero({ project }: Props) {
           </p>
 
           <motion.h1 className="text-5xl md:text-8xl tracking-[-0.08em] leading-none font-semibold">
-            <span className="text-(--color-text-primary)">{project.title.slice(0, 3)}</span>
+            <span className="text-(--color-text-primary)">
+              {project.title.slice(0, 3)}
+            </span>
 
             <span className="text-(--color-accent) drop-shadow-[0_0_32px_var(--color-accent)]">
               {project.title.slice(3)}
@@ -38,10 +42,10 @@ export function Hero({ project }: Props) {
                 href={project.links.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-full bg-(--color-accent)
-                           text-white text-sm hover:scale-[1.02] hover:opacity-90 transition-all"
+                className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-(--color-accent)
+                           text-sm hover:opacity-90 transition-all"
               >
-                <ExternalLink size={14} /> View Demo
+                <ExternalLink size={14} /> {t.actions.viewDemo}
               </a>
             )}
             {project.links?.github && (
@@ -49,11 +53,10 @@ export function Hero({ project }: Props) {
                 href={project.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-full border border-(--color-border)
-                           bg-(--color-bg-secondary)/80 backdrop-blur-xl text-(--color-text-secondary)
-                           text-sm hover:border-(--color-accent) hover:text-(--color-text-primary) transition-all"
+                className="flex items-center gap-2 px-6 py-3.5 rounded-xl
+                           border border-zinc-500 bg-white/10 backdrop-blur-sm transition-all"
               >
-                <GitBranch size={14} /> GitHub
+                <GitBranch size={14} /> {t.actions.github}
               </a>
             )}
           </div>

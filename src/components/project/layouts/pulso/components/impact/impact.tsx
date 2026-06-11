@@ -1,8 +1,6 @@
-// impact.tsx — scroll-snap nativo
-// O scroll container do ProjectView recebe scroll-snap-type via className no view.tsx
-// Cada item é um snap point — o browser trava automaticamente em cada um
-// Sem JS, sem bugs, comportamento nativo perfeito
-import { motion } from "framer-motion";
+// impact.tsx — sticky scroll animation
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import type { ResultSection } from "@/types/project";
 
 interface Props {
@@ -12,41 +10,55 @@ interface Props {
 export function Impact({ section }: Props) {
   const metrics = section.metrics ?? [];
   if (!metrics.length) return null;
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
   return (
-    <section>
-      {metrics.map((metric) => (
-        <div
-          key={metric.label}
-          // scroll-snap-align: start — trava aqui ao scrollar
-          // h-dvh — ocupa exatamente a viewport
-          className="h-dvh w-full flex flex-col items-center justify-center
-                     overflow-hidden relative"
-          style={{ scrollSnapAlign: "start" }}
-        >
-          <div className="absolute top-0 inset-x-0 h-px bg-(--color-accent)/15" />
+    <section ref={containerRef} style={{ height: `${metrics.length * 100}vh` }} className="relative bg-(--color-bg-primary)">
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+        {metrics.map((metric, i) => {
+          const step = 1 / metrics.length;
+          const start = i * step;
+          const end = (i + 1) * step;
+          const center = (start + end) / 2;
+          
+          // Entra de baixo (100%), fica no centro (0%), sai por cima (-100%)
+          const y = useTransform(
+            scrollYProgress,
+            [start, center, end],
+            ["100%", "0%", "-100%"]
+          );
+          
+          // Fade in e out suave
+          const opacity = useTransform(
+            scrollYProgress,
+            [start, start + step * 0.2, end - step * 0.2, end],
+            [0, 1, 1, 0]
+          );
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: false, amount: 0.8 }}
-            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-            className="flex flex-col items-center justify-center text-center px-6"
-          >
-            <p className="text-xs uppercase tracking-[0.28em] text-(--color-text-tertiary) mb-8">
-              {metric.label}
-            </p>
-            <p
-              className="font-black tracking-[-0.04em] leading-none text-(--color-text-primary)"
-              style={{ fontSize: "clamp(4rem, 14vw, 12rem)" }}
+          return (
+            <motion.div
+              key={metric.label}
+              className="absolute inset-0 flex flex-col items-center justify-center text-center px-6"
+              style={{ y, opacity }}
             >
-              {metric.value}
-            </p>
-          </motion.div>
-
-          <div className="absolute bottom-0 inset-x-0 h-px bg-(--color-accent)/15" />
-        </div>
-      ))}
+              <p className="text-xs md:text-sm uppercase tracking-[0.28em] text-(--color-accent) font-semibold mb-8">
+                {metric.label}
+              </p>
+              <p
+                className="font-black tracking-[-0.04em] leading-none text-(--color-text-primary)"
+                style={{ fontSize: "clamp(4rem, 14vw, 12rem)" }}
+              >
+                {metric.value}
+              </p>
+            </motion.div>
+          );
+        })}
+      </div>
     </section>
   );
 }

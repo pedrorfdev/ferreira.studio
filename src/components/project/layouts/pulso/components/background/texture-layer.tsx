@@ -85,9 +85,9 @@ function TextureSvg() {
           key={index}
           filter="url(#pulsoGlow)"
           stroke={line.color}
-          strokeWidth={2}
+          strokeWidth={4} // aumentado para 4 para maior destaque
           strokeLinecap="round"
-          opacity={line.opacity}
+          opacity={line.opacity * 1.5} // opacidade aumentada
           initial={{
             d: line.pathA,
           }}

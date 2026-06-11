@@ -130,7 +130,11 @@ function MapSVG({
               textAnchor="middle"
               fill="var(--color-text-secondary)"
               initial={{ x: chaos.x, y: chaos.y - 4.5, opacity: 0 }}
-              whileInView={{ x: spec.x, y: spec.y - 4.5, opacity: 0.85 }}
+              whileInView={{ 
+                x: spec.x, 
+                y: isMobile ? spec.y - 4.5 : spec.y + (i % 2 === 0 ? -4.5 : 6), 
+                opacity: 0.85 
+              }}
               viewport={viewport}
               transition={{ delay: 1.15 + i * 0.07, duration: 0.5 }}
             >

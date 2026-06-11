@@ -24,13 +24,12 @@ export function SpectrumReveal({ headline }: Props) {
         <OperationalSpectrum />
       </motion.div>
 
-      {/* Fades nas bordas */}
+      {/* Fades apenas verticais */}
       <div
         className="absolute inset-0 pointer-events-none z-10"
         style={{
           background: `
-               linear-gradient(to right, var(--color-bg-primary) 0%, transparent 15%, transparent 85%, var(--color-bg-primary) 100%),
-               linear-gradient(to bottom, var(--color-bg-primary)/70 0%, transparent 20%, transparent 80%, var(--color-bg-primary)/70 100%)
+               linear-gradient(to bottom, var(--color-bg-primary) 0%, transparent 20%, transparent 80%, var(--color-bg-primary) 100%)
              `,
         }}
       />
@@ -40,7 +39,7 @@ export function SpectrumReveal({ headline }: Props) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.7 }}
-        className="relative z-20 text-center max-w-4xl px-8"
+        className="relative z-20 text-center max-w-4xl px-8 md:px-12 py-10 rounded-[2.5rem] bg-(--color-bg-primary)/60 backdrop-blur-md border border-(--color-border)"
       >
         <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-tight text-(--color-text-primary) mb-5">
           {headline}

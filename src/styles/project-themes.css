@@ -1,15 +1,3 @@
-/* project-themes.css
-   ============================================================
-   ESTRATÉGIA DE LIGHT THEME POR PROJETO:
-   
-   Cada projeto tem cores âncora que NÃO MUDAM.
-   No light theme, só backgrounds e borders adaptam — o accent
-   fica igual ou 1-2 steps mais escuro para manter contraste.
-   
-   Isso garante que a identidade visual de cada projeto
-   apareça tanto no dark quanto no light.
-   ============================================================ */
-
 /* ── PRAXIS — petróleo + cyan ──────────────────────────────── */
 [data-project="praxis"] {
    /* Cores âncora — mesmas em dark e light */
@@ -87,8 +75,7 @@ html.light [data-project="vambora"] {
 }
 
 /* ── BRAVIO — verde operacional âncora ─────────────────────── */
-[data-project="bravio"],
-[data-project="carga"] {
+[data-project="bravio"] {
    --color-accent: oklch(0.46 0.12 145);
    --color-accent-hover: oklch(0.40 0.10 145);
    --color-accent-muted: oklch(0.46 0.12 145 / 0.15);
@@ -99,9 +86,7 @@ html.light [data-project="vambora"] {
 }
 
 html:not(.light) [data-project="bravio"],
-html.dark [data-project="bravio"],
-html:not(.light) [data-project="carga"],
-html.dark [data-project="carga"] {
+html.dark [data-project="bravio"] {
    --color-bg-primary: oklch(0.10 0.006 145);
    --color-bg-secondary: oklch(0.13 0.008 145);
    --color-bg-tertiary: oklch(0.16 0.008 145);
@@ -112,8 +97,7 @@ html.dark [data-project="carga"] {
    --color-text-tertiary: oklch(0.50 0.005 80);
 }
 
-html.light [data-project="bravio"],
-html.light [data-project="carga"] {
+html.light [data-project="bravio"] {
    --color-bg-primary: oklch(0.96 0.008 145);
    --color-bg-secondary: oklch(0.92 0.008 145);
    --color-bg-tertiary: oklch(0.87 0.010 145);
@@ -130,9 +114,7 @@ html.light [data-project="carga"] {
 }
 
 /* ── VELLOR — champagne gold âncora ────────────────────────── */
-[data-project="vellor"],
-[data-project="ceree"] {
-   /* Gold é a âncora principal do Vellor */
+[data-project="vellor"] {
    --color-accent: oklch(0.34 0.06 330);
    --color-accent-hover: oklch(0.28 0.05 330);
    --color-accent-muted: oklch(0.34 0.06 330 / 0.14);
@@ -143,9 +125,7 @@ html.light [data-project="carga"] {
 }
 
 html:not(.light) [data-project="vellor"],
-html.dark [data-project="vellor"],
-html:not(.light) [data-project="ceree"],
-html.dark [data-project="ceree"] {
+html.dark [data-project="vellor"] {
    --color-bg-primary: oklch(0.09 0.003 330);
    --color-bg-secondary: oklch(0.12 0.004 330);
    --color-bg-tertiary: oklch(0.15 0.004 330);
@@ -156,8 +136,7 @@ html.dark [data-project="ceree"] {
    --color-text-tertiary: oklch(0.54 0.005 60);
 }
 
-html.light [data-project="vellor"],
-html.light [data-project="ceree"] {
+html.light [data-project="vellor"] {
    --color-bg-primary: oklch(0.97 0.006 72);
    --color-bg-secondary: oklch(0.93 0.007 72);
    --color-bg-tertiary: oklch(0.88 0.008 72);

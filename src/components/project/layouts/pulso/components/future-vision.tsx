@@ -104,8 +104,8 @@ export function FutureVision({ section }: Props) {
           return (
             <motion.div
               key={step.title}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 0, x: "-50%", y: "-50%" }}
+              whileInView={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
               viewport={{ once: false, amount: 0.5 }}
               transition={{
                 type: "spring",
@@ -117,7 +117,6 @@ export function FutureVision({ section }: Props) {
               style={{
                 left: `${pos.x}%`,
                 top: `${pos.y}%`,
-                transform: "translate(-50%, -50%)",
               }}
             >
               <div

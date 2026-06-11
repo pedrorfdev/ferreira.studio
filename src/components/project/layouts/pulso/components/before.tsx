@@ -11,10 +11,9 @@ interface Props {
 const VARIANT_STYLES: Record<BeforeCard["variant"], string> = {
   accent: "bg-(--color-accent) border-(--color-accent) text-white",
   purple: "bg-[#7c3aed] border-[#7c3aed] text-white",
-  // gold: dourado real — não muted
-  gold: "bg-(--color-gold) border-(--color-gold) text-white",
+  gold: "bg-[#EAB308] border-[#EAB308] text-white", // amarelo/dourado mais forte
   neutral:
-    "bg-(--color-bg-secondary) border-(--color-border) text-(--color-text-secondary)",
+    "bg-(--color-bg-secondary) border-(--color-border) text-(--color-text-primary)", // primary para maior legibilidade no claro
 };
 
 function Card({ card, index }: { card: BeforeCard; index: number }) {
@@ -30,12 +29,12 @@ function Card({ card, index }: { card: BeforeCard; index: number }) {
       }}
       style={{ transformPerspective: 800 }}
       className={[
-        "rounded-2xl border p-6 flex flex-col gap-3",
+        "rounded-2xl border p-8 flex flex-col gap-4 min-h-[180px] md:min-h-[220px] justify-center",
         VARIANT_STYLES[card.variant],
       ].join(" ")}
     >
-      <p className="text-base font-bold leading-snug">{card.title}</p>
-      <p className="text-sm opacity-75">{card.status}</p>
+      <p className="text-xl md:text-2xl font-bold leading-snug">{card.title}</p>
+      <p className="text-sm md:text-base opacity-90 font-medium">{card.status}</p>
     </motion.div>
   );
 }

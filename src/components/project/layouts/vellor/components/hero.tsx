@@ -23,7 +23,7 @@ export function Hero({ project }: Props) {
       {/* Scrim bem reduzido — imagem respira */}
       <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/15 to-(--color-bg-primary)" />
 
-      <div className="relative z-10 min-h-screen flex items-center px-6 md:px-10 pt-24 pb-40">
+      <div className="relative z-10 min-h-screen flex items-center px-6 md:px-10 pt-28 pb-32">
         <div className="max-w-6xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -36,17 +36,17 @@ export function Hero({ project }: Props) {
               {t.project.status.inDevelopment}
             </p>
 
-            {/* Título: text-white forçado — legível sobre qualquer fundo */}
-            <h1 className="text-6xl md:text-8xl tracking-[-0.09em] leading-[0.92] font-semibold text-white">
+            {/* Título: gold (champagne) para dar destaque */}
+            <h1 className="text-6xl md:text-8xl tracking-[-0.09em] leading-[0.92] font-semibold text-(--color-gold) drop-shadow-[0_0_32px_var(--color-gold)]">
               {project.title}
             </h1>
 
-            {/* Tagline: branco com opacidade */}
-            <p className="mt-10 max-w-2xl text-xl md:text-2xl leading-relaxed text-white/75">
+            {/* Tagline: branco com opacidade, margem menor */}
+            <p className="mt-6 max-w-2xl text-xl md:text-2xl leading-relaxed text-white/75">
               {content.tagline}
             </p>
 
-            <div className="flex gap-3 flex-wrap mt-12">
+            <div className="flex gap-3 flex-wrap mt-8">
               {project.links?.demo && (
                 <a
                   href={project.links.demo}

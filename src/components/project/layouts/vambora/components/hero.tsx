@@ -59,10 +59,10 @@ export function Hero({ project, eyebrow }: Props) {
                   href={project.links.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-5 py-3 rounded-full bg-(--color-accent)
-                             text-white text-sm hover:scale-[1.02] hover:opacity-90 transition-all"
+                  className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-(--color-accent)
+                             text-white text-sm hover:opacity-90 transition-all"
                 >
-                  <ExternalLink size={14} /> Try it
+                  <ExternalLink size={14} /> {t.actions.viewDemo}
                 </a>
               )}
               {project.links?.github && (
@@ -70,11 +70,11 @@ export function Hero({ project, eyebrow }: Props) {
                   href={project.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-5 py-3 rounded-full border border-(--color-border)
-                             bg-(--color-bg-secondary)/80 backdrop-blur-xl text-(--color-text-secondary)
-                             text-sm hover:border-(--color-accent) hover:text-(--color-text-primary) transition-all"
+                  className="flex items-center gap-2 px-6 py-3.5 rounded-xl
+                             border border-white/30 bg-white/10 backdrop-blur-sm
+                             text-white/90 text-sm hover:border-white/60 hover:text-white transition-all"
                 >
-                  <GitBranch size={14} /> GitHub
+                  <GitBranch size={14} /> {t.actions.github}
                 </a>
               )}
             </div>
