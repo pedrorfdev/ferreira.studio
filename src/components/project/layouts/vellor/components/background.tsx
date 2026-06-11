@@ -14,16 +14,6 @@ export function Background({ image }: Props) {
           object-cover
         "
       />
-
-      <div
-        className="
-          absolute inset-0
-          bg-linear-to-b
-          from-black/15
-          via-black/25
-          to-(--color-bg-primary)
-        "
-      />
     </div>
   );
 }

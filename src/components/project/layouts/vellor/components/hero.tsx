@@ -20,9 +20,6 @@ export function Hero({ project }: Props) {
     <section className="relative overflow-hidden min-h-screen">
       <Background image={project.media.src} />
 
-      {/* Scrim bem reduzido — imagem respira */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/15 to-(--color-bg-primary)" />
-
       <div className="relative z-10 min-h-screen flex items-center px-6 md:px-10 pt-28 pb-32">
         <div className="max-w-6xl mx-auto w-full">
           <motion.div
@@ -80,11 +77,13 @@ export function Hero({ project }: Props) {
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
       >
-        <p className="text-[11px] uppercase tracking-[0.18em] text-white/40">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-white font-semibold">
           {t.project.scrollHint}
         </p>
         <ArrowRight size={18} className="text-(--color-gold) rotate-90" />
       </motion.div>
+
+      <div className="absolute inset-0 bg-linear-to-b from-black/15 via-black/5 to-(--color-bg-primary)/50"></div>
     </section>
   );
 }

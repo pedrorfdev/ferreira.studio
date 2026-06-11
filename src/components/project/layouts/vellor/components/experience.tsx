@@ -23,7 +23,7 @@ export function Experience({ section, eyebrow }: Props) {
             {eyebrow}
           </p>
 
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-[-0.06em] leading-[0.95] text-(--color-gold) drop-shadow-[0_0_24px_var(--color-gold)]">
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-[-0.06em] leading-[0.95] text-(--color-gold)">
             {section.headline}
           </h2>
 
