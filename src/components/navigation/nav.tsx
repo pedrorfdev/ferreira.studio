@@ -10,11 +10,11 @@ import { Moon, Sun } from "lucide-react";
 
 // Cor âncora de cada projeto — sempre usada no título do nav
 const PROJECT_COLORS: Record<string, string> = {
-  praxis: "oklch(0.52 0.12 210)",   // petróleo/cyan mais claro p/ legibilidade
-  vambora: "oklch(0.62 0.18 265)",  // indigo
-  bravio: "oklch(0.52 0.14 145)",   // verde operacional mais claro
-  vellor: "oklch(0.72 0.10 72)",    // gold
-  pulso: "oklch(0.62 0.22 15)",     // vermelho mais vibrante
+  praxis: "oklch(0.52 0.12 210)", // petróleo/cyan mais claro p/ legibilidade
+  vambora: "oklch(0.62 0.18 265)", // indigo
+  bravio: "oklch(0.52 0.14 145)", // verde operacional mais claro
+  vellor: "oklch(0.72 0.10 72)", // gold
+  pulso: "oklch(0.62 0.22 15)", // vermelho mais vibrante
 };
 
 export function Nav() {
@@ -32,30 +32,38 @@ export function Nav() {
   useEffect(() => {
     const handleScroll = (e: Event) => {
       const target = e.target as HTMLElement | Document;
-      
-      // Quando rola a janela inteira (Home)
-      if (target === document || target === window) {
-        setIsScrolled(window.scrollY > 20);
-        return;
-      }
-      
+
       // Quando rola o container do projeto
-      if ('hasAttribute' in target && target.hasAttribute('data-scroll-container')) {
+      if (
+        "hasAttribute" in target &&
+        target.hasAttribute("data-scroll-container")
+      ) {
         setIsScrolled(target.scrollTop > 20);
       }
     };
 
     // Usar capture: true para apanhar eventos de scroll de elementos filhos
-    window.addEventListener("scroll", handleScroll, { passive: true, capture: true });
-    
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+      capture: true,
+    });
+
     // Verificar estado inicial
     setIsScrolled(window.scrollY > 20);
 
-    return () => window.removeEventListener("scroll", handleScroll, { capture: true });
+    return () =>
+      window.removeEventListener("scroll", handleScroll, { capture: true });
   }, []);
 
   const isProjectOpen =
     appState === AppState.PROJECT || appState === AppState.EXPANDING;
+
+  // Garante que ao voltar para a home, se a janela estiver no topo, o fundo remove-se
+  useEffect(() => {
+    if (!isProjectOpen) {
+      setIsScrolled(window.scrollY > 20);
+    }
+  }, [isProjectOpen]);
 
   const projectColor =
     activeProject?.id && PROJECT_COLORS[activeProject.id]
@@ -75,7 +83,7 @@ export function Nav() {
         // Fundo apenas quando rola para baixo
         isScrolled || isMenuOpen
           ? "bg-(--color-bg-primary)/80 backdrop-blur-md border-b border-(--color-border-subtle)/60"
-          : "bg-transparent border-b-transparent"
+          : "bg-transparent border-b-transparent",
       )}
     >
       {/* LEFT — hamburguer + nome */}
@@ -90,25 +98,19 @@ export function Nav() {
         >
           <motion.span
             className="block h-px bg-current origin-center"
-            animate={
-              isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }
-            }
+            animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
           />
           <motion.span
             className="block h-px bg-current origin-center"
             animate={
-              isMenuOpen
-                ? { opacity: 0, scaleX: 0 }
-                : { opacity: 1, scaleX: 1 }
+              isMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }
             }
             transition={{ duration: 0.2 }}
           />
           <motion.span
             className="block h-px bg-current origin-center"
-            animate={
-              isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }
-            }
+            animate={isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
           />
         </motion.button>

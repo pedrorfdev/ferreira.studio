@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useMenuStore } from "@/store/use-menu-store";
 import { useAppStore } from "@/store/use-app-store";
 import { useI18n } from "@/lib/i18n-context";
@@ -43,15 +43,14 @@ export function MenuOverlay() {
   const [_preview, setPreview] = useState<AnyProject | null>(null);
 
   function handleProjectClick(project: AnyProject) {
+    // Abre imediatamente para evitar o flash/piscada.
+    openProject(project, {
+      top: window.innerHeight / 2 - 112, // H: 224 / 2
+      left: window.innerWidth / 2 - 160, // W: 320 / 2
+      width: 320,
+      height: 224,
+    });
     close();
-    setTimeout(() => {
-      openProject(project, {
-        top: window.innerHeight / 2 - 120,
-        left: window.innerWidth / 2 - 160,
-        width: 320,
-        height: 240,
-      });
-    }, 320);
   }
 
   return (
@@ -221,6 +220,28 @@ export function MenuOverlay() {
           </nav>
         </div>
       </motion.div>
+
+      {/* Preview Central (Desktop) */}
+      <div className="hidden md:flex flex-1 items-center justify-center pointer-events-none z-10">
+        <AnimatePresence mode="wait">
+          {_preview && (
+            <motion.div
+              key={_preview.id}
+              className="relative w-80 h-56 rounded-2xl overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img
+                src={_preview.media.src}
+                alt={_preview.title}
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <motion.div
         className="hidden md:flex flex-col justify-between ml-auto w-full max-w-xs h-full

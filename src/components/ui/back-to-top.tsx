@@ -41,7 +41,9 @@ export function BackToTop({ target }: Props) {
         "flex items-center justify-center",
         "transition-all duration-500",
         "hover:border-(--color-accent) hover:-translate-y-1",
-        isAssistantOpen ? "bottom-106 md:bottom-100" : "bottom-24 md:bottom-20",
+        isAssistantOpen
+          ? "bottom-[calc(75dvh+1rem)] md:bottom-[min(560px,calc(100dvh-550px))]"
+          : "bottom-24 md:bottom-20",
         visible
           ? "opacity-100 translate-y-0"
           : "opacity-0 translate-y-4 pointer-events-none",
