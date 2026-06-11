@@ -14,12 +14,12 @@ export function Workflow({ section }: Props) {
       <Eyebrow>WORKFLOW</Eyebrow>
 
       <div className="space-y-5">
-        <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.05] text-white max-w-2xl">
+        <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.05] text-(--color-text-primary) max-w-2xl">
           {section.headline}
         </h2>
 
         {section.body && (
-          <p className="text-white/70 text-lg leading-relaxed max-w-2xl">
+          <p className="text-(--color-text-secondary) text-lg leading-relaxed max-w-2xl">
             {section.body}
           </p>
         )}
@@ -38,13 +38,13 @@ export function Workflow({ section }: Props) {
                 delay: index * 0.05,
                 duration: 0.4,
               }}
-              className="flex items-start gap-4 border-b border-white/6 pb-6"
+              className="flex items-start gap-4 border-b border-(--color-border) pb-6"
             >
               <span className="text-(--color-accent) text-sm mt-1 font-medium">
                 0{index + 1}
               </span>
 
-              <p className="text-white/70 text-base md:text-lg leading-relaxed">
+              <p className="text-(--color-text-secondary) text-base md:text-lg leading-relaxed">
                 {item}
               </p>
             </motion.div>

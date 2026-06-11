@@ -1,3 +1,6 @@
+// project-view.tsx
+// scroll-snap-type apenas quando o projeto ativo for "pulso"
+// Para outros projetos o scroll é normal
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useAppStore } from "@/store/use-app-store";
@@ -9,6 +12,7 @@ import type {
   BravioSections,
   VamboraSections,
   PulsoSections,
+  VellorSections,
 } from "@/types/projects";
 import { transitions } from "@/lib/motion";
 import { ProjectNav } from "@/components/project/project-nav";
@@ -17,6 +21,8 @@ import { PraxisView } from "@/components/project/layouts/praxis/view";
 import { VamboraView } from "./layouts/vambora/view";
 import { BravioView } from "./layouts/bravio/view";
 import { PulsoView } from "./layouts/pulso/view";
+import { VellorView } from "./layouts/vellor/view";
+import { BackToTop } from "../ui/back-to-top";
 
 type AnyProject = LocalizedProjectData<unknown>;
 
@@ -35,6 +41,10 @@ function resolveLayout(project: AnyProject) {
     case "bravio":
       return (
         <BravioView project={project as LocalizedProjectData<BravioSections>} />
+      );
+    case "vellor":
+      return (
+        <VellorView project={project as LocalizedProjectData<VellorSections>} />
       );
     case "pulso":
       return (
@@ -86,6 +96,9 @@ export function ProjectView() {
 
   if (!project) return null;
 
+  // Pulso usa scroll-snap para o Impact funcionar corretamente
+  const isPulso = project.id === "pulso";
+
   return (
     <>
       <motion.div
@@ -107,6 +120,7 @@ export function ProjectView() {
         transition={transitions.cinematic}
         onAnimationComplete={handleAnimationComplete}
       >
+        {/* Progress bar */}
         <div className="absolute top-0 left-0 right-0 h-px z-10 bg-(--color-border-subtle) pointer-events-none">
           <motion.div
             className="h-full bg-(--color-accent) origin-left"
@@ -114,14 +128,21 @@ export function ProjectView() {
           />
         </div>
 
-        {/* data-scroll-container — identificador para ChaosMap, Impact e qualquer
-            componente filho que precise encontrar o scroll container correto */}
+        {/* Scroll container */}
         <div
           ref={containerRef}
           data-scroll-container
           className="flex-1 overflow-y-auto overscroll-none"
+          style={
+            isPulso
+              ? {
+                  scrollSnapType: "y proximity",
+                }
+              : undefined
+          }
         >
           <div className="pt-20">{resolveLayout(project)}</div>
+          <BackToTop target={containerRef} />
           <div className="h-24" />
         </div>
       </motion.div>

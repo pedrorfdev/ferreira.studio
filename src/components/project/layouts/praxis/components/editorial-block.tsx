@@ -19,12 +19,12 @@ export function EditorialBlock({
       <div className="space-y-6">
         {" "}
         <Eyebrow>{eyebrow} </Eyebrow>
-        <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.05] text-white max-w-2xl">
+        <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.05] text-(--color-text-primary) max-w-2xl">
           {" "}
           {headline}{" "}
         </h2>
         {body && (
-          <p className="text-white/70 text-lg leading-relaxed max-w-2xl">
+          <p className="text-(--color-text-secondary) text-lg leading-relaxed max-w-2xl">
             {body}
           </p>
         )}

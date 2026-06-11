@@ -20,14 +20,14 @@ export function Hero({ project }: Props) {
           </p>
 
           <motion.h1 className="text-5xl md:text-8xl tracking-[-0.08em] leading-none font-semibold">
-            <span className="text-white">{project.title.slice(0, 3)}</span>
+            <span className="text-(--color-text-primary)">{project.title.slice(0, 3)}</span>
 
             <span className="text-(--color-accent) drop-shadow-[0_0_32px_var(--color-accent)]">
               {project.title.slice(3)}
             </span>
           </motion.h1>
 
-          <p className="mt-8 max-w-2xl text-base md:text-xl leading-relaxed text-white/70">
+          <p className="mt-8 max-w-2xl text-base md:text-xl leading-relaxed text-(--color-text-secondary)">
             {project.tagline}
           </p>
         </motion.div>

@@ -14,7 +14,7 @@ export function Background({ project }: Props) {
         }}
       />
 
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-(--color-bg-primary)/40" />
 
       <div className="absolute top-[-160px] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] rounded-full blur-[160px] bg-(--color-accent-muted) opacity-70" />
     </div>

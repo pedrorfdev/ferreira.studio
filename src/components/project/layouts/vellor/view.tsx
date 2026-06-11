@@ -5,7 +5,7 @@ import type { VellorProject } from "@/types/projects";
 import { Vision } from "./components/vision";
 import { Experience } from "./components/experience";
 import { HighlightSection } from "./components/highlight-section";
-import { DecisionBoard } from "./components/decision-board";
+import { DecisionsTabs } from "./components/decision-tabs";
 import { Result } from "./components/result";
 import { Problem } from "./components/problem";
 
@@ -36,7 +36,7 @@ export function VellorView({ project }: Props) {
           eyebrow={t.project.experience}
         />
 
-        <DecisionBoard section={content.sections.technicalDecisions} />
+        <DecisionsTabs section={content.sections.technicalDecisions} />
 
         <Result section={content.sections.result} eyebrow={t.project.result} />
       </main>

@@ -1,165 +1,208 @@
-/* styles/project-themes.css
+/* project-themes.css
    ============================================================
-   Tokens por projeto.
-   --color-project-primary: cor principal para usar em JS/inline
-   --color-project-glow: para glow effects
+   ESTRATÉGIA DE LIGHT THEME POR PROJETO:
    
-   Light theme: cores de accent mais escuras para manter contraste
-   sobre fundos claros. Bg/border não mudam no light (herdam do
-   tokens.css global).
+   Cada projeto tem cores âncora que NÃO MUDAM.
+   No light theme, só backgrounds e borders adaptam — o accent
+   fica igual ou 1-2 steps mais escuro para manter contraste.
+   
+   Isso garante que a identidade visual de cada projeto
+   apareça tanto no dark quanto no light.
    ============================================================ */
 
 /* ── PRAXIS — petróleo + cyan ──────────────────────────────── */
-html:not(.light) [data-project="praxis"],
-html.dark [data-project="praxis"] {
+[data-project="praxis"] {
+   /* Cores âncora — mesmas em dark e light */
    --color-accent: oklch(0.42 0.10 210);
    --color-accent-hover: oklch(0.36 0.09 210);
-   --color-accent-muted: oklch(0.42 0.10 210 / 0.15);
-   --color-gold: oklch(0.65 0.12 195);
-   --color-gold-muted: oklch(0.65 0.12 195 / 0.14);
-   --color-bg-secondary: oklch(0.14 0.012 215);
-   --color-bg-tertiary: oklch(0.17 0.012 215);
-   --color-border: oklch(0.23 0.012 215);
-   --color-border-subtle: oklch(0.19 0.010 215);
+   --color-accent-muted: oklch(0.42 0.10 210 / 0.14);
+   --color-gold: oklch(0.62 0.12 195);
+   --color-gold-muted: oklch(0.62 0.12 195 / 0.14);
    --color-project-primary: oklch(0.42 0.10 210);
    --color-project-glow: oklch(0.42 0.10 210 / 0.18);
 }
 
-html.light [data-project="praxis"] {
-   --color-accent: oklch(0.32 0.10 210);
-   --color-accent-hover: oklch(0.26 0.09 210);
-   --color-accent-muted: oklch(0.32 0.10 210 / 0.10);
-   --color-gold: oklch(0.44 0.12 195);
-   --color-gold-muted: oklch(0.44 0.12 195 / 0.10);
-   /* bg/border herdam do light global — não sobrescreve */
-   --color-project-primary: oklch(0.32 0.10 210);
-   --color-project-glow: oklch(0.32 0.10 210 / 0.10);
+/* Dark — backgrounds frios */
+html:not(.light) [data-project="praxis"],
+html.dark [data-project="praxis"] {
+   --color-bg-primary: oklch(0.10 0.010 215);
+   --color-bg-secondary: oklch(0.14 0.012 215);
+   --color-bg-tertiary: oklch(0.17 0.012 215);
+   --color-border: oklch(0.23 0.010 215);
+   --color-border-subtle: oklch(0.18 0.008 215);
+   --color-text-primary: oklch(0.96 0.004 210);
+   --color-text-secondary: oklch(0.72 0.006 210);
+   --color-text-tertiary: oklch(0.50 0.005 210);
 }
 
-/* ── VAMBORA — indigo + emerald + amber ─────────────────────── */
+/* Light — mantém accent, adapta só o fundo */
+html.light [data-project="praxis"] {
+   --color-bg-primary: oklch(0.96 0.008 210);
+   --color-bg-secondary: oklch(0.92 0.008 210);
+   --color-bg-tertiary: oklch(0.87 0.008 210);
+   --color-border: oklch(0.80 0.010 210);
+   --color-border-subtle: oklch(0.86 0.007 210);
+   --color-text-primary: oklch(0.18 0.008 215);
+   --color-text-secondary: oklch(0.38 0.007 215);
+   --color-text-tertiary: oklch(0.55 0.006 215);
+   /* Accent ligeiramente mais escuro para contraste */
+   --color-accent: oklch(0.36 0.10 210);
+   --color-accent-muted: oklch(0.36 0.10 210 / 0.10);
+}
+
+/* ── VAMBORA — indigo âncora ────────────────────────────────── */
+[data-project="vambora"] {
+   --color-accent: oklch(0.62 0.18 265);
+   --color-accent-hover: oklch(0.55 0.16 265);
+   --color-accent-muted: oklch(0.62 0.18 265 / 0.14);
+   --color-gold: oklch(0.68 0.16 75);
+   --color-gold-muted: oklch(0.68 0.16 75 / 0.14);
+   --color-project-primary: oklch(0.62 0.18 265);
+   --color-project-glow: oklch(0.62 0.18 265 / 0.18);
+}
+
 html:not(.light) [data-project="vambora"],
 html.dark [data-project="vambora"] {
-   --color-accent: oklch(0.65 0.18 265);
-   --color-accent-hover: oklch(0.58 0.16 265);
-   --color-accent-muted: oklch(0.65 0.18 265 / 0.15);
-   --color-gold: oklch(0.72 0.16 75);
-   --color-gold-muted: oklch(0.72 0.16 75 / 0.14);
+   --color-bg-primary: oklch(0.10 0.006 160);
    --color-bg-secondary: oklch(0.13 0.008 160);
    --color-bg-tertiary: oklch(0.16 0.008 160);
    --color-border: oklch(0.22 0.010 190);
    --color-border-subtle: oklch(0.18 0.008 190);
-   --color-project-primary: oklch(0.65 0.18 265);
-   --color-project-glow: oklch(0.65 0.18 265 / 0.18);
+   --color-text-primary: oklch(0.96 0.004 160);
+   --color-text-secondary: oklch(0.72 0.005 160);
+   --color-text-tertiary: oklch(0.50 0.004 160);
 }
 
 html.light [data-project="vambora"] {
+   --color-bg-primary: oklch(0.97 0.006 265);
+   --color-bg-secondary: oklch(0.93 0.007 265);
+   --color-bg-tertiary: oklch(0.88 0.008 265);
+   --color-border: oklch(0.81 0.010 265);
+   --color-border-subtle: oklch(0.87 0.007 265);
+   --color-text-primary: oklch(0.16 0.008 265);
+   --color-text-secondary: oklch(0.36 0.007 265);
+   --color-text-tertiary: oklch(0.54 0.006 265);
    --color-accent: oklch(0.45 0.18 265);
-   --color-accent-hover: oklch(0.38 0.16 265);
    --color-accent-muted: oklch(0.45 0.18 265 / 0.10);
-   --color-gold: oklch(0.55 0.16 75);
-   --color-gold-muted: oklch(0.55 0.16 75 / 0.10);
-   --color-project-primary: oklch(0.45 0.18 265);
-   --color-project-glow: oklch(0.45 0.18 265 / 0.10);
 }
 
-/* ── BRAVIO (ex-Carga) — verde operacional + âmbar ─────────────
-   Verde profundo: oklch(0.35 0.09 155)
-   Âmbar queimado: oklch(0.62 0.14 72)
-   
-   IMPORTANTE: texto em cards com bg accent usa text-white
-   nos layouts — isso não muda com o tema. O que muda é o
-   --color-text-primary/secondary para o resto do conteúdo.
------------------------------------------------------------- */
+/* ── BRAVIO — verde operacional âncora ─────────────────────── */
+[data-project="bravio"],
+[data-project="carga"] {
+   --color-accent: oklch(0.46 0.12 145);
+   --color-accent-hover: oklch(0.40 0.10 145);
+   --color-accent-muted: oklch(0.46 0.12 145 / 0.15);
+   --color-gold: oklch(0.64 0.14 72);
+   --color-gold-muted: oklch(0.64 0.14 72 / 0.16);
+   --color-project-primary: oklch(0.46 0.12 145);
+   --color-project-glow: oklch(0.46 0.12 145 / 0.20);
+}
+
 html:not(.light) [data-project="bravio"],
 html.dark [data-project="bravio"],
 html:not(.light) [data-project="carga"],
 html.dark [data-project="carga"] {
-   --color-accent: oklch(0.38 0.09 155);
-   --color-accent-hover: oklch(0.32 0.08 155);
-   --color-accent-muted: oklch(0.38 0.09 155 / 0.15);
-   --color-gold: oklch(0.65 0.14 72);
-   --color-gold-muted: oklch(0.65 0.14 72 / 0.16);
-   --color-bg-primary: oklch(0.11 0.006 155);
-   --color-bg-secondary: oklch(0.14 0.008 155);
-   --color-bg-tertiary: oklch(0.17 0.008 150);
-   --color-border: oklch(0.24 0.010 150);
-   --color-border-subtle: oklch(0.19 0.008 150);
-   /* Texto explícito para garantir legibilidade no dark */
-   --color-text-primary: oklch(0.95 0.005 80);
-   --color-text-secondary: oklch(0.72 0.008 80);
-   --color-text-tertiary: oklch(0.52 0.006 80);
-   --color-project-primary: oklch(0.38 0.09 155);
-   --color-project-glow: oklch(0.38 0.09 155 / 0.20);
+   --color-bg-primary: oklch(0.10 0.006 145);
+   --color-bg-secondary: oklch(0.13 0.008 145);
+   --color-bg-tertiary: oklch(0.16 0.008 145);
+   --color-border: oklch(0.23 0.010 145);
+   --color-border-subtle: oklch(0.18 0.008 145);
+   --color-text-primary: oklch(0.95 0.004 80);
+   --color-text-secondary: oklch(0.70 0.006 80);
+   --color-text-tertiary: oklch(0.50 0.005 80);
 }
 
 html.light [data-project="bravio"],
 html.light [data-project="carga"] {
-   --color-accent: oklch(0.30 0.09 155);
-   --color-accent-hover: oklch(0.25 0.08 155);
-   --color-accent-muted: oklch(0.30 0.09 155 / 0.10);
+   --color-bg-primary: oklch(0.96 0.008 145);
+   --color-bg-secondary: oklch(0.92 0.008 145);
+   --color-bg-tertiary: oklch(0.87 0.010 145);
+   --color-border: oklch(0.80 0.012 145);
+   --color-border-subtle: oklch(0.86 0.008 145);
+   --color-text-primary: oklch(0.14 0.010 145);
+   --color-text-secondary: oklch(0.34 0.008 145);
+   --color-text-tertiary: oklch(0.52 0.007 145);
+   --color-accent: oklch(0.36 0.12 145);
+   --color-accent-muted: oklch(0.36 0.12 145 / 0.10);
+   /* Gold mais rico no light para não sumir */
    --color-gold: oklch(0.52 0.14 72);
    --color-gold-muted: oklch(0.52 0.14 72 / 0.12);
-   /* No light, texto herda do global — não sobrescreve */
-   --color-project-primary: oklch(0.30 0.09 155);
-   --color-project-glow: oklch(0.30 0.09 155 / 0.10);
 }
 
-/* ── VELLOR (ex-Cerée) — champagne gold + dust rose ─────────── */
+/* ── VELLOR — champagne gold âncora ────────────────────────── */
+[data-project="vellor"],
+[data-project="ceree"] {
+   /* Gold é a âncora principal do Vellor */
+   --color-accent: oklch(0.34 0.06 330);
+   --color-accent-hover: oklch(0.28 0.05 330);
+   --color-accent-muted: oklch(0.34 0.06 330 / 0.14);
+   --color-gold: oklch(0.78 0.08 72);
+   --color-gold-muted: oklch(0.78 0.08 72 / 0.18);
+   --color-project-primary: oklch(0.78 0.08 72);
+   --color-project-glow: oklch(0.78 0.08 72 / 0.20);
+}
+
 html:not(.light) [data-project="vellor"],
 html.dark [data-project="vellor"],
 html:not(.light) [data-project="ceree"],
 html.dark [data-project="ceree"] {
-   --color-accent: oklch(0.50 0.04 330);
-   --color-accent-hover: oklch(0.44 0.04 330);
-   --color-accent-muted: oklch(0.50 0.04 330 / 0.15);
-   --color-gold: oklch(0.82 0.06 72);
-   --color-gold-muted: oklch(0.82 0.06 72 / 0.16);
-   --color-bg-primary: oklch(0.10 0.003 330);
-   --color-bg-secondary: oklch(0.13 0.004 330);
-   --color-bg-tertiary: oklch(0.16 0.005 330);
+   --color-bg-primary: oklch(0.09 0.003 330);
+   --color-bg-secondary: oklch(0.12 0.004 330);
+   --color-bg-tertiary: oklch(0.15 0.004 330);
    --color-border: oklch(0.22 0.005 330);
    --color-border-subtle: oklch(0.17 0.004 330);
    --color-text-primary: oklch(0.97 0.004 72);
-   --color-text-secondary: oklch(0.78 0.05 60);
-   --color-project-primary: oklch(0.82 0.06 72);
-   --color-project-glow: oklch(0.82 0.06 72 / 0.18);
+   --color-text-secondary: oklch(0.76 0.006 60);
+   --color-text-tertiary: oklch(0.54 0.005 60);
 }
 
 html.light [data-project="vellor"],
 html.light [data-project="ceree"] {
-   --color-accent: oklch(0.38 0.04 330);
-   --color-accent-hover: oklch(0.32 0.04 330);
-   --color-accent-muted: oklch(0.38 0.04 330 / 0.10);
-   --color-gold: oklch(0.62 0.06 72);
-   --color-gold-muted: oklch(0.62 0.06 72 / 0.12);
-   --color-project-primary: oklch(0.62 0.06 72);
-   --color-project-glow: oklch(0.62 0.06 72 / 0.10);
+   --color-bg-primary: oklch(0.97 0.006 72);
+   --color-bg-secondary: oklch(0.93 0.007 72);
+   --color-bg-tertiary: oklch(0.88 0.008 72);
+   --color-border: oklch(0.82 0.010 72);
+   --color-border-subtle: oklch(0.88 0.007 72);
+   --color-text-primary: oklch(0.15 0.006 330);
+   --color-text-secondary: oklch(0.36 0.005 330);
+   --color-text-tertiary: oklch(0.54 0.004 330);
+   /* Gold mais rico para aparecer no fundo claro */
+   --color-gold: oklch(0.58 0.10 72);
+   --color-gold-muted: oklch(0.58 0.10 72 / 0.14);
 }
 
-/* ── PULSO — vermelho vivo + magenta ────────────────────────── */
+/* ── PULSO — vermelho âncora ────────────────────────────────── */
+[data-project="pulso"] {
+   --color-accent: oklch(0.55 0.19 15);
+   --color-accent-hover: oklch(0.49 0.17 15);
+   --color-accent-muted: oklch(0.55 0.19 15 / 0.15);
+   --color-gold: oklch(0.72 0.06 15);
+   --color-gold-muted: oklch(0.72 0.06 15 / 0.14);
+   --color-project-primary: oklch(0.55 0.19 15);
+   --color-project-glow: oklch(0.55 0.19 15 / 0.20);
+}
+
 html:not(.light) [data-project="pulso"],
 html.dark [data-project="pulso"] {
-   --color-accent: oklch(0.56 0.19 15);
-   --color-accent-hover: oklch(0.50 0.17 15);
-   --color-accent-muted: oklch(0.56 0.19 15 / 0.16);
-   --color-gold: oklch(0.82 0.12 95);
-   --color-gold-muted: oklch(0.82 0.12 95 / 0.14);
-   --color-bg-secondary: oklch(0.14 0.006 260);
-   --color-bg-tertiary: oklch(0.17 0.007 260);
-   --color-border: oklch(0.23 0.009 260);
-   --color-border-subtle: oklch(0.18 0.007 260);
-   --color-project-primary: oklch(0.56 0.19 15);
-   --color-project-glow: oklch(0.56 0.19 15 / 0.20);
-   --color-spectrum-purple: oklch(0.62 0.22 310);
+   --color-bg-primary: oklch(0.09 0.004 260);
+   --color-bg-secondary: oklch(0.13 0.005 260);
+   --color-bg-tertiary: oklch(0.16 0.006 260);
+   --color-border: oklch(0.23 0.008 260);
+   --color-border-subtle: oklch(0.18 0.006 260);
+   --color-text-primary: oklch(0.96 0.003 15);
+   --color-text-secondary: oklch(0.72 0.005 15);
+   --color-text-tertiary: oklch(0.50 0.004 15);
 }
 
 html.light [data-project="pulso"] {
-   --color-accent: oklch(0.44 0.19 15);
-   --color-accent-hover: oklch(0.38 0.17 15);
-   --color-accent-muted: oklch(0.44 0.19 15 / 0.10);
-   --color-gold: oklch(0.70 0.12 95);
-   --color-gold-muted: oklch(0.70 0.12 95 / 0.10);
-   --color-project-primary: oklch(0.44 0.19 15);
-   --color-project-glow: oklch(0.44 0.19 15 / 0.10);
-   --color-spectrum-purple: oklch(0.62 0.22 310);
+   --color-bg-primary: oklch(0.97 0.005 15);
+   --color-bg-secondary: oklch(0.93 0.006 15);
+   --color-bg-tertiary: oklch(0.88 0.007 15);
+   --color-border: oklch(0.81 0.009 15);
+   --color-border-subtle: oklch(0.87 0.006 15);
+   --color-text-primary: oklch(0.14 0.008 260);
+   --color-text-secondary: oklch(0.35 0.007 260);
+   --color-text-tertiary: oklch(0.52 0.005 260);
+   --color-accent: oklch(0.46 0.19 15);
+   --color-accent-muted: oklch(0.46 0.19 15 / 0.10);
 }

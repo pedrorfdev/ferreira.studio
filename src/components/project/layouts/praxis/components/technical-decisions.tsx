@@ -13,7 +13,7 @@ export function TechnicalDecisions({ section }: Props) {
       <Eyebrow>TECHNICAL DECISIONS</Eyebrow>
 
       <div className="space-y-5">
-        <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.05] text-white">
+        <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.05] text-(--color-text-primary)">
           {section.headline}
         </h2>
 

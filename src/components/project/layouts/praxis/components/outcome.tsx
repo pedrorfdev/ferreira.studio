@@ -14,12 +14,12 @@ export function Outcome({ section }: Props) {
       <Eyebrow>OUTCOME</Eyebrow>
 
       <div className="space-y-6">
-        <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.05] text-white max-w-2xl">
+        <h2 className="text-3xl md:text-5xl tracking-[-0.06em] leading-[1.05] text-(--color-text-primary) max-w-2xl">
           {section.headline}
         </h2>
 
         {section.body && (
-          <p className="text-white/70 text-lg leading-relaxed max-w-2xl">
+          <p className="text-(--color-text-secondary) text-lg leading-relaxed max-w-2xl">
             {section.body}
           </p>
         )}
@@ -35,12 +35,12 @@ export function Outcome({ section }: Props) {
                 transition={{
                   duration: 0.2,
                 }}
-                className="relative overflow-hidden rounded-3xl border border-white/8 bg-(--color-bg-secondary)/80 backdrop-blur-xl p-7"
+                className="relative overflow-hidden rounded-3xl border border-(--color-border-subtle) bg-(--color-bg-secondary)/80 backdrop-blur-xl p-7"
               >
                 <div className="absolute inset-0 bg-(--color-accent-muted) opacity-20 blur-3xl" />
 
                 <div className="relative flex flex-col items-center justify-center text-center">
-                  <p className="text-xs uppercase tracking-[0.18em] text-white/40 mb-4">
+                  <p className="text-xs uppercase tracking-[0.18em] text-(--color-text-tertiary) mb-4">
                     {metric.label}
                   </p>
 

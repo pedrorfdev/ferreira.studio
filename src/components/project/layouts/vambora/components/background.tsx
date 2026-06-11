@@ -12,8 +12,8 @@ export function Background({ image }: Props) {
           style={{ backgroundImage: `url(${image})` }}
         />
       )}{" "}
-      {/* overlays */} <div className="absolute inset-0 bg-black/20" />{" "}
-      <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/30 to-black/80" />{" "}
+      {/* overlays */} <div className="absolute inset-0 bg-(--color-bg-primary)/20" />{" "}
+      <div className="absolute inset-0 bg-linear-to-b from-(--color-bg-primary)/10 via-(--color-bg-primary)/30 to-(--color-bg-primary)/80" />{" "}
     </div>
   );
 }

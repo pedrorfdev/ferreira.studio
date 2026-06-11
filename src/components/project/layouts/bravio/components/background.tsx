@@ -19,7 +19,7 @@ export function Background({ image }: Props) {
       <div
         className="
           absolute inset-0
-          bg-black/35
+          bg-(--color-bg-primary)/35
         "
       />
 
@@ -37,9 +37,9 @@ export function Background({ image }: Props) {
         className="
           absolute inset-0
           bg-linear-to-r
-          from-black/25
+          from-(--color-bg-primary)/25
           via-transparent
-          to-black/10
+          to-(--color-bg-primary)/10
         "
       />
     </div>

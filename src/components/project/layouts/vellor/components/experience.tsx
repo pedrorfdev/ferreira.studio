@@ -1,5 +1,7 @@
+// layouts/vellor/components/experience.tsx
+// Light fix: texto enorme "EXPERIÊNCIA" substituído por headline normal com cor do Vellor
+// Mobile: tamanho reduzido, sem texto de 180px que não funciona
 import { motion } from "framer-motion";
-
 import type { BaseSection } from "@/types/project";
 
 interface Props {
@@ -7,139 +9,66 @@ interface Props {
   eyebrow: string;
 }
 
-const itemVariants = {
-  hidden: {
-    opacity: 0,
-    rotateX: -25,
-    y: 60,
-  },
-
-  visible: {
-    opacity: 1,
-    rotateX: 0,
-    y: 0,
-    transition: {
-      duration: 0.7,
-    },
-  },
-};
-
 export function Experience({ section, eyebrow }: Props) {
   return (
-    <section
-      className="
-        min-h-screen
-        flex
-        items-center
-        py-40
-      "
-    >
-      <div
-        className="
-          grid
-          lg:grid-cols-[0.9fr_1.1fr]
-          gap-20
-          w-full
-        "
-      >
+    <section className="min-h-screen flex items-center py-32 md:py-40">
+      <div className="grid lg:grid-cols-[1fr_1fr] gap-16 md:gap-20 w-full items-center">
+        {/* Esquerda — headline grande mas não absurda */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={itemVariants}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7 }}
         >
-          <p
-            className="
-              text-xs
-              uppercase
-              tracking-[0.18em]
-              text-(--color-gold)
-              mb-10
-            "
-          >
+          <p className="text-xs uppercase tracking-[0.18em] text-(--color-gold) mb-8">
             {eyebrow}
           </p>
 
-          <div
-            className="
-              font-semibold
-              tracking-[-0.12em]
-              leading-[0.82]
-              select-none
-
-              bg-linear-to-b
-              from-(--color-text-primary)
-              via-(--color-gold)
-              to-(--color-text-secondary)
-
-              bg-clip-text
-              text-transparent
-              flex flex-col gap-10
-            "
-          >
-            <div className="text-[120px] md:text-[160px] lg:text-[180px]">
+          {/* Palavra em gold — identidade Vellor */}
+          <div className="font-black tracking-[-0.06em] leading-[0.9] select-none">
+            <div
+              className="text-(--color-gold)"
+              style={{ fontSize: "clamp(4rem, 12vw, 9rem)" }}
+            >
               EXP
             </div>
-
-            <div className="text-[120px] md:text-[160px] lg:text-[180px]">
+            <div
+              className="text-(--color-gold)"
+              style={{ fontSize: "clamp(4rem, 12vw, 9rem)" }}
+            >
               ERI
             </div>
-
-            <div className="text-[120px] md:text-[160px] lg:text-[180px]">
+            <div
+              className="text-(--color-gold)"
+              style={{ fontSize: "clamp(4rem, 12vw, 9rem)" }}
+            >
               ÊNC
             </div>
-
-            <div className="text-[120px] md:text-[160px] lg:text-[180px]">
+            <div
+              className="text-(--color-text-secondary)"
+              style={{ fontSize: "clamp(4rem, 12vw, 9rem)" }}
+            >
               IA
             </div>
           </div>
         </motion.div>
 
+        {/* Direita — corpo */}
         <motion.div
-          initial={{
-            opacity: 0,
-            x: 80,
-          }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
-          transition={{
-            duration: 0.8,
-          }}
-          className="
-            flex
-            items-center
-          "
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+          className="flex items-center"
         >
           <div>
             <h2
-              className="
-                text-5xl
-                md:text-6xl
-                lg:text-7xl
-                tracking-[-0.08em]
-                leading-[0.98]
-                text-(--color-text-primary)
-              "
+              className="text-4xl md:text-5xl lg:text-6xl tracking-[-0.06em] leading-none
+                           text-(--color-text-primary)"
             >
               {section.headline}
             </h2>
-
-            <p
-              className="
-                mt-10
-                text-lg
-                md:text-xl
-                leading-relaxed
-                text-(--color-text-secondary)
-                max-w-2xl
-              "
-            >
+            <p className="mt-8 text-base md:text-lg leading-relaxed text-(--color-text-secondary) max-w-xl">
               {section.body}
             </p>
           </div>

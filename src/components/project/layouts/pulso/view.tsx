@@ -42,8 +42,7 @@ export function PulsoView({ project }: Props) {
         <Impact section={sections.impact} />
 
         <FutureVision
-          title={sections.future.headline}
-          steps={sections.future.steps.map((step) => step.title)}
+          section={sections.future}
         />
       </main>
     </>

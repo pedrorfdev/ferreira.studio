@@ -1,145 +1,84 @@
-/* styles/tokens.css
+/* tokens.css
    ============================================================
-   Design tokens globais do ferreira.studio
-   Usa oklch — nativo no Tailwind v4
-   Conversões hex → oklch feitas com precisão
+   Tokens globais do ferreira.studio
+   
+   PRINCÍPIO:
+   - Cores âncora (accent, gold, project primary) NÃO MUDAM entre temas
+   - O que muda é background, surface, border e text
+   - Cada projeto mantém sua identidade visual em ambos os temas
    ============================================================ */
 
 @theme {
-    /* ----------------------------------------------------------
-     Typography
-  ---------------------------------------------------------- */
+    /* Tipografia */
     --font-display: "Instrument Sans", system-ui, sans-serif;
     --font-body: "Inter", system-ui, sans-serif;
-    --font-mono: "JetBrains Mono", monospace;
 
-    /* ----------------------------------------------------------
-     Spacing / radius / z-index
-  ---------------------------------------------------------- */
-    --radius-sm: 0.25rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
-    --radius-2xl: 1.5rem;
-    --radius-full: 9999px;
-
-    --z-background: 0;
-    --z-content: 10;
-    --z-card: 20;
-    --z-assistant: 70;
-    --z-overlay: 80;
-    --z-navigation: 90;
-    --z-loader: 100;
-
-    /* ----------------------------------------------------------
-     Easing curves
-  ---------------------------------------------------------- */
-    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    /* Easing */
+    --ease-cinematic: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --ease-cinema: cubic-bezier(0.76, 0, 0.24, 1);
+    --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 
-/* ----------------------------------------------------------
-   DARK (default) — ferreira.studio identity
-   oklch(L C H) — L: luminosidade, C: chroma, H: hue
-   
-   Hex → oklch reference:
-   #0B0B0D → oklch(0.09 0.004 265)
-   #121316 → oklch(0.13 0.006 265)
-   #151518 → oklch(0.15 0.005 265)
-   #23252A → oklch(0.22 0.008 265)
-   #8B1E2D → oklch(0.38 0.13  15)
-   #A52A3B → oklch(0.44 0.14  15)
-   #5E1621 → oklch(0.30 0.10  15)
-   #B8965A → oklch(0.66 0.09  70)
-   #F5F5F5 → oklch(0.97 0.000  0)
-   #A1A1AA → oklch(0.67 0.004  0)
----------------------------------------------------------- */
-:root,
-.dark {
+/* ── DARK (padrão) ─────────────────────────────────────────── */
+:root {
     /* Backgrounds */
-    --color-bg-primary: oklch(0.09 0.004 265);
-    --color-bg-secondary: oklch(0.13 0.006 265);
-    --color-bg-tertiary: oklch(0.16 0.006 265);
-
-    /* Text */
-    --color-text-primary: oklch(0.97 0.000 0);
-    --color-text-secondary: oklch(0.67 0.004 0);
-    --color-text-tertiary: oklch(0.50 0.004 0);
-    --color-text-inverse: oklch(0.13 0.006 265);
-
-    /* Accent — oxblood / dark cherry */
-    --color-accent: oklch(0.38 0.13 15);
-    --color-accent-hover: oklch(0.33 0.11 15);
-    --color-accent-muted: oklch(0.38 0.13 15 / 0.12);
-
-    /* Gold — micro detail only */
-    --color-gold: oklch(0.66 0.09 70);
-    --color-gold-muted: oklch(0.66 0.09 70 / 0.12);
+    --color-bg-primary: oklch(0.09 0.004 260);
+    --color-bg-secondary: oklch(0.13 0.004 260);
+    --color-bg-tertiary: oklch(0.17 0.005 260);
 
     /* Borders */
-    --color-border: oklch(0.22 0.008 265);
-    --color-border-subtle: oklch(0.18 0.006 265);
-    --color-border-strong: oklch(0.30 0.008 265);
+    --color-border: oklch(0.24 0.006 260);
+    --color-border-subtle: oklch(0.19 0.005 260);
+    --color-border-strong: oklch(0.32 0.007 260);
 
-    /* Functional */
-    --color-overlay: oklch(0.09 0.004 265 / 0.85);
-    --color-scrim: oklch(0 0 0 / 0.70);
+    /* Texto — NÃO INVERTEM no light, adaptam */
+    --color-text-primary: oklch(0.96 0.004 260);
+    --color-text-secondary: oklch(0.72 0.006 260);
+    --color-text-tertiary: oklch(0.50 0.005 260);
 
-    /* Glow — portfolio accent red */
-    --color-glow: oklch(0.38 0.13 15 / 0.15);
+    /* Accent global — vermelho âncora, NÃO MUDA */
+    --color-accent: oklch(0.52 0.19 15);
+    --color-accent-hover: oklch(0.46 0.17 15);
+    --color-accent-muted: oklch(0.52 0.19 15 / 0.14);
+
+    /* Gold global — âncora */
+    --color-gold: oklch(0.72 0.12 75);
+    --color-gold-muted: oklch(0.72 0.12 75 / 0.14);
+
+    /* Scrim */
+    --color-scrim: oklch(0 0 0 / 0.55);
 }
 
-/* ----------------------------------------------------------
-   LIGHT override
----------------------------------------------------------- */
-.light {
-    --color-bg-primary: oklch(0.97 0.005 70);
-    --color-bg-secondary: oklch(0.93 0.006 70);
-    --color-bg-tertiary: oklch(0.89 0.007 70);
+/* ── LIGHT ──────────────────────────────────────────────────
+   Apenas backgrounds, borders e texto adaptam.
+   Accents ficam igual ou ligeiramente mais escuros para contraste.
+   Colors âncora de projeto NÃO são sobrescritas aqui.
+------------------------------------------------------------ */
+html.light {
+    /* Backgrounds quentes, não branco puro */
+    --color-bg-primary: oklch(0.97 0.004 80);
+    --color-bg-secondary: oklch(0.93 0.004 80);
+    --color-bg-tertiary: oklch(0.89 0.005 80);
 
-    --color-text-primary: oklch(0.13 0.006 265);
-    --color-text-secondary: oklch(0.38 0.008 265);
-    --color-text-tertiary: oklch(0.55 0.006 265);
-    --color-text-inverse: oklch(0.97 0.005 70);
+    /* Borders — sutis */
+    --color-border: oklch(0.82 0.006 80);
+    --color-border-subtle: oklch(0.87 0.004 80);
+    --color-border-strong: oklch(0.72 0.008 80);
 
-    --color-accent: oklch(0.38 0.13 15);
-    --color-accent-hover: oklch(0.33 0.11 15);
-    --color-accent-muted: oklch(0.38 0.13 15 / 0.10);
+    /* Texto — escuro mas não puro preto */
+    --color-text-primary: oklch(0.18 0.006 260);
+    --color-text-secondary: oklch(0.40 0.006 260);
+    --color-text-tertiary: oklch(0.58 0.005 260);
 
-    --color-gold: oklch(0.62 0.10 70);
-    --color-gold-muted: oklch(0.62 0.10 70 / 0.12);
+    /* Accent — ligeiramente mais escuro para contraste sobre fundo claro */
+    --color-accent: oklch(0.46 0.19 15);
+    --color-accent-hover: oklch(0.40 0.17 15);
+    --color-accent-muted: oklch(0.46 0.19 15 / 0.10);
 
-    --color-border: oklch(0.83 0.008 70);
-    --color-border-subtle: oklch(0.88 0.006 70);
-    --color-border-strong: oklch(0.75 0.010 70);
+    /* Gold — mantém identidade */
+    --color-gold: oklch(0.58 0.12 75);
+    --color-gold-muted: oklch(0.58 0.12 75 / 0.12);
 
-    --color-overlay: oklch(0.97 0.005 70 / 0.88);
-    --color-scrim: oklch(0.13 0.006 265 / 0.50);
-    --color-glow: oklch(0.38 0.13 15 / 0.10);
-}
-
-/* System preference fallback */
-@media (prefers-color-scheme: light) {
-    :root:not(.dark):not(.light) {
-        --color-bg-primary: oklch(0.97 0.005 70);
-        --color-bg-secondary: oklch(0.93 0.006 70);
-        --color-bg-tertiary: oklch(0.89 0.007 70);
-        --color-text-primary: oklch(0.13 0.006 265);
-        --color-text-secondary: oklch(0.38 0.008 265);
-        --color-text-tertiary: oklch(0.55 0.006 265);
-        --color-text-inverse: oklch(0.97 0.005 70);
-        --color-accent: oklch(0.38 0.13 15);
-        --color-accent-hover: oklch(0.33 0.11 15);
-        --color-accent-muted: oklch(0.38 0.13 15 / 0.10);
-        --color-gold: oklch(0.62 0.10 70);
-        --color-gold-muted: oklch(0.62 0.10 70 / 0.12);
-        --color-border: oklch(0.83 0.008 70);
-        --color-border-subtle: oklch(0.88 0.006 70);
-        --color-border-strong: oklch(0.75 0.010 70);
-        --color-overlay: oklch(0.97 0.005 70 / 0.88);
-        --color-scrim: oklch(0.13 0.006 265 / 0.50);
-        --color-glow: oklch(0.38 0.13 15 / 0.10);
-    }
+    /* Scrim mais suave no light */
+    --color-scrim: oklch(1 0 0 / 0.50);
 }

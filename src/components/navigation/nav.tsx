@@ -1,3 +1,6 @@
+// nav.tsx
+// Light theme: ícones com melhor contraste (text-primary em vez de tertiary)
+// Mobile: layout igual, theme toggle sempre visível
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/store/use-app-store";
 import { useMenuStore } from "@/store/use-menu-store";
@@ -56,14 +59,12 @@ export function Nav() {
       {!isProjectOpen && (
         <motion.nav
           key="global-nav"
-          className="fixed top-0 left-0 right-0 z-90 flex items-center justify-between
-                     px-5 md:px-10 h-14 md:h-16"
+          className="fixed top-0 left-0 right-0 z-90 flex items-center justify-between px-5 md:px-10 h-14 md:h-16"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          {/* LEFT — hamburger + nome */}
           <div className="flex items-center gap-3 md:gap-4">
             <motion.button
               onClick={toggleMenu}
@@ -109,27 +110,25 @@ export function Nav() {
             </motion.button>
           </div>
 
-          {/* RIGHT — theme toggle + flags (só desktop) */}
           <div className="flex items-center gap-3 md:gap-4">
-            {/* Theme — visível em mobile também (útil) */}
+            {/* Light theme: usa text-primary para contraste garantido */}
             <motion.button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="text-(--color-text-tertiary) hover:text-(--color-text-primary)
-                         transition-colors duration-200 cursor-pointer"
+              className="text-(--color-text-primary) hover:opacity-60
+                         transition-opacity duration-200 cursor-pointer"
               whileTap={{ scale: 0.9 }}
             >
               {theme === "dark" ? <SunIcon /> : <MoonIcon />}
             </motion.button>
 
-            {/* Flags — só desktop, no mobile ficam no menu */}
             <div className="hidden md:flex items-center gap-1.5">
               <button
                 onClick={() => lang !== "en" && toggleLang()}
                 title="English"
                 className={cn(
                   "text-base leading-none cursor-pointer transition-opacity duration-200 select-none",
-                  lang === "en" ? "opacity-100" : "opacity-35 hover:opacity-60",
+                  lang === "en" ? "opacity-100" : "opacity-40 hover:opacity-70",
                 )}
               >
                 🇺🇸
@@ -139,7 +138,7 @@ export function Nav() {
                 title="Português"
                 className={cn(
                   "text-base leading-none cursor-pointer transition-opacity duration-200 select-none",
-                  lang === "pt" ? "opacity-100" : "opacity-35 hover:opacity-60",
+                  lang === "pt" ? "opacity-100" : "opacity-40 hover:opacity-70",
                 )}
               >
                 🇧🇷

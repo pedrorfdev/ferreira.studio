@@ -53,7 +53,7 @@ export function Timeline({ items = [] }: Props) {
                     <span
                       className={cn(
                         "text-sm font-bold",
-                        i === 0 ? "text-white" : "text-(--color-text-primary)",
+                        i === 0 ? "text-(--color-text-inverse)" : "text-(--color-text-primary)",
                       )}
                     >
                       {String(i + 1).padStart(2, "0")}

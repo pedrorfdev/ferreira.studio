@@ -1,5 +1,6 @@
-// components/shell/background-layer.tsx
-// Scrim reduzido: dark 10-15%, light 5% — deixa a imagem respirar
+// background-layer.tsx
+// Light: sem scrim branco (era bg-white/5, agora removido no hover)
+// Dark: mantém bg-black/15
 import { AnimatePresence, motion } from "framer-motion";
 import { backgroundCrossfade } from "@/lib/motion";
 import { useAppStore } from "@/store/use-app-store";
@@ -19,15 +20,14 @@ export function BackgroundLayer() {
     appState === AppState.PROJECT || appState === AppState.EXPANDING;
   const project = isProject ? activeProject : hoveredProject;
 
-  // Scrim bem leve — max 20% dark, max 10% light
-  // A imagem tem que respirar e aparecer com vida
-  const scrimClass = theme === "light" ? "bg-white/5" : "bg-black/15";
+  // Light: sem scrim no hover — a imagem respira
+  // Dark: scrim leve para legibilidade
+  const scrimClass = theme === "light" ? "" : "bg-black/15";
 
   return (
     <div className="absolute inset-0 z-0">
       <div className="absolute inset-0 bg-(--color-bg-primary)" />
 
-      {/* Vídeo global da home */}
       <AnimatePresence>
         {!project && (
           <motion.div
@@ -54,13 +54,11 @@ export function BackgroundLayer() {
               aspect=""
               className="absolute inset-0 w-full h-full opacity-15"
             />
-            {/* Gradient sutil nas bordas para mesclar com o conteúdo */}
             <div className="absolute inset-0 bg-linear-to-t from-(--color-bg-primary)/10 via-transparent to-transparent" />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Mídia do projeto no hover */}
       <AnimatePresence>
         {project && (
           <motion.div
@@ -96,9 +94,7 @@ export function BackgroundLayer() {
                 className="absolute inset-0 w-full h-full"
               />
             )}
-            {/* Scrim leve — deixa a imagem aparecer */}
-            <div className={`absolute inset-0 ${scrimClass}`} />
-            {/* Gradient nas bordas para o conteúdo não competir */}
+            {scrimClass && <div className={`absolute inset-0 ${scrimClass}`} />}
             <div className="absolute inset-0 bg-linear-to-r from-(--color-bg-primary)/60 via-transparent to-transparent" />
           </motion.div>
         )}

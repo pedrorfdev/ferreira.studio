@@ -1,6 +1,6 @@
-// decision-board.tsx
-// Card selecionado em accent + drawer animado do lado do card selecionado
-// Sem texto hardcoded — usa section e t do i18n
+// layouts/pulso/components/decision-board.tsx
+// Fix: título do card selecionado em text-white (text-inverse)
+// Já está correto mas confirma a classe
 import { useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { DecisionSection } from "@/types/project";
@@ -24,7 +24,6 @@ export function DecisionBoard({ section, eyebrow }: Props) {
 
   return (
     <section className="py-32 px-8 md:px-16 max-w-7xl mx-auto">
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -40,7 +39,6 @@ export function DecisionBoard({ section, eyebrow }: Props) {
       </motion.div>
 
       <div className="flex flex-col lg:flex-row gap-5 items-start">
-        {/* Cards */}
         <div className="flex flex-col gap-3 w-full lg:w-[340px] shrink-0">
           {section.decisions.map((decision, index) => {
             const isActive = active === index;
@@ -56,17 +54,13 @@ export function DecisionBoard({ section, eyebrow }: Props) {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.06 }}
                 whileHover={!isActive ? { x: 4 } : {}}
-                className={`
-                  w-full text-left rounded-[20px] p-6 border
-                  transition-all duration-300 cursor-pointer relative overflow-hidden
-                  ${
-                    isActive
-                      ? "bg-(--color-accent) border-(--color-accent)"
-                      : "bg-(--color-bg-secondary) border-(--color-border) hover:border-(--color-accent)/40"
-                  }
-                `}
+                className={[
+                  "w-full text-left rounded-[20px] p-6 border transition-all duration-300 cursor-pointer relative overflow-hidden",
+                  isActive
+                    ? "bg-(--color-accent) border-(--color-accent)"
+                    : "bg-(--color-bg-secondary) border-(--color-border) hover:border-(--color-accent)/40",
+                ].join(" ")}
               >
-                {/* Glow no card ativo */}
                 {isActive && (
                   <motion.div
                     layoutId="card-glow"
@@ -78,10 +72,12 @@ export function DecisionBoard({ section, eyebrow }: Props) {
                   />
                 )}
                 <div className="relative flex items-center justify-between gap-3">
+                  {/* Título: text-white quando ativo — sempre legível */}
                   <span
-                    className={`font-semibold text-base leading-snug ${
-                      isActive ? "text-white" : "text-(--color-text-primary)"
-                    }`}
+                    className={[
+                      "font-semibold text-base leading-snug",
+                      isActive ? "text-white" : "text-(--color-text-primary)",
+                    ].join(" ")}
                   >
                     {decision.title}
                   </span>
@@ -91,8 +87,12 @@ export function DecisionBoard({ section, eyebrow }: Props) {
                       scale: isActive ? 1.1 : 1,
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    className={`shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-sm font-bold
-                      ${isActive ? "border-white/50 text-white" : "border-(--color-border) text-(--color-text-tertiary)"}`}
+                    className={[
+                      "shrink-0 w-6 h-6 rounded-full border flex items-center justify-center text-sm font-bold",
+                      isActive
+                        ? "border-white/50 text-white"
+                        : "border-(--color-border) text-(--color-text-tertiary)",
+                    ].join(" ")}
                   >
                     +
                   </motion.div>
@@ -102,7 +102,6 @@ export function DecisionBoard({ section, eyebrow }: Props) {
           })}
         </div>
 
-        {/* Drawer — spring, slide da direita */}
         <div className="flex-1 w-full">
           <AnimatePresence mode="wait">
             {current ? (
@@ -122,7 +121,6 @@ export function DecisionBoard({ section, eyebrow }: Props) {
                     {current.why}
                   </p>
                 </div>
-
                 {current.trade && (
                   <>
                     <div className="w-full h-px bg-(--color-border-subtle) mb-8" />

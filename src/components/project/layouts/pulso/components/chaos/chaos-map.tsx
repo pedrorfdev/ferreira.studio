@@ -1,9 +1,8 @@
 // chaos-map.tsx
-// Scroll listener no data-scroll-container correto
-// progress calculado relativo à posição do container dentro do scroll
-// Sem useScroll/useTransform — direto via onScroll + useState
-import { useEffect, useRef, useState, useCallback } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+// Mobile: nós se alinham verticalmente (canvas estreito)
+// Desktop: linha horizontal
+// viewBox 0 0 100 100 — coordenadas em %
+import { motion } from "framer-motion";
 import type { ChaosSection } from "@/types/projects/pulso";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -11,242 +10,191 @@ interface Props {
   section: ChaosSection;
 }
 
-function buildPositions(count: number) {
-  const golden = 137.508 * (Math.PI / 180);
-  return Array.from({ length: count }, (_, i) => {
-    const angle = i * golden;
-    const r = 0.18 + ((i * 0.13) % 0.28);
-    return {
-      chaosX: 0.5 + Math.cos(angle) * r,
-      chaosY: 0.5 + Math.sin(angle) * r * 0.65,
-      specX: (i + 0.5) / count,
-      specY: 0.5 + Math.sin((i / count) * Math.PI) * 0.15,
-    };
-  });
+const CHAOS_POS = [
+  { x: 22, y: 28 },
+  { x: 73, y: 22 },
+  { x: 50, y: 52 },
+  { x: 18, y: 68 },
+  { x: 80, y: 48 },
+  { x: 42, y: 76 },
+  { x: 65, y: 70 },
+  { x: 32, y: 44 },
+];
+
+// Desktop: linha horizontal no centro
+function specPosDesktop(i: number, total: number) {
+  return { x: ((i + 0.5) / total) * 100, y: 52 };
 }
 
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * Math.max(0, Math.min(1, t));
+// Mobile: linha vertical no centro
+function specPosMobile(i: number, total: number) {
+  return { x: 50, y: ((i + 0.5) / total) * 90 + 5 };
 }
 
-function ease(t: number) {
-  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+function MapSVG({
+  labels,
+  isMobile,
+  viewport,
+}: {
+  labels: string[];
+  isMobile: boolean;
+  viewport: { once: boolean; amount: number };
+}) {
+  const count = labels.length;
+  const specPos = isMobile ? specPosMobile : specPosDesktop;
+
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      {/* Linhas caóticas */}
+      {labels.map((_, i) => {
+        const a = CHAOS_POS[i % CHAOS_POS.length];
+        const b = CHAOS_POS[(i + 3) % CHAOS_POS.length];
+        return (
+          <motion.line
+            key={`cl-${i}`}
+            x1={a.x}
+            y1={a.y}
+            x2={b.x}
+            y2={b.y}
+            stroke="var(--color-border)"
+            strokeWidth="0.5"
+            initial={{ opacity: 0.6 }}
+            whileInView={{ opacity: 0 }}
+            viewport={viewport}
+            transition={{ delay: 0.9, duration: 0.5 }}
+          />
+        );
+      })}
+
+      {/* Linhas spectrum */}
+      {labels.map((_, i) => {
+        if (i >= count - 1) return null;
+        const a = specPos(i, count);
+        const b = specPos(i + 1, count);
+        return (
+          <motion.line
+            key={`sl-${i}`}
+            x1={a.x}
+            y1={a.y}
+            x2={b.x}
+            y2={b.y}
+            stroke="var(--color-accent)"
+            strokeWidth="0.6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.85 }}
+            viewport={viewport}
+            transition={{ delay: 1.2 + i * 0.06, duration: 0.35 }}
+          />
+        );
+      })}
+
+      {/* Nós */}
+      {labels.map((label, i) => {
+        const chaos = CHAOS_POS[i % CHAOS_POS.length];
+        const spec = specPos(i, count);
+        return (
+          <g key={label}>
+            {/* Glow */}
+            <motion.circle
+              r={2.8}
+              fill="var(--color-accent)"
+              initial={{ cx: chaos.x, cy: chaos.y, opacity: 0.1 }}
+              whileInView={{ cx: spec.x, cy: spec.y, opacity: 0.18 }}
+              viewport={viewport}
+              transition={{
+                delay: 1.0 + i * 0.07,
+                duration: 0.6,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+            />
+            {/* Nó */}
+            <motion.circle
+              r={1.4}
+              fill="var(--color-accent)"
+              initial={{ cx: chaos.x, cy: chaos.y, opacity: 0.5 }}
+              whileInView={{ cx: spec.x, cy: spec.y, opacity: 1 }}
+              viewport={viewport}
+              transition={{
+                delay: 1.0 + i * 0.07,
+                duration: 0.6,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+            />
+            {/* Label */}
+            <motion.text
+              fontSize="3.2"
+              textAnchor="middle"
+              fill="var(--color-text-secondary)"
+              initial={{ x: chaos.x, y: chaos.y - 4.5, opacity: 0 }}
+              whileInView={{ x: spec.x, y: spec.y - 4.5, opacity: 0.85 }}
+              viewport={viewport}
+              transition={{ delay: 1.15 + i * 0.07, duration: 0.5 }}
+            >
+              {label}
+            </motion.text>
+          </g>
+        );
+      })}
+    </svg>
+  );
 }
 
 export function ChaosMap({ section }: Props) {
   const { t } = useI18n();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrollElRef = useRef<HTMLElement | null>(null);
-  const [progress, setProgress] = useState(0);
-
   const labels = section.items?.map((i: { title: string }) => i.title) ?? [];
-  const positions = buildPositions(labels.length);
-
-  const onScroll = useCallback(() => {
-    const container = containerRef.current;
-    const scrollEl = scrollElRef.current;
-    if (!container || !scrollEl) return;
-
-    // scrollTop do container de scroll
-    const scrollTop = scrollEl.scrollTop;
-    // offsetTop do nosso container relativo ao scrollEl
-    const containerTop = container.offsetTop;
-    const totalScroll = container.offsetHeight - scrollEl.clientHeight;
-
-    const scrolled = scrollTop - containerTop;
-    setProgress(Math.max(0, Math.min(1, scrolled / totalScroll)));
-  }, []);
-
-  useEffect(() => {
-    // Aguarda montagem para encontrar o scroll container
-    const timer = setTimeout(() => {
-      const scrollEl = containerRef.current?.closest(
-        "[data-scroll-container]",
-      ) as HTMLElement | null;
-
-      if (!scrollEl) return;
-      scrollElRef.current = scrollEl;
-      scrollEl.addEventListener("scroll", onScroll, { passive: true });
-      onScroll();
-    }, 100);
-
-    return () => {
-      clearTimeout(timer);
-      scrollElRef.current?.removeEventListener("scroll", onScroll);
-    };
-  }, [onScroll]);
-
-  const expandP = ease(Math.max(0, Math.min(1, (progress - 0.1) / 0.35)));
-  const convergeP = ease(Math.max(0, Math.min(1, (progress - 0.45) / 0.5)));
+  const vp = { once: false, amount: 0.65 };
 
   return (
-    <section
-      ref={containerRef}
-      className="relative"
-      style={{ height: "300vh" }}
-    >
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        {/* Canvas — tamanho e bordas interpolados via style direto (sem motion.animate para máxima responsividade) */}
-        <div
-          className="relative bg-(--color-bg-secondary) border border-(--color-border) overflow-hidden"
-          style={{
-            width: `${lerp(65, 100, expandP)}%`,
-            height: `${lerp(60, 100, expandP)}%`,
-            borderRadius: `${lerp(28, 0, expandP)}px`,
-            transition: "none",
-          }}
+    <section className="h-dvh w-full flex items-center justify-center overflow-hidden">
+      <motion.div
+        initial={{ width: "65%", height: "60%", borderRadius: 28 }}
+        whileInView={{ width: "100%", height: "100%", borderRadius: 0 }}
+        viewport={vp}
+        transition={{ duration: 0.85, ease: [0.4, 0, 0.2, 1] }}
+        className="relative bg-(--color-bg-secondary) border border-(--color-border) overflow-hidden"
+      >
+        {/* Label */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={vp}
+          transition={{ delay: 0.35, duration: 0.4 }}
+          className="absolute top-6 left-6 md:top-8 md:left-8 z-20 max-w-xs"
         >
-          {/* Labels de fase */}
-          <AnimatePresence mode="wait">
-            {convergeP < 0.4 ? (
-              <motion.div
-                key="chaos"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute top-8 left-8 z-20 max-w-sm"
-              >
-                <p className="text-xs uppercase tracking-[0.18em] text-(--color-accent) font-semibold mb-2">
-                  {section.eyebrow ?? t.project.chaos}
-                </p>
-                <h3 className="text-xl md:text-2xl font-bold text-(--color-text-primary) leading-snug">
-                  {section.headline}
-                </h3>
-                <p className="mt-3 text-sm text-(--color-text-secondary) leading-relaxed max-w-xs">
-                  {section.body}
-                </p>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="synced"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="absolute top-8 left-1/2 -translate-x-1/2 z-20 text-center"
-              >
-                <p className="text-xs uppercase tracking-[0.18em] text-(--color-accent) font-semibold">
-                  {section.resolvedEyebrow ?? t.project.spectrum}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.18em] text-(--color-accent) font-semibold mb-1.5">
+            {section.eyebrow ?? t.project.chaos}
+          </p>
+          <h3 className="text-base md:text-xl font-bold text-(--color-text-primary) leading-snug">
+            {section.headline}
+          </h3>
+          <p className="mt-2 text-xs md:text-sm text-(--color-text-secondary) leading-relaxed hidden md:block max-w-xs">
+            {section.body}
+          </p>
+        </motion.div>
 
-          {/* SVG com nós e linhas */}
-          <svg
-            className="absolute inset-0 w-full h-full"
-            viewBox="0 0 1000 600"
-            preserveAspectRatio="xMidYMid slice"
-          >
-            {/* Linhas caóticas */}
-            {labels.map((_, i) =>
-              [i + 1, i + 2, i + 3]
-                .filter((j) => j < labels.length)
-                .map((j) => {
-                  const a = positions[i];
-                  const b = positions[j];
-                  return (
-                    <line
-                      key={`c-${i}-${j}`}
-                      x1={a.chaosX * 1000}
-                      y1={a.chaosY * 600}
-                      x2={b.chaosX * 1000}
-                      y2={b.chaosY * 600}
-                      stroke="var(--color-border)"
-                      strokeWidth="1"
-                      opacity={Math.max(0, 1 - convergeP * 2)}
-                    />
-                  );
-                }),
-            )}
-
-            {/* Linhas spectrum */}
-            {labels.map((_, i) => {
-              if (i >= labels.length - 1) return null;
-              const a = positions[i];
-              const b = positions[i + 1];
-              const x1 = lerp(a.chaosX, a.specX, convergeP) * 1000;
-              const y1 = lerp(a.chaosY, a.specY, convergeP) * 600;
-              const x2 = lerp(b.chaosX, b.specX, convergeP) * 1000;
-              const y2 = lerp(b.chaosY, b.specY, convergeP) * 600;
-              return (
-                <line
-                  key={`s-${i}`}
-                  x1={x1}
-                  y1={y1}
-                  x2={x2}
-                  y2={y2}
-                  stroke="var(--color-accent)"
-                  strokeWidth="2"
-                  opacity={convergeP}
-                />
-              );
-            })}
-
-            {/* Nós */}
-            {labels.map((label, i) => {
-              const pos = positions[i];
-              const cx = lerp(pos.chaosX, pos.specX, convergeP) * 1000;
-              const cy = lerp(pos.chaosY, pos.specY, convergeP) * 600;
-              const r = lerp(5, 4, convergeP);
-              return (
-                <g key={label}>
-                  <circle
-                    cx={cx}
-                    cy={cy}
-                    r={r * 3.5}
-                    fill="var(--color-accent)"
-                    opacity={0.08 + convergeP * 0.1}
-                  />
-                  <circle
-                    cx={cx}
-                    cy={cy}
-                    r={r}
-                    fill="var(--color-accent)"
-                    opacity={0.7 + convergeP * 0.3}
-                  />
-                  <text
-                    x={cx}
-                    y={cy - r - 7}
-                    textAnchor="middle"
-                    fill="var(--color-text-secondary)"
-                    fontSize="11"
-                    opacity={Math.max(0.25, convergeP)}
-                  >
-                    {label}
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
-
-          {/* Vignette */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: `radial-gradient(ellipse at center, transparent 45%, var(--color-bg-secondary) 100%)`,
-              opacity: lerp(0.8, 0.3, expandP),
-            }}
-          />
+        {/* Desktop SVG — nós horizontais */}
+        <div className="hidden md:block absolute inset-0">
+          <MapSVG labels={labels} isMobile={false} viewport={vp} />
         </div>
 
-        {/* Scroll hint */}
-        <AnimatePresence>
-          {progress < 0.06 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute bottom-8 left-1/2 -translate-x-1/2"
-            >
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ repeat: Infinity, duration: 1.8 }}
-                className="w-px h-10 bg-linear-to-b from-(--color-accent) to-transparent mx-auto"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+        {/* Mobile SVG — nós verticais */}
+        <div className="md:hidden absolute inset-0">
+          <MapSVG labels={labels} isMobile={true} viewport={vp} />
+        </div>
+
+        {/* Vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 50%, var(--color-bg-secondary) 100%)",
+          }}
+        />
+      </motion.div>
     </section>
   );
 }

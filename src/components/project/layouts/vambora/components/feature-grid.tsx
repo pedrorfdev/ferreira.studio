@@ -1,8 +1,9 @@
+// layouts/vambora/components/feature-grid.tsx
+// Fix: card featured sempre text-white (não herda do tema)
+// Fix: sem borda no card featured
 import { motion } from "framer-motion";
 import { Clock, Code2, Globe, Map, Users, Wallet } from "lucide-react";
-
 import type { FeatureItem } from "@/types/projects/vambora";
-
 import { cn } from "@/lib/cn";
 
 const ITEM_ICONS = [Map, Clock, Wallet, Users, Globe, Code2];
@@ -19,7 +20,6 @@ export function FeatureGrid({ headline, items }: Props) {
         <span className="text-xs uppercase tracking-[0.18em] text-(--color-accent)">
           Solution
         </span>
-
         {headline && (
           <h2 className="mt-4 text-3xl md:text-5xl tracking-tighter leading-none text-(--color-text-primary) max-w-3xl">
             {headline}
@@ -30,7 +30,6 @@ export function FeatureGrid({ headline, items }: Props) {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((item, i) => {
           const Icon = ITEM_ICONS[i % ITEM_ICONS.length];
-
           const featured = i === 0;
 
           return (
@@ -39,16 +38,16 @@ export function FeatureGrid({ headline, items }: Props) {
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
               className={cn(
-                "relative overflow-hidden rounded-3xl border p-6 backdrop-blur-xl transition-all",
+                "relative overflow-hidden rounded-3xl p-6 backdrop-blur-xl transition-all",
                 featured
-                  ? `border-(--color-accent) bg-linear-to-br from-[#2563eb] via-[#1d4ed8] to-[#1e40af] text-white`
-                  : "bg-(--color-bg-secondary)/80 border-(--color-border)",
+                  ? // Featured: sem borda, bg sólido, texto sempre branco
+                    "border-0 bg-linear-to-br from-[#2563eb] via-[#1d4ed8] to-[#1e40af]"
+                  : "border border-(--color-border) bg-(--color-bg-secondary)/80",
               )}
             >
               {featured && (
                 <>
                   <div className="absolute inset-0 bg-black/10" />
-
                   <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
                 </>
               )}
@@ -70,6 +69,7 @@ export function FeatureGrid({ headline, items }: Props) {
                   />
                 </div>
 
+                {/* Sempre text-white no featured — independente do tema */}
                 <h3
                   className={cn(
                     "text-base font-semibold mb-3 tracking-tight",
@@ -82,7 +82,9 @@ export function FeatureGrid({ headline, items }: Props) {
                 <p
                   className={cn(
                     "text-sm md:text-[15px] leading-relaxed",
-                    featured ? "text-white" : "text-(--color-text-secondary)",
+                    featured
+                      ? "text-white/85"
+                      : "text-(--color-text-secondary)",
                   )}
                 >
                   {item.description}
