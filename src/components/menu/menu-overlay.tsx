@@ -66,7 +66,6 @@ export function MenuOverlay() {
         aria-hidden
       />
 
-      {/* MOBILE — fullscreen bottom sheet */}
       <motion.div
         className="md:hidden absolute inset-x-0 bottom-0 z-10 flex flex-col
                    bg-(--color-bg-primary) rounded-t-3xl overflow-hidden"
@@ -177,12 +176,57 @@ export function MenuOverlay() {
         </div>
       </motion.div>
 
-      {/* DESKTOP — duas colunas */}
       <motion.div
         className="hidden md:flex flex-col justify-between w-full max-w-xs h-full
                    px-8 py-8 pt-20 overflow-y-auto
                    bg-(--color-bg-primary) border-r border-(--color-border-subtle) relative z-10"
         variants={menuColumnLeft}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={close}
+            className="text-xs uppercase tracking-[0.15em] text-(--color-text-tertiary) hover:text-(--color-text-primary) transition-colors cursor-pointer text-left"
+          >
+            ← Home
+          </button>
+        </div>
+
+        <div>
+          <span className="text-[10px] uppercase tracking-[0.18em] text-(--color-text-tertiary) mb-4 block">
+            {t.menu.sections.projects}
+          </span>
+          <nav className="flex flex-col">
+            {projects.map((project, i) => (
+              <button
+                key={project.id}
+                onClick={() => handleProjectClick(project as AnyProject)}
+                onMouseEnter={() => setPreview(project as AnyProject)}
+                onMouseLeave={() => setPreview(null)}
+                className={cn(
+                  "flex items-baseline justify-between gap-4 w-full text-left py-3 cursor-pointer group",
+                  i !== 0 && "border-t border-(--color-border-subtle)",
+                )}
+              >
+                <span className="font-display text-lg font-semibold tracking-[-0.01em] text-(--color-text-primary) group-hover:text-(--color-accent) transition-colors">
+                  {project.title}
+                </span>
+                <span className="text-xs text-(--color-text-tertiary) tabular-nums shrink-0">
+                  {project.year}
+                </span>
+              </button>
+            ))}
+          </nav>
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="hidden md:flex flex-col justify-between ml-auto w-full max-w-xs h-full
+                   px-8 py-8 pt-20 overflow-y-auto
+                   bg-(--color-bg-primary) border-l border-(--color-border-subtle) relative z-10"
+        variants={menuColumnRight}
         initial="hidden"
         animate="visible"
         exit="exit"
@@ -214,88 +258,6 @@ export function MenuOverlay() {
               ))}
             </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-4 mt-8">
-          <button
-            onClick={close}
-            className="text-xs uppercase tracking-[0.15em] text-(--color-text-tertiary) hover:text-(--color-text-primary) transition-colors cursor-pointer text-left"
-          >
-            ← Home
-          </button>
-          <div className="flex items-center justify-between">
-            <button
-              onClick={toggleTheme}
-              className="flex items-center gap-2 text-xs text-(--color-text-secondary) hover:text-(--color-text-primary) transition-colors cursor-pointer"
-            >
-              {theme === "dark" ? (
-                <Sun className="size-4" />
-              ) : (
-                <Moon className="size-4" />
-              )}
-              <span className="uppercase tracking-[0.12em]">
-                {theme === "dark" ? "Light" : "Dark"}
-              </span>
-            </button>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => lang !== "en" && toggleLang()}
-                title="English"
-                className={cn(
-                  "text-base cursor-pointer transition-opacity select-none",
-                  lang === "en" ? "opacity-100" : "opacity-35 hover:opacity-60",
-                )}
-              >
-                🇺🇸
-              </button>
-              <button
-                onClick={() => lang !== "pt" && toggleLang()}
-                title="Português"
-                className={cn(
-                  "text-base cursor-pointer transition-opacity select-none",
-                  lang === "pt" ? "opacity-100" : "opacity-35 hover:opacity-60",
-                )}
-              >
-                🇧🇷
-              </button>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        className="hidden md:flex flex-col justify-between ml-auto w-full max-w-xs h-full
-                   px-8 py-8 pt-20 overflow-y-auto
-                   bg-(--color-bg-primary) border-l border-(--color-border-subtle) relative z-10"
-        variants={menuColumnRight}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-      >
-        <div>
-          <span className="text-[10px] uppercase tracking-[0.18em] text-(--color-text-tertiary) mb-4 block">
-            {t.menu.sections.projects}
-          </span>
-          <nav className="flex flex-col">
-            {projects.map((project, i) => (
-              <button
-                key={project.id}
-                onClick={() => handleProjectClick(project as AnyProject)}
-                onMouseEnter={() => setPreview(project as AnyProject)}
-                onMouseLeave={() => setPreview(null)}
-                className={cn(
-                  "flex items-baseline justify-between gap-4 w-full text-left py-3 cursor-pointer group",
-                  i !== 0 && "border-t border-(--color-border-subtle)",
-                )}
-              >
-                <span className="font-display text-lg font-semibold tracking-[-0.01em] text-(--color-text-primary) group-hover:text-(--color-accent) transition-colors">
-                  {project.title}
-                </span>
-                <span className="text-xs text-(--color-text-tertiary) tabular-nums shrink-0">
-                  {project.year}
-                </span>
-              </button>
-            ))}
-          </nav>
         </div>
         <div className="mt-8">
           <span className="text-[10px] uppercase tracking-[0.18em] text-(--color-text-tertiary) mb-3 block">
