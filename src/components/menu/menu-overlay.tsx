@@ -301,7 +301,7 @@ export function MenuOverlay() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs uppercase tracking-[0.12em] text-(--color-text-tertiary) hover:text-(--color-text-primary) transition-colors"
+                className="text-xs uppercase tracking-[0.12em] hover:text-(--color-text-tertiary) text-(--color-text-primary) transition-colors"
               >
                 {link.label}
               </a>

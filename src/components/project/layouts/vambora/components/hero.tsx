@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, GitBranch, Sparkles, ArrowRight } from "lucide-react";
+import { ExternalLink, GitBranch, ArrowRight } from "lucide-react";
 import type { VamboraProject } from "@/types/projects/vambora";
 import { Background } from "./background";
 import { GlowBackground } from "./glow-background";
@@ -7,19 +7,15 @@ import { useI18n } from "@/lib/i18n-context";
 
 interface Props {
   project: VamboraProject;
-  eyebrow?: string;
 }
 
-export function Hero({ project, eyebrow }: Props) {
+export function Hero({ project }: Props) {
   const { t } = useI18n();
 
   return (
     <section className="relative overflow-hidden">
       <Background image={project.media.src} />
       <GlowBackground />
-
-      {/* Scrim menor no light — from-black/5 em vez de from-black/30 */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/5 via-transparent to-(--color-bg-primary)" />
 
       <div className="relative z-10 min-h-[72vh] flex items-center px-6 md:px-10 pt-28 md:pt-36 pb-32">
         <div className="max-w-6xl mx-auto w-full">
@@ -29,18 +25,6 @@ export function Hero({ project, eyebrow }: Props) {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            {eyebrow && (
-              <div
-                className="inline-flex items-center gap-2 rounded-full border border-(--color-border)
-                              bg-(--color-bg-secondary)/80 backdrop-blur-xl px-4 py-2 mb-7"
-              >
-                <Sparkles size={12} className="text-(--color-accent)" />
-                <p className="text-(--color-accent) uppercase tracking-[0.24em] text-[10px] font-medium">
-                  {eyebrow}
-                </p>
-              </div>
-            )}
-
             <h1 className="text-6xl md:text-8xl tracking-[-0.08em] leading-none font-semibold text-(--color-text-primary)">
               <span className="text-(--color-text-primary)">Vam</span>
               <span className="text-(--color-accent) drop-shadow-[0_0_42px_var(--color-accent)]">
@@ -87,7 +71,7 @@ export function Hero({ project, eyebrow }: Props) {
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
       >
-        <p className="text-[10px] uppercase tracking-[0.24em] text-(--color-text-tertiary)">
+        <p className="text-[10px] uppercase tracking-[0.24em] text-(--color-accent)">
           {t.project.scrollHint}
         </p>
         <div
@@ -98,7 +82,7 @@ export function Hero({ project, eyebrow }: Props) {
         </div>
       </motion.div>
 
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-(--color-bg-primary) pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-(--color-bg-primary)/40 pointer-events-none" />
     </section>
   );
 }

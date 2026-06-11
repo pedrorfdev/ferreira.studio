@@ -46,14 +46,16 @@ export function Timeline({ items = [] }: Props) {
                     className={cn(
                       "w-11 h-11 rounded-full border flex items-center justify-center",
                       i === 0
-                        ? "bg-(--color-accent) border-(--color-accent)"
+                        ? "bg-(--color-accent) border-(--color-accent) text-white"
                         : "bg-(--color-bg-secondary) border-(--color-border)",
                     )}
                   >
                     <span
                       className={cn(
                         "text-sm font-bold",
-                        i === 0 ? "text-(--color-text-inverse)" : "text-(--color-text-primary)",
+                        i === 0
+                          ? "text-(--color-text-inverse)"
+                          : "text-(--color-text-primary)",
                       )}
                     >
                       {String(i + 1).padStart(2, "0")}

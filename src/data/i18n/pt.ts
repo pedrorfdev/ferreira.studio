@@ -90,6 +90,5 @@ export const pt: DeepWritablePartial<typeof en> = {
   },
   actions: {
     viewDemo: "Experimentar",
-    github: "GitHub",
   },
 };

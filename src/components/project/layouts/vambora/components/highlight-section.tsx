@@ -24,7 +24,8 @@ export function HighlightSection({
           variant === "accent" &&
             `border-(--color-accent)/20 bg-(--color-accent-muted)`,
           variant === "outline" && `border-(--color-border) bg-transparent`,
-          variant === "glass" && `border-white/10 bg-white/3 backdrop-blur-2xl`,
+          variant === "glass" &&
+            `border-(--color-border) bg-(--color-bg-secondary)/30 backdrop-blur-2xl`,
           variant === "default" &&
             `border-(--color-border) bg-(--color-bg-secondary)/70`,
         )}

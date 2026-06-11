@@ -14,7 +14,6 @@ interface Props {
 export function VamboraView({ project }: Props) {
   const content = useProjectContent(project);
 
-  console.log("Conteúdo do Hook:", content);
   if (!content || !content.sections) {
     return <div className="p-20 text-center">Carregando conteúdo...</div>;
   }

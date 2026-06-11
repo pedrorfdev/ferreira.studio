@@ -25,9 +25,9 @@ html.dark [data-project="praxis"] {
 
 /* Light — mantém accent, adapta só o fundo */
 html.light [data-project="praxis"] {
-   --color-bg-primary: oklch(0.96 0.008 210);
-   --color-bg-secondary: oklch(0.92 0.008 210);
-   --color-bg-tertiary: oklch(0.87 0.008 210);
+   --color-bg-primary: oklch(0.93 0.008 210);
+   --color-bg-secondary: oklch(0.89 0.008 210);
+   --color-bg-tertiary: oklch(0.84 0.008 210);
    --color-border: oklch(0.80 0.010 210);
    --color-border-subtle: oklch(0.86 0.007 210);
    --color-text-primary: oklch(0.18 0.008 215);
@@ -62,9 +62,9 @@ html.dark [data-project="vambora"] {
 }
 
 html.light [data-project="vambora"] {
-   --color-bg-primary: oklch(0.97 0.006 265);
-   --color-bg-secondary: oklch(0.93 0.007 265);
-   --color-bg-tertiary: oklch(0.88 0.008 265);
+   --color-bg-primary: oklch(0.94 0.006 265);
+   --color-bg-secondary: oklch(0.90 0.007 265);
+   --color-bg-tertiary: oklch(0.85 0.008 265);
    --color-border: oklch(0.81 0.010 265);
    --color-border-subtle: oklch(0.87 0.007 265);
    --color-text-primary: oklch(0.16 0.008 265);
@@ -98,9 +98,9 @@ html.dark [data-project="bravio"] {
 }
 
 html.light [data-project="bravio"] {
-   --color-bg-primary: oklch(0.96 0.008 145);
-   --color-bg-secondary: oklch(0.92 0.008 145);
-   --color-bg-tertiary: oklch(0.87 0.010 145);
+   --color-bg-primary: oklch(0.93 0.008 145);
+   --color-bg-secondary: oklch(0.89 0.008 145);
+   --color-bg-tertiary: oklch(0.84 0.010 145);
    --color-border: oklch(0.80 0.012 145);
    --color-border-subtle: oklch(0.86 0.008 145);
    --color-text-primary: oklch(0.14 0.010 145);
@@ -137,9 +137,9 @@ html.dark [data-project="vellor"] {
 }
 
 html.light [data-project="vellor"] {
-   --color-bg-primary: oklch(0.97 0.006 72);
-   --color-bg-secondary: oklch(0.93 0.007 72);
-   --color-bg-tertiary: oklch(0.88 0.008 72);
+   --color-bg-primary: oklch(0.94 0.006 72);
+   --color-bg-secondary: oklch(0.90 0.007 72);
+   --color-bg-tertiary: oklch(0.85 0.008 72);
    --color-border: oklch(0.82 0.010 72);
    --color-border-subtle: oklch(0.88 0.007 72);
    --color-text-primary: oklch(0.15 0.006 330);
@@ -174,9 +174,9 @@ html.dark [data-project="pulso"] {
 }
 
 html.light [data-project="pulso"] {
-   --color-bg-primary: oklch(0.97 0.005 15);
-   --color-bg-secondary: oklch(0.93 0.006 15);
-   --color-bg-tertiary: oklch(0.88 0.007 15);
+   --color-bg-primary: oklch(0.94 0.005 15);
+   --color-bg-secondary: oklch(0.90 0.006 15);
+   --color-bg-tertiary: oklch(0.85 0.007 15);
    --color-border: oklch(0.81 0.009 15);
    --color-border-subtle: oklch(0.87 0.006 15);
    --color-text-primary: oklch(0.14 0.008 260);

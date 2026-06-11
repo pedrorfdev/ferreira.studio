@@ -1,6 +1,3 @@
-// layouts/bravio/components/hero.tsx
-// Light fix: texto hero sempre claro (text-white forçado sobre imagem)
-// Scrim menor — from-black/5 via-black/20
 import { motion } from "framer-motion";
 import { ExternalLink, GitBranch, ArrowRight } from "lucide-react";
 import type { BravioProject } from "@/types/projects/bravio";
@@ -41,7 +38,9 @@ export function Hero({ project }: Props) {
 
             {/* Título: sempre branco sobre a imagem de fundo */}
             <h1 className="text-6xl md:text-8xl tracking-[-0.08em] leading-[0.92] font-semibold text-white">
-              <span className="text-(--color-accent) drop-shadow-[0_0_32px_var(--color-accent)]">{project.title.slice(0, 2)}</span>
+              <span className="text-(--color-accent) drop-shadow-[0_0_32px_var(--color-accent)]">
+                {project.title.slice(0, 2)}
+              </span>
               {project.title.slice(2)}
             </h1>
 
