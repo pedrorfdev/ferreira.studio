@@ -18,7 +18,7 @@ export function Hero({ project }: Props) {
       <Background image={project.media.src} />
 
       {/* Scrim reduzido — não sufoca a imagem no light */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/20 to-(--color-bg-primary)" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/45 via-black/20 to-(--color-bg-primary)" />
 
       {/* Glow verde sutil */}
       <div className="absolute inset-0 bg-(--color-project-glow) opacity-30 mix-blend-screen" />
@@ -32,20 +32,20 @@ export function Hero({ project }: Props) {
             className="max-w-5xl"
           >
             {/* Status badge */}
-            <p className="text-(--color-gold) uppercase tracking-[0.24em] text-xs mb-8 font-medium">
+            <p className="text-(--color-gold)/90 uppercase tracking-[0.24em] text-xs mb-8 font-medium">
               {t.project.status.inDevelopment}
             </p>
 
             {/* Título: sempre branco sobre a imagem de fundo */}
             <h1 className="text-6xl md:text-8xl tracking-[-0.08em] leading-[0.92] font-semibold text-white">
-              <span className="text-(--color-accent) drop-shadow-[0_0_32px_var(--color-accent)]">
+              <span className="text-(--color-project-primary) drop-shadow-[0_0_32px_var(--color-accent)]">
                 {project.title.slice(0, 2)}
               </span>
               {project.title.slice(2)}
             </h1>
 
             {/* Tagline: branco com opacidade */}
-            <p className="mt-10 max-w-3xl text-lg md:text-2xl leading-relaxed text-white/80">
+            <p className="mt-10 max-w-3xl text-lg md:text-2xl leading-relaxed text-white/75">
               {content.tagline}
             </p>
 

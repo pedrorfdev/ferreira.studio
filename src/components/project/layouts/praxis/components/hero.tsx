@@ -1,6 +1,6 @@
 import type { PraxisProject } from "@/types/projects";
-
 import { motion } from "framer-motion";
+import { useProjectContent } from "@/hooks/use-project-content";
 import { ExternalLink, GitBranch } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -10,6 +10,7 @@ interface Props {
 
 export function Hero({ project }: Props) {
   const { t } = useI18n();
+  const content = useProjectContent(project);
   return (
     <section className="relative px-6 md:px-10 pt-28 md:pt-40 pb-32">
       <div className="max-w-4xl mx-auto">
@@ -19,7 +20,7 @@ export function Hero({ project }: Props) {
           transition={{ duration: 0.6 }}
         >
           <p className="text-(--color-accent) uppercase tracking-[0.28em] text-xs mb-7 font-medium">
-            Clinical Operations Platform
+            {t.project.status.live}
           </p>
 
           <motion.h1 className="text-5xl md:text-8xl tracking-[-0.08em] leading-none font-semibold">
@@ -32,8 +33,9 @@ export function Hero({ project }: Props) {
             </span>
           </motion.h1>
 
+          {/* Tagline traduzida via useProjectContent */}
           <p className="mt-8 max-w-2xl text-base md:text-xl leading-relaxed text-(--color-text-secondary)">
-            {project.tagline}
+            {content.tagline}
           </p>
 
           <div className="flex gap-3 flex-wrap mt-10">
@@ -43,7 +45,7 @@ export function Hero({ project }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-(--color-accent)
-                           text-sm hover:opacity-90 transition-all"
+                           text-sm text-white/80 hover:opacity-90 transition-all"
               >
                 <ExternalLink size={14} /> {t.actions.viewDemo}
               </a>

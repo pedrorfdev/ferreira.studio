@@ -76,7 +76,7 @@ html.light [data-project="vambora"] {
 
 /* ── BRAVIO — verde operacional âncora ─────────────────────── */
 [data-project="bravio"] {
-   --color-accent: oklch(0.46 0.12 145);
+   --color-accent: oklch(0.36 0.12 145);
    --color-accent-hover: oklch(0.40 0.10 145);
    --color-accent-muted: oklch(0.46 0.12 145 / 0.15);
    --color-gold: oklch(0.64 0.14 72);
