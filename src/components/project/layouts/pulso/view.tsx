@@ -4,11 +4,11 @@ import type { PulsoProject } from "@/types/projects/pulso";
 
 import { Hero } from "./components/hero";
 import { BeforePulso } from "./components/before";
-import { ChaosMap } from "./components/chaos/chaos-map";
+import { ChaosMap } from "./components/chaos-map";
 import { SpectrumReveal } from "./components/spectrum/spectrum-reveal";
 import { SolutionGrid } from "./components/solution-grid";
 import { DecisionBoard } from "./components/decision-board";
-import { Impact } from "./components/impact/impact";
+import { Impact } from "./components/impact";
 import { FutureVision } from "./components/future-vision";
 
 interface Props {
@@ -41,9 +41,7 @@ export function PulsoView({ project }: Props) {
 
         <Impact section={sections.impact} />
 
-        <FutureVision
-          section={sections.future}
-        />
+        <FutureVision section={sections.future} />
       </main>
     </>
   );
