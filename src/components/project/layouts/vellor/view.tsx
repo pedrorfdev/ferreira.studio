@@ -21,9 +21,12 @@ export function VellorView({ project }: Props) {
   return (
     <>
       <Hero project={project} />
-      <Problem section={content.sections.problem} eyebrow={t.project.problem} />
 
       <main className="max-w-7xl mx-auto px-6 md:px-10 space-y-16">
+        <Problem
+          section={content.sections.problem}
+          eyebrow={t.project.problem}
+        />
         <Vision section={content.sections.vision} eyebrow={t.project.vision} />
 
         <HighlightSection
