@@ -117,9 +117,12 @@ export function Nav() {
 
         <motion.button
           onClick={toggleMenu}
-          className="font-display text-sm font-bold tracking-[-0.01em]
-                     text-(--color-text-primary) hover:text-(--color-accent)
-                     transition-colors duration-200 cursor-pointer select-none"
+          className={cn(
+            "font-display text-sm font-bold tracking-[-0.01em]",
+            "text-(--color-text-primary) hover:text-(--color-accent)",
+            "transition-colors duration-200 cursor-pointer select-none",
+            isProjectOpen ? "hidden md:block" : "block"
+          )}
           whileTap={{ scale: 0.97 }}
         >
           Pedro Ferreira
