@@ -1,3 +1,6 @@
+// components/assistant/assistant-layer.tsx
+// Fix: botão visível no light — usa bg sólido em vez de bg-secondary transparente
+// Fix: mobile — bottom sheet com z correto, não toca o topo da tela
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { GoogleGenAI } from "@google/genai";
@@ -22,19 +25,16 @@ async function askGemini(
 ): Promise<string> {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   if (!apiKey) throw new Error("VITE_GEMINI_API_KEY not set");
-
   const ai = new GoogleGenAI({ apiKey });
   const langInstruction =
     lang === "pt"
       ? "\n\n[CRÍTICO]: Responda SEMPRE em português do Brasil."
       : "\n\n[CRITICAL]: Always respond in English.";
-
   const history = messages.slice(0, -1).map((m) => ({
     role: m.role === "assistant" ? "model" : "user",
     parts: [{ text: m.content }],
   }));
   const last = messages[messages.length - 1];
-
   for (let i = 0; i < MODELS.length; i++) {
     try {
       const chat = ai.chats.create({
@@ -96,13 +96,13 @@ function MessageBubble({
 }
 
 const mobilePanel: Variants = {
-  hidden: { y: "100%", opacity: 0 },
+  hidden: { y: "100%", opacity: 1 },
   visible: {
     y: "0%",
     opacity: 1,
     transition: { duration: 0.35, ease: [0.4, 0, 0.2, 1] },
   },
-  exit: { y: "100%", opacity: 0, transition: { duration: 0.25 } },
+  exit: { y: "100%", opacity: 1, transition: { duration: 0.25 } },
 };
 
 export function AssistantLayer({ project }: Props) {
@@ -166,6 +166,11 @@ export function AssistantLayer({ project }: Props) {
     [input, loading, messages, project, addMessage],
   );
 
+  const prompts =
+    lang === "pt"
+      ? (project.assistant.quickPromptsPt ?? project.assistant.quickPrompts)
+      : project.assistant.quickPrompts;
+
   const panelContent = (
     <>
       <div className="flex items-center justify-between px-4 py-3 border-b border-(--color-border-subtle) shrink-0 relative">
@@ -209,10 +214,7 @@ export function AssistantLayer({ project }: Props) {
             <p className="text-xs text-(--color-text-tertiary) mb-1">
               {t.project.askAbout}
             </p>
-            {(lang === "pt"
-              ? (project.assistant.quickPromptsPt ?? project.assistant.quickPrompts)
-              : project.assistant.quickPrompts
-            ).map((prompt, i) => (
+            {prompts.map((prompt, i) => (
               <motion.button
                 key={i}
                 variants={slideUp}
@@ -231,11 +233,9 @@ export function AssistantLayer({ project }: Props) {
             ))}
           </motion.div>
         )}
-
         {messages.map((msg, i) => (
           <MessageBubble key={i} role={msg.role} content={msg.content} />
         ))}
-
         {loading && (
           <div className="flex items-start gap-2">
             <div className="w-5 h-5 rounded-full bg-(--color-accent-muted) flex items-center justify-center shrink-0 mt-1">
@@ -254,7 +254,6 @@ export function AssistantLayer({ project }: Props) {
             </div>
           </div>
         )}
-
         {error && (
           <p className="text-[10px] text-(--color-text-tertiary) text-center">
             {error}
@@ -303,16 +302,17 @@ export function AssistantLayer({ project }: Props) {
 
   return (
     <>
+      {/* Toggle button — bg sólido para aparecer no light */}
       <motion.button
         onClick={toggle}
         aria-label={t.project.askAbout}
         className={cn(
           "fixed bottom-5 right-5 md:bottom-6 md:right-10 z-70",
           "flex items-center gap-2.5 px-4 py-2.5 rounded-full",
-          "bg-(--color-bg-secondary) border border-(--color-border)",
-          "text-xs text-(--color-text-secondary) shadow-lg cursor-pointer",
-          "hover:border-(--color-accent) hover:text-(--color-text-primary)",
-          "transition-all duration-200",
+          // Borda e fundo mais sólidos — visível tanto no dark quanto no light
+          "bg-(--color-bg-secondary) border border-(--color-border) shadow-lg",
+          "text-xs font-medium cursor-pointer",
+          "hover:border-(--color-accent) transition-all duration-200",
           isOpen && "opacity-0 pointer-events-none",
         )}
         initial={{ opacity: 0, y: 8 }}
@@ -320,19 +320,23 @@ export function AssistantLayer({ project }: Props) {
         transition={{ delay: 0.8 }}
       >
         <Sparkles size={12} className="text-(--color-accent)" />
-        <span className="hidden sm:block">{t.project.askAbout}</span>
-        <span className="sm:hidden">AI</span>
+        {/* Texto com cor explícita — não herda do tema */}
+        <span className="hidden sm:block text-(--color-text-primary)">
+          {t.project.askAbout}
+        </span>
+        <span className="sm:hidden text-(--color-text-primary)">AI</span>
       </motion.button>
 
       <AnimatePresence>
         {isOpen && (
           <>
+            {/* MOBILE — bottom sheet, nunca toca o topo */}
             <motion.div
               className={cn(
-                "md:hidden fixed inset-x-0 bottom-0 z-70",
+                "md:hidden fixed inset-x-0 bottom-0 z-75",
                 "flex flex-col rounded-t-3xl overflow-hidden",
                 "bg-(--color-bg-secondary) border-t border-(--color-border)",
-                "shadow-2xl relative",
+                "shadow-2xl",
               )}
               style={{ maxHeight: "75dvh" }}
               variants={mobilePanel}
@@ -343,6 +347,7 @@ export function AssistantLayer({ project }: Props) {
               {panelContent}
             </motion.div>
 
+            {/* DESKTOP — painel lateral inferior direito */}
             <motion.div
               className={cn(
                 "hidden md:flex fixed bottom-6 right-10 z-70",

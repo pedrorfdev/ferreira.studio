@@ -1,7 +1,10 @@
+// layouts/vellor/components/decision-tabs.tsx
+// Fix: crash ao fechar accordion — open separado de active
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import type { DecisionSection } from "@/types/project";
+import { useI18n } from "@/lib/i18n-context";
 
 interface Props {
   section: DecisionSection;
@@ -9,8 +12,11 @@ interface Props {
 }
 
 export function DecisionsTabs({ section, eyebrow }: Props) {
-  const [active, setActive] = useState(0);
+  const { t } = useI18n();
   const decisions = section.decisions;
+  const [active, setActive] = useState(0);
+  const [open, setOpen] = useState<number | null>(null);
+
   if (!decisions.length) return null;
   const current = decisions[active];
 
@@ -26,7 +32,7 @@ export function DecisionsTabs({ section, eyebrow }: Props) {
           {section.headline}
         </h2>
 
-        {/* DESKTOP — tabs */}
+        {/* DESKTOP */}
         <div className="hidden md:block">
           <div className="flex gap-2 flex-wrap">
             {decisions.map((d, i) => (
@@ -44,7 +50,6 @@ export function DecisionsTabs({ section, eyebrow }: Props) {
               </button>
             ))}
           </div>
-
           <motion.div
             key={current.title}
             initial={{ opacity: 0, y: 8 }}
@@ -57,7 +62,7 @@ export function DecisionsTabs({ section, eyebrow }: Props) {
             {current.trade && (
               <div className="pt-6 border-t border-(--color-border)">
                 <p className="text-xs uppercase tracking-[0.18em] text-(--color-gold) mb-3">
-                  Tradeoff
+                  {t.project.tradeoff}
                 </p>
                 <p className="text-(--color-text-secondary)">{current.trade}</p>
               </div>
@@ -65,14 +70,17 @@ export function DecisionsTabs({ section, eyebrow }: Props) {
           </motion.div>
         </div>
 
-        {/* MOBILE — accordion */}
+        {/* MOBILE */}
         <div className="md:hidden flex flex-col divide-y divide-(--color-border-subtle)">
           {decisions.map((d, i) => {
-            const isOpen = active === i;
+            const isOpen = open === i;
             return (
               <div key={d.title}>
                 <button
-                  onClick={() => setActive(isOpen ? -1 : i)}
+                  onClick={() => {
+                    setActive(i);
+                    setOpen(isOpen ? null : i);
+                  }}
                   className="w-full flex items-center justify-between py-5 text-left cursor-pointer"
                 >
                   <span
@@ -111,7 +119,7 @@ export function DecisionsTabs({ section, eyebrow }: Props) {
                         {d.trade && (
                           <div className="pt-3 border-t border-(--color-border-subtle)">
                             <p className="text-xs uppercase tracking-[0.15em] text-(--color-gold) mb-2">
-                              Tradeoff
+                              {t.project.tradeoff}
                             </p>
                             <p className="text-xs text-(--color-text-tertiary)">
                               {d.trade}

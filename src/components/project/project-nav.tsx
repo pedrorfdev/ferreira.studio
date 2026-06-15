@@ -1,3 +1,6 @@
+// components/project/project-nav.tsx
+// Mobile: esconde título do projeto para não amontoar com Menu | Fechar
+// Desktop: mantém título visível
 import { useMenuStore } from "@/store/use-menu-store";
 import { useThemeStore } from "@/store/use-theme-store";
 import { useI18n } from "@/lib/i18n-context";
@@ -25,7 +28,7 @@ export function ProjectNav({ project, onClose }: Props) {
           "rounded-2xl max-w-[calc(100vw-32px)]",
         )}
       >
-        {/* Menu — sempre visível */}
+        {/* Menu */}
         <button
           onClick={toggleMenu}
           aria-label="Open menu"
@@ -47,6 +50,7 @@ export function ProjectNav({ project, onClose }: Props) {
             <line x1="4" y1="12" x2="20" y2="12" />
             <line x1="4" y1="18" x2="20" y2="18" />
           </svg>
+          {/* "Menu" só no desktop */}
           <span className="text-xs uppercase tracking-[0.12em] hidden md:block">
             Menu
           </span>
@@ -54,16 +58,17 @@ export function ProjectNav({ project, onClose }: Props) {
 
         <span className="w-px h-4 bg-(--color-border) shrink-0" />
 
-        <div className="flex items-center px-3 md:px-4 h-9 md:h-10">
+        {/* Título — oculto no mobile para não amontoar */}
+        <div className="hidden md:flex items-center px-4 h-10">
           <span
-            className="font-display text-xs md:text-sm font-semibold tracking-[-0.01em]
+            className="font-display text-sm font-semibold tracking-[-0.01em]
                            text-(--color-text-primary) whitespace-nowrap"
           >
             {project.title}
           </span>
         </div>
 
-        <span className="w-px h-4 bg-(--color-border) shrink-0" />
+        <span className="hidden md:block w-px h-4 bg-(--color-border) shrink-0" />
 
         <div className="flex items-center gap-2 md:gap-3 px-3 md:px-4 h-9 md:h-10">
           <button
