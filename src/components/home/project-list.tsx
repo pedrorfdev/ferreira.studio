@@ -59,7 +59,7 @@ function ProjectItem({ project, index }: ItemProps) {
         anyHovered && !isHovered ? "opacity-25" : "opacity-100",
       )}
     >
-      <span className="text-xs tabular-nums text-(--color-text-tertiary) w-5 shrink-0">
+      <span className="text-xs md:text-sm tabular-nums text-(--color-text-secondary) w-5 md:w-6 shrink-0 font-medium">
         {String(index + 1).padStart(2, "0")}
       </span>
 
@@ -75,14 +75,14 @@ function ProjectItem({ project, index }: ItemProps) {
         {project.title}
       </span>
 
-      {/* WIP badge — mais visível: bg accent, sem border */}
+      {/* WIP badge — melhor contraste: fundo neutro, texto primário e dot accent */}
       {project.status === "in development" && (
         <div
-          className="flex items-center gap-1.5 rounded-full px-2.5 py-1
-                        bg-(--color-accent)/15 shrink-0"
+          className="flex items-center gap-1.5 rounded-full px-2.5 py-1 shrink-0
+                     border border-(--color-border-strong) bg-(--color-bg-tertiary) shadow-sm"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-(--color-accent) animate-pulse" />
-          <span className="text-[9px] uppercase tracking-[0.12em] text-(--color-accent) font-semibold">
+          <span className="w-1.5 h-1.5 rounded-full bg-(--color-accent) animate-pulse shadow-[0_0_4px_var(--color-accent)]" />
+          <span className="text-[9px] uppercase tracking-[0.15em] text-(--color-text-primary) font-bold">
             WIP
           </span>
         </div>
