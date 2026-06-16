@@ -1,5 +1,4 @@
 import { useProjectContent } from "@/hooks/use-project-content";
-
 import type { PulsoProject } from "@/types/projects/pulso";
 
 import { Hero } from "./components/hero";
@@ -27,12 +26,44 @@ export function PulsoView({ project }: Props) {
 
         <ChaosMap section={sections.chaos} />
 
-        <SpectrumReveal headline={sections.solution.headline} />
+        {/* Container para o Gradient Apple-like englobando as duas seções */}
+        <div className="relative">
+          {/* Light Mode Gradient (Wine / Carmesim Suave) */}
+          <div
+            className="absolute inset-0 pointer-events-none -z-10 dark:hidden"
+            style={{
+              background: `
+                linear-gradient(to bottom,
+                  var(--color-bg-primary) 0%,
+                  color-mix(in oklch, #600418 15%, var(--color-bg-primary)) 20%,
+                  color-mix(in oklch, #600418 15%, var(--color-bg-primary)) 80%,
+                  var(--color-bg-primary) 100%
+                )
+              `,
+            }}
+          />
+          {/* Dark Mode Gradient (Original) */}
+          <div
+            className="absolute inset-0 pointer-events-none -z-10 hidden dark:block"
+            style={{
+              background: `
+                linear-gradient(to bottom,
+                  var(--color-bg-primary) 0%,
+                  color-mix(in oklch, var(--color-accent) 15%, var(--color-bg-primary)) 20%,
+                  color-mix(in oklch, var(--color-accent) 15%, var(--color-bg-primary)) 80%,
+                  var(--color-bg-primary) 100%
+                )
+              `,
+            }}
+          />
+          {/* Spectrum + headline aqui — SolutionGrid vem colado logo abaixo sem repetir título */}
+          <SpectrumReveal headline={sections.solution.headline} />
 
-        <SolutionGrid
-          section={sections.solution}
-          eyebrow={sections.solution.headline}
-        />
+          {/* hideHeader — não renderiza eyebrow nem headline no grid */}
+          <div className="relative z-20 -mt-16 md:-mt-24">
+            <SolutionGrid section={sections.solution} hideHeader />
+          </div>
+        </div>
 
         <DecisionBoard
           section={sections.technicalDecisions}

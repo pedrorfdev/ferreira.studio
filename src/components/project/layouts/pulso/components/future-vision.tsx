@@ -113,18 +113,18 @@ export function FutureVision({ section }: Props) {
                 damping: 24,
                 delay: 0.25 + i * 0.12,
               }}
-              className="absolute flex flex-col items-center gap-1.5"
+              className="absolute w-3 h-3"
               style={{
                 left: `${pos.x}%`,
                 top: `${pos.y}%`,
               }}
             >
               <div
-                className="w-3 h-3 rounded-full bg-(--color-accent) opacity-80
+                className="w-full h-full rounded-full bg-(--color-accent) opacity-80
                               shadow-sm shadow-(--color-accent)/40"
               />
               <span
-                className="text-[11px] font-medium text-(--color-text-secondary)
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-1.5 text-sm font-medium text-(--color-text-secondary)
                                whitespace-nowrap text-center leading-tight"
               >
                 {step.title}

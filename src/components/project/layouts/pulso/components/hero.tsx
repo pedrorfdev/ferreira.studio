@@ -32,7 +32,7 @@ export function Hero({ project }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-(--color-accent)
-                         text-white text-sm hover:opacity-90 transition-all"
+                         text-white text-sm font-medium hover:opacity-90 hover:shadow-lg hover:shadow-(--color-accent)/20 transition-all"
             >
               <ExternalLink size={14} /> {t.actions.viewDemo}
             </a>
@@ -43,8 +43,8 @@ export function Hero({ project }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3.5 rounded-xl
-                         border border-white/30 bg-white/10 backdrop-blur-sm
-                         text-white/90 text-sm hover:border-white/60 hover:text-white transition-all"
+                         border border-black/10 dark:border-white/20 bg-black/5 dark:bg-white/10 backdrop-blur-md
+                         text-(--color-text-primary) text-sm font-medium hover:bg-black/10 dark:hover:bg-white/20 transition-all shadow-sm"
             >
               <GitBranch size={14} /> {t.actions.github}
             </a>

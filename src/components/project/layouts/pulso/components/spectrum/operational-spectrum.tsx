@@ -15,8 +15,7 @@ export function OperationalSpectrum() {
     >
       <div
         className="
-          w-[1200px]
-          max-w-[90vw]
+          w-full
           h-[320px]
           flex
           items-end

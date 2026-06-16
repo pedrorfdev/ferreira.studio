@@ -70,20 +70,9 @@ function TextureSvg() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <defs>
-        <filter id="pulsoGlow">
-          <feGaussianBlur stdDeviation="4" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
       {PATHS.map((line, index) => (
         <motion.path
           key={index}
-          filter="url(#pulsoGlow)"
           stroke={line.color}
           strokeWidth={4} // aumentado para 4 para maior destaque
           strokeLinecap="round"
