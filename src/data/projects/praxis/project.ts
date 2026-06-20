@@ -32,11 +32,11 @@ export const praxisProject: LocalizedProjectData<PraxisSections> = {
 
   media: {
     type: "image",
-    src: "/media/praxis-bg.jpg",
+    src: "/media/praxis-bg.webp",
     alt: "Praxis",
   },
 
-  heroImage: "/media/praxis-hero.jpg",
+  heroImage: "/media/praxis-hero.webp",
 
   links: {
     demo: "https://praxis-web-one.vercel.app/",

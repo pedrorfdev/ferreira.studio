@@ -124,14 +124,31 @@ export function ProjectCard() {
     : -1;
 
   return (
-    <AnimatePresence mode="wait">
-      {hoveredProject && hoveredIndex !== -1 && (
-        <Card
-          key={hoveredProject.id}
-          project={hoveredProject as AnyProject}
-          index={hoveredIndex}
-        />
-      )}
-    </AnimatePresence>
+    <>
+      {/* Preload images for cards to avoid white flashes on hover */}
+      <div className="hidden" aria-hidden="true">
+        {projects.map((p) => (
+          p.heroImage && (
+            <img 
+              key={`preload-card-${p.id}`} 
+              src={p.heroImage} 
+              loading="eager" 
+              decoding="async" 
+              alt="" 
+            />
+          )
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        {hoveredProject && hoveredIndex !== -1 && (
+          <Card
+            key={hoveredProject.id}
+            project={hoveredProject as AnyProject}
+            index={hoveredIndex}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 }

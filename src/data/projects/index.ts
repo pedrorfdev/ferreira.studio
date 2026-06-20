@@ -26,3 +26,10 @@ export const projects: AnyProject[] = [
   pulsoProject,
   vellorProject,
 ];
+
+export const globalConfig = {
+  heroBgVideo: {
+    webm: "/media/hero-bg.webm",
+    mp4: "/media/hero-bg-otimizado.mp4",
+  },
+};

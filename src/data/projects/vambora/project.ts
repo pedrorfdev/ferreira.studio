@@ -29,7 +29,7 @@ export const vamboraProject: LocalizedProjectData<VamboraSections> = {
     alt: "Vambora.ai",
   },
 
-  heroImage: "/media/vambora-hero.jpg",
+  heroImage: "/media/vambora-hero.webp",
 
   links: {
     demo: "https://vambora-ai.vercel.app/",
