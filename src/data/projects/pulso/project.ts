@@ -32,11 +32,11 @@ export const pulsoProject: LocalizedProjectData<PulsoSections> = {
 
   media: {
     type: "image",
-    src: "/media/pulso-bg.jpg",
+    src: "/media/pulso-bg.webp",
     alt: "Pulso",
   },
 
-  heroImage: "/media/pulso-hero.jpg",
+  heroImage: "/media/pulso-hero.webp",
 
   links: {
     demo: "#",

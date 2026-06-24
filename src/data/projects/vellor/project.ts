@@ -28,9 +28,11 @@ export const vellorProject: LocalizedProjectData<VellorSections> = {
 
   media: {
     type: "image",
-    src: "/media/vellor-bg.jpg",
+    src: "/media/vellor-bg.webp",
     alt: "Vellor",
   },
+
+  heroImage: "/media/vellor-hero.webp",
 
   sections: vellorEn,
 
