@@ -1,6 +1,3 @@
-// components/assistant/assistant-layer.tsx
-// Fix: botão visível no light — usa bg sólido em vez de bg-secondary transparente
-// Fix: mobile — bottom sheet com z correto, não toca o topo da tela
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { GoogleGenAI } from "@google/genai";
@@ -10,6 +7,7 @@ import { cn } from "@/lib/cn";
 import { useI18n } from "@/lib/i18n-context";
 import { Send, X, Sparkles, RotateCcw } from "lucide-react";
 import type { AnyProject } from "@/data/projects";
+import { useProjectContent } from "@/hooks/use-project-content";
 
 interface Props {
   project: AnyProject;
@@ -18,10 +16,57 @@ type Message = { role: "user" | "assistant"; content: string };
 
 const MODELS = ["gemini-2.5-flash", "gemini-2.0-flash"];
 
+function buildProjectContext(
+  project: AnyProject,
+  tagline: string,
+  sections: any,
+): string {
+  let text = `Project Name: ${project.title}\n`;
+  text += `Technologies/Tags: ${project.tags?.join(", ") || ""}\n`;
+  text += `Tagline: ${tagline}\n\n`;
+  if (sections) {
+    for (const [key, section] of Object.entries(sections)) {
+      if (!section || typeof section !== "object") continue;
+      const sec = section as any;
+      text += `## Section: ${key}\n`;
+      if (sec.headline) text += `Headline: ${sec.headline}\n`;
+      if (sec.body) text += `Body: ${sec.body}\n`;
+      if (sec.decisions && Array.isArray(sec.decisions)) {
+        text += `Key Decisions:\n`;
+        for (const d of sec.decisions) {
+          text += `- ${d.title}\n  Context/Why: ${d.why}\n`;
+          if (d.trade) text += `  Tradeoff: ${d.trade}\n`;
+        }
+      }
+      if (sec.items && Array.isArray(sec.items)) {
+        text += `Highlights:\n`;
+        for (const item of sec.items) {
+          if (typeof item === "string") {
+            text += `- ${item}\n`;
+          } else if (item && typeof item === "object") {
+            text += `- ${item.title || item.label || ""}: ${item.description || item.value || ""}\n`;
+          }
+        }
+      }
+      if (sec.metrics && Array.isArray(sec.metrics)) {
+        text += `Metrics/Results:\n`;
+        for (const m of sec.metrics) {
+          text += `- ${m.label}: ${m.value}\n`;
+        }
+      }
+      text += `\n`;
+    }
+  }
+  return text;
+}
+
 async function askGemini(
   messages: Message[],
   systemPrompt: string,
+  projectContext: string,
+  outOfScopeMessage: string,
   lang: string,
+  project: AnyProject,
 ): Promise<string> {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   if (!apiKey) throw new Error("VITE_GEMINI_API_KEY not set");
@@ -30,6 +75,24 @@ async function askGemini(
     lang === "pt"
       ? "\n\n[CRÍTICO]: Responda SEMPRE em português do Brasil."
       : "\n\n[CRITICAL]: Always respond in English.";
+
+  const fullSystemInstruction = `
+${systemPrompt}
+
+You are an interactive technical portfolio assistant representing Pedro Ferreira.
+Answer questions about the project "${project.title}" based strictly on the details below.
+
+Project Details (in current language context):
+${projectContext}
+
+[CRITICAL SCOPE RULE]:
+You must ONLY answer questions directly related to this project, Pedro Ferreira, his portfolio, skills, or experience.
+If the user asks questions that are outside of this scope (e.g. general programming questions not related to the project/portfolio, solving math problems, writing unrelated code/scripts, listing unrelated recipes, telling random jokes, translating unrelated text, or general knowledge questions), you MUST respond EXACTLY with the following message and ABSOLUTELY NOTHING ELSE:
+"${outOfScopeMessage}"
+
+${langInstruction}
+`;
+
   const history = messages.slice(0, -1).map((m) => ({
     role: m.role === "assistant" ? "model" : "user",
     parts: [{ text: m.content }],
@@ -41,8 +104,8 @@ async function askGemini(
         model: MODELS[i],
         history,
         config: {
-          systemInstruction: systemPrompt + langInstruction,
-          maxOutputTokens: 600,
+          systemInstruction: fullSystemInstruction,
+          maxOutputTokens: 2048,
           temperature: 0.7,
         },
       });
@@ -107,6 +170,12 @@ const mobilePanel: Variants = {
 
 export function AssistantLayer({ project }: Props) {
   const { t, lang } = useI18n();
+  const { tagline, sections } = useProjectContent(project);
+  const projectContext = buildProjectContext(project, tagline, sections);
+  const outOfScopeMessage =
+    t.assistant.outOfScope ||
+    "I can only answer questions related to this project. For other topics, please contact Pedro directly or send an email to pedrorf.dev@gmail.com.";
+
   const isOpen = useAssistantStore((s) => s.isOpen);
   const toggle = useAssistantStore((s) => s.toggle);
   const messages = useAssistantStore((s) => s.messages);
@@ -147,7 +216,10 @@ export function AssistantLayer({ project }: Props) {
         const reply = await askGemini(
           history,
           project.assistant.context,
+          projectContext,
+          outOfScopeMessage,
           currentLang,
+          project
         );
         addMessage({ role: "assistant", content: reply });
       } catch (err) {
@@ -163,7 +235,15 @@ export function AssistantLayer({ project }: Props) {
         setLoading(false);
       }
     },
-    [input, loading, messages, project, addMessage],
+    [
+      input,
+      loading,
+      messages,
+      project,
+      addMessage,
+      projectContext,
+      outOfScopeMessage,
+    ],
   );
 
   const prompts =

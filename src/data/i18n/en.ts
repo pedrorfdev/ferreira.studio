@@ -39,6 +39,7 @@ export const en = {
 
     decision: "Decision",
     tradeoff: "Tradeoff",
+    why: "Why",
 
     status: {
       live: "Live",
@@ -48,6 +49,7 @@ export const en = {
   },
 
   menu: {
+    home: "Home",
     about: "About",
     work: "Work",
     contact: "Contact",
@@ -81,6 +83,7 @@ export const en = {
     thinking: "Thinking...",
     error: "Something went wrong. Try again.",
     clearChat: "Clear chat",
+    outOfScope: "I can only answer questions related to this project. For other topics, please contact Pedro directly or send an email to pedrorf.dev@gmail.com.",
   },
 
   loader: {

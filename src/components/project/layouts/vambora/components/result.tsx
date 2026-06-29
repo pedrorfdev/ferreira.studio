@@ -1,4 +1,5 @@
 import type { ResultSection } from "@/types/project";
+import { useI18n } from "@/lib/i18n-context";
 
 import { Header } from "./header";
 
@@ -7,12 +8,13 @@ interface Props {
 }
 
 export function Result({ section }: Props) {
+  const { t } = useI18n();
   return (
     <section className="px-6 md:px-10 py-32">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16">
           <div>
-            <Header eyebrow="RESULT" title={section.headline} />
+            <Header eyebrow={t.project.result} title={section.headline} />
 
             {section.body && (
               <p

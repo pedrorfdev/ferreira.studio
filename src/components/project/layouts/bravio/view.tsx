@@ -29,14 +29,14 @@ export function BravioView({ project }: Props) {
         <div className="max-w-6xl mx-auto space-y-28 md:space-y-36">
           <div className="grid gap-5 md:grid-cols-[1fr_0.9fr] items-start">
             <HighlightSection
-              eyebrow="PROBLEM"
+              eyebrow={t.project.problem}
               headline={sections.problem.headline}
               body={sections.problem.body}
               variant="accent"
             />
 
             <HighlightSection
-              eyebrow="IDEA"
+              eyebrow={t.project.idea}
               headline={sections.idea.headline}
               body={sections.idea.body}
               variant="outline"
@@ -44,7 +44,7 @@ export function BravioView({ project }: Props) {
           </div>
 
           <HighlightSection
-            eyebrow="ANALYSIS"
+            eyebrow={t.project.analysis}
             headline={sections.analysis.headline}
             body={sections.analysis.body}
             variant="glass"

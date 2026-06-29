@@ -38,6 +38,8 @@ const mobileMenuVariants: Variants = {
 export function MenuOverlay() {
   const close = useMenuStore((s) => s.close);
   const openProject = useAppStore((s) => s.openProject);
+  const activeProject = useAppStore((s) => s.activeProject);
+  const closeProject = useAppStore((s) => s.closeProject);
   const { t, lang, toggle: toggleLang } = useI18n();
   const { theme, toggle: toggleTheme } = useThemeStore();
   const [_preview, setPreview] = useState<AnyProject | null>(null);
@@ -50,6 +52,13 @@ export function MenuOverlay() {
       width: 320,
       height: 224,
     });
+    close();
+  }
+
+  function handleHomeClick() {
+    if (activeProject) {
+      closeProject();
+    }
     close();
   }
 
@@ -80,6 +89,16 @@ export function MenuOverlay() {
         </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-8">
+          {/* Home Button (Mobile) */}
+          <div className="flex justify-start">
+            <button
+              onClick={handleHomeClick}
+              className="text-xs uppercase tracking-[0.15em] text-(--color-text-tertiary) hover:text-(--color-text-primary) transition-colors cursor-pointer"
+            >
+              ← {t.menu.home}
+            </button>
+          </div>
+
           {/* Lang + Theme */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -184,12 +203,12 @@ export function MenuOverlay() {
         animate="visible"
         exit="exit"
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex-col gap-4 flex">
           <button
-            onClick={close}
+            onClick={handleHomeClick}
             className="text-xs uppercase tracking-[0.15em] text-(--color-text-tertiary) hover:text-(--color-text-primary) transition-colors cursor-pointer text-left"
           >
-            ← Home
+            ← {t.menu.home}
           </button>
         </div>
 

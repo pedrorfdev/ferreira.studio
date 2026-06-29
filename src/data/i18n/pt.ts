@@ -42,6 +42,7 @@ export const pt: DeepWritablePartial<typeof en> = {
 
     decision: "Decisão",
     tradeoff: "Tradeoff",
+    why: "Por quê",
 
     status: {
       live: "Em produção",
@@ -51,6 +52,7 @@ export const pt: DeepWritablePartial<typeof en> = {
   },
 
   menu: {
+    home: "Início",
     about: "Sobre",
     work: "Projetos",
     contact: "Contato",
@@ -67,7 +69,7 @@ export const pt: DeepWritablePartial<typeof en> = {
     headline:
       "Construindo produtos digitais com profundidade técnica e visão de produto.",
 
-    body: "Sou um Full Stack / Product Engineer baseado no Brasil. Gosto de construir produtos claros, intencionais e úteis — unindo engenharia, experiência e decisões de produto que fazem sentido para pessoas reais.",
+    body: "Sou um Full Stack / Product Engineer. Construo produtos claros, intencionais e úteis — unindo engenharia, experiência e decisões de produto que fazem sentido para pessoas.",
 
     currentlyBuilding: "Construindo atualmente",
   },
@@ -83,6 +85,7 @@ export const pt: DeepWritablePartial<typeof en> = {
     thinking: "Pensando...",
     error: "Algo deu errado. Tente novamente.",
     clearChat: "Limpar conversa",
+    outOfScope: "Eu só posso responder a perguntas relacionadas a este projeto. Para outros assuntos, por favor fale diretamente com o Pedro ou envie um e-mail para pedrorf.dev@gmail.com.",
   },
 
   loader: {

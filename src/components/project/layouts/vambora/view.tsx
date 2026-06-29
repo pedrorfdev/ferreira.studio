@@ -7,12 +7,15 @@ import { DecisionsTabs } from "./components/decisions-tabs";
 import { Result } from "./components/result";
 import { HighlightSection } from "./components/highlight-section";
 
+import { useI18n } from "@/lib/i18n-context";
+
 interface Props {
   project: VamboraProject;
 }
 
 export function VamboraView({ project }: Props) {
   const content = useProjectContent(project);
+  const { t } = useI18n();
 
   if (!content || !content.sections) {
     return <div className="p-20 text-center">Carregando conteúdo...</div>;
@@ -28,7 +31,7 @@ export function VamboraView({ project }: Props) {
           <div className="flex justify-start">
             <div className="w-full max-w-3xl">
               <HighlightSection
-                eyebrow="PROBLEM"
+                eyebrow={t.project.problem}
                 headline={sections.problem.headline}
                 body={sections.problem.body}
                 variant="accent"
@@ -39,7 +42,7 @@ export function VamboraView({ project }: Props) {
           <div className="flex justify-end">
             <div className="w-full max-w-3xl">
               <HighlightSection
-                eyebrow="IDEA"
+                eyebrow={t.project.idea}
                 headline={sections.idea.headline}
                 body={sections.idea.body}
                 variant="glass"
@@ -50,7 +53,7 @@ export function VamboraView({ project }: Props) {
           <div className="flex justify-center md:justify-start md:pl-24">
             <div className="w-full max-w-4xl">
               <HighlightSection
-                eyebrow="ANALYSIS"
+                eyebrow={t.project.analysis}
                 headline={sections.analysis.headline}
                 body={sections.analysis.body}
                 variant="outline"

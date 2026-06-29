@@ -4,6 +4,7 @@ import type { VamboraProject } from "@/types/projects/vambora";
 import { Background } from "./background";
 import { GlowBackground } from "./glow-background";
 import { useI18n } from "@/lib/i18n-context";
+import { useProjectContent } from "@/hooks/use-project-content";
 
 interface Props {
   project: VamboraProject;
@@ -11,6 +12,7 @@ interface Props {
 
 export function Hero({ project }: Props) {
   const { t } = useI18n();
+  const { tagline } = useProjectContent(project);
 
   return (
     <section className="relative overflow-hidden">
@@ -34,7 +36,7 @@ export function Hero({ project }: Props) {
             </h1>
 
             <p className="mt-8 max-w-2xl text-base md:text-xl leading-relaxed text-(--color-text-secondary)">
-              {project.tagline}
+              {tagline}
             </p>
 
             <div className="flex gap-3 flex-wrap mt-10">

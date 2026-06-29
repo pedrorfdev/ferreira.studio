@@ -115,7 +115,7 @@ export function DecisionBoard({ section, eyebrow }: Props) {
               >
                 <div className="mb-8">
                   <p className="text-[10px] uppercase tracking-[0.24em] text-(--color-accent) font-semibold mb-3">
-                    {t.project.tradeoff === "Tradeoff" ? "Why" : "Por que"}
+                    {t.project.why}
                   </p>
                   <p className="text-(--color-text-primary) leading-relaxed text-base">
                     {current.why}
