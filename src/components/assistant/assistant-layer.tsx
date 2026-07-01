@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import { useI18n } from "@/lib/i18n-context";
 import { Send, X, Sparkles, RotateCcw } from "lucide-react";
 import type { AnyProject } from "@/data/projects";
-import { useProjectContent } from "@/hooks/use-project-content";
+import { useAnyProjectContent } from "@/hooks/use-project-content";
 
 interface Props {
   project: AnyProject;
@@ -170,7 +170,7 @@ const mobilePanel: Variants = {
 
 export function AssistantLayer({ project }: Props) {
   const { t, lang } = useI18n();
-  const { tagline, sections } = useProjectContent(project);
+  const { tagline, sections } = useAnyProjectContent(project);
   const projectContext = buildProjectContext(project, tagline, sections);
   const outOfScopeMessage =
     t.assistant.outOfScope ||

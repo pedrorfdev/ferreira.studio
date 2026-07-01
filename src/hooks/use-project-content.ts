@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useI18n } from "@/lib/i18n-context";
 import type { LocalizedProjectData } from "@/types/project";
+import type { AnyProject } from "@/data/projects";
 
 function deepMerge<T extends object>(base: T, override: Partial<T>): T {
   const result = { ...base } as Record<string, unknown>;
@@ -47,4 +48,18 @@ export function useProjectContent<TSections extends object>(
         : project.sections,
     };
   }, [lang, project]);
+}
+
+/**
+ * Variant that accepts the AnyProject union type directly.
+ * Use this when the specific sections type is not known at call site
+ * (e.g. generic components like AssistantLayer that receive any project).
+ * Returns sections as Record<string, unknown> for safe dynamic access.
+ */
+export function useAnyProjectContent(
+  project: AnyProject,
+): ProjectContent<Record<string, unknown>> {
+  return useProjectContent(
+    project as unknown as LocalizedProjectData<Record<string, unknown>>,
+  );
 }
